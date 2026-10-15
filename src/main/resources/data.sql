@@ -1,1 +1,0 @@
--- Ingreso de los datos mediante inserts --
