@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class VehiculoModel {
     private int idVehiculo;
     private String placa;
-    private int añoFabricacion;
+    private int anioFabricacion;
     private BigDecimal kilometros;
     private String codigo;
     private boolean activo;
@@ -14,10 +14,10 @@ public class VehiculoModel {
     private int idCliente;
 
     public VehiculoModel() {}
-    public VehiculoModel(int idVehiculo, String placa, int añoFabricacion, BigDecimal kilometros, String codigo, boolean activo, int idModelo, int idCliente) {
+    public VehiculoModel(int idVehiculo, String placa, int anioFabrication, BigDecimal kilometros, String codigo, boolean activo, int idModelo, int idCliente) {
         this.idVehiculo = idVehiculo;
         this.placa = placa;
-        this.añoFabricacion = añoFabricacion;
+        this.anioFabricacion = anioFabrication;
         this.kilometros = kilometros;
         this.codigo = codigo;
         this.activo = activo;
@@ -31,8 +31,8 @@ public class VehiculoModel {
     public String getPlaca() {return placa;}
     public void setPlaca(String placa) {this.placa = placa;}
 
-    public int getAñoFabricacion() {return añoFabricacion;}
-    public void setAñoFabricacion(int añoFabricacion) {this.añoFabricacion = añoFabricacion;}
+    public int getAnioFabricacion() {return anioFabricacion;}
+    public void setAnioFabricacion(int anioFabricacion) {this.anioFabricacion = anioFabricacion;}
 
     public BigDecimal getKilometros() {return kilometros;}
     public void setKilometros(BigDecimal kilometros) {this.kilometros = kilometros;}

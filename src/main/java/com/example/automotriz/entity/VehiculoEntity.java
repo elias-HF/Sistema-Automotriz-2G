@@ -17,8 +17,8 @@ public class VehiculoEntity {
     @Column(name = "placa", length = 10, nullable = false, unique = true)
     private String placa;
 
-    @Column(name = "año_fabricacion", nullable = false)
-    private int año_fabricacion;
+    @Column(name = "anio_fabricacion", nullable = false)
+    private int anio_fabricacion;
 
     @Column(name = "kilometros", nullable = false, precision = 10, scale = 2)
     private BigDecimal kilometros;
@@ -45,8 +45,8 @@ public class VehiculoEntity {
     public String getPlaca() {return placa;}
     public void setPlaca(String placa) {this.placa = placa;}
 
-    public int getAño_fabricacion() {return año_fabricacion;}
-    public void setAño_fabricacion(int año_fabricacion) {this.año_fabricacion = año_fabricacion;}
+    public int getAnio_fabricacion() {return anio_fabricacion;}
+    public void setAnio_fabricacion(int anio_fabricacion) {this.anio_fabricacion = anio_fabricacion;}
 
     public BigDecimal getKilometros() {return kilometros;}
     public void setKilometros(BigDecimal kilometros) {this.kilometros = kilometros;}
