@@ -1,0 +1,45 @@
+
+<div th:fragment="content">
+
+    <!-- Encabezado igual al dashboard -->
+    <div class="page-heading mb-3">
+        <h1>GESTIÓN DE CITAS</h1>
+        <p>Organiza las citas de atención y la recepción de vehículos.</p>
+    </div>
+
+    <!-- Calendario y citas del día -->
+    <div class="row g-3">
+
+        <!-- Calendario -->
+        <div class="col-12 col-xl-7">
+            <section class="panel h-100">
+                <h2 class="section-title">CALENDARIO DE CITAS</h2>
+                <p class="section-subtitle">
+                    Selecciona una fecha para consultar las citas programadas.
+                </p>
+
+                <div id="calendar" class="calendar-container"></div>
+            </section>
+        </div>
+
+        <!-- Citas del día -->
+        <div class="col-12 col-xl-5">
+            <section class="panel h-100">
+                <h2 class="section-title">CITAS DEL DÍA</h2>
+
+                <p class="section-subtitle"
+                   id="fechaTextoSeleccionada">
+                    Selecciona una fecha del calendario.
+                </p>
+
+                <div id="contenedorCitasDia" class="appointments-list">
+                    <div class="empty-appointments">
+                        <i class="bi bi-calendar2-x"></i>
+                        <p>Selecciona una fecha para ver sus citas.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>

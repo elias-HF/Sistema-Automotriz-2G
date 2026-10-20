@@ -48,6 +48,7 @@ public class DashboardController {
         model.addAttribute("categorias", categorias);
         model.addAttribute("ingresosPorCategoria", ingresos);
 
+        model.addAttribute("vista", "dashboard");
         return "view/Index";
     }
 

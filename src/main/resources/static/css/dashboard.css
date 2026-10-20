@@ -1,0 +1,78 @@
+.metric-card {
+    display: flex;
+    min-height: 76px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #dce2e9;
+    border-left: 7px solid var(--amarillo);
+    background: white;
+}
+
+.metric-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 12px;
+    min-width: 0;
+}
+
+.metric-info span {
+    font-size: 12px;
+}
+
+.metric-info strong {
+    font-size: clamp(17px, 1.5vw, 24px);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+
+.metric-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 66px;
+    flex-shrink: 0;
+    background: #dce8f2;
+    color: #46525d;
+}
+
+.metric-icon i {
+    font-size: 34px;
+}
+
+.chart-container {
+    height: 380px;
+    position: relative;
+    width: 100%;
+}
+
+.chart-small {
+    height: 260px;
+}
+
+/* SERVICIOS */
+.service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.service-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 4px;
+    border-bottom: 1px solid #e9edf2;
+    font-size: 13px;
+}
+
+.service-list li:last-child {
+    border-bottom: 0;
+}
+
+.service-list i {
+    color: var(--azul-principal);
+    font-size: 21px;
+}

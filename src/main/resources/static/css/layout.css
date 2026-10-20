@@ -1,0 +1,18 @@
+body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main-container {
+    display: flex;
+    align-items: stretch;
+    min-height: calc(100vh - 110px);
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+    padding: 22px;
+}

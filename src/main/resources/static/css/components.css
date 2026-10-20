@@ -1,0 +1,46 @@
+.page-heading h1 {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 800;
+    color: #101820;
+}
+
+.page-heading p {
+    margin: 4px 0 0;
+    color: #87909b;
+    font-size: 14px;
+}
+
+.date-filter {
+    padding: 10px 0;
+    border-top: 2px solid #d6d8de;
+    border-bottom: 2px solid #d6d8de;
+    font-size: 13px;
+}
+
+.date-input {
+    width: 155px;
+    font-size: 12px;
+}
+
+/* PANELES */
+.panel {
+    background: white;
+    border-radius: 7px;
+    padding: 18px;
+    box-shadow: 0 2px 5px #00000020;
+    border: 1px solid #e5e7eb;
+}
+
+.section-title {
+    color: var(--azul-principal);
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.section-subtitle {
+    font-size: 11px;
+    color: #707782;
+    margin-bottom: 15px;
+}

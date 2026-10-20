@@ -5,13 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2G Automotriz</title>
 
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css">
+    <link rel="stylesheet" th:href="@{/css/variables.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/topbar.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/components.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/citas.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
 </head>
 <body>
 
@@ -23,114 +28,262 @@
     <!-- Menú lateral -->
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
-    <!-- Contenido central -->
+    <!-- Contenido central dinámico en Index.html -->
     <main class="content">
-        <div th:replace="~{fragments/dashboard :: content}"></div>
-    </main>
+        <th:block th:switch="${vista}">
 
+            <!-- Gestión de citas -->
+            <th:block th:case="'citas'">
+                <div th:replace="~{fragments/citas :: content}"></div>
+            </th:block>
+
+            <!-- Otros módulos -->
+            <th:block th:case="'ordenes'">
+                <div class="page-heading mb-3">
+                    <h1>GESTIÓN DE ÓRDENES</h1>
+                    <p>Consulta y administra las órdenes de reparación del taller.</p>
+                </div>
+                <section class="panel">
+                    <p>Contenido de órdenes.</p>
+                </section>
+            </th:block>
+
+            <th:block th:case="'comprobante'">
+                <div class="page-heading mb-3">
+                    <h1>COMPROBANTES</h1>
+                    <p>Consulta los comprobantes del taller.</p>
+                </div>
+                <section class="panel">
+                    <p>Contenido de comprobantes.</p>
+                </section>
+            </th:block>
+
+            <th:block th:case="'almacen'">
+                <div class="page-heading mb-3">
+                    <h1>ALMACÉN</h1>
+                    <p>Administra los repuestos y el inventario.</p>
+                </div>
+                <section class="panel">
+                    <p>Contenido de almacén.</p>
+                </section>
+            </th:block>
+
+            <th:block th:case="'administracion'">
+                <div class="page-heading mb-3">
+                    <h1>ADMINISTRACIÓN</h1>
+                    <p>Gestiona la configuración del taller.</p>
+                </div>
+                <section class="panel">
+                    <p>Contenido de administración.</p>
+                </section>
+            </th:block>
+
+            <!-- Dashboard predeterminado: siempre al final -->
+            <th:block th:case="*">
+                <div th:replace="~{fragments/dashboard :: content}"></div>
+            </th:block>
+
+        </th:block>
+    </main>
 </div>
 
 <!-- Pie de página -->
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 
-<!-- Bootstrap JS: cargar una sola vez -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Chart.js: debe cargarse antes de crear los gráficos -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 
-<!-- Inicialización de los gráficos -->
+<!-- Chart para dashboard -->
 <script th:inline="javascript">
-    console.log("Chart.js cargado:", typeof Chart);
-    console.log("Canvas ingresos:", document.getElementById("ingresosChart"));
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Chart.js cargado:", typeof Chart);
 
-    const categorias = /*[[${categorias}]]*/
-        ['Mantenimiento', 'Diagnóstico', 'Frenos', 'Electricidad', 'Otros'];
+        const categorias = /*[[${categorias}]]*/ ['Mantenimiento', 'Diagnóstico', 'Frenos', 'Electricidad', 'Otros'];
+        const ingresos = /*[[${ingresosPorCategoria}]]*/ [8500, 4200, 2800, 1900, 1050];
 
-    const ingresos = /*[[${ingresosPorCategoria}]]*/
-        [8500, 4200, 2800, 1900, 1050];
-
-    // Gráfico de ingresos por categoría
-    new Chart(document.getElementById('ingresosChart'), {
-        type: 'bar',
-        data: {
-            labels: categorias,
-            datasets: [{
-                label: 'Ingresos (S/)',
-                data: ingresos,
-                backgroundColor: [
-                    '#f5a623', '#164b78', '#426b9c',
-                    '#e9b15a', '#a8c8e8'
-                ],
-                borderRadius: 4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false }
-            },
-            scales: {
-                y: { beginAtZero: true },
-                x: {
-                    ticks: {
-                        maxRotation: 0,
-                        minRotation: 0
+        // 1. Gráfico de ingresos por categoría
+        const ctxIngresos = document.getElementById('ingresosChart');
+        if (ctxIngresos) {
+            new Chart(ctxIngresos, {
+                type: 'bar',
+                data: {
+                    labels: categorias,
+                    datasets: [{
+                        label: 'Ingresos (S/)',
+                        data: ingresos,
+                        backgroundColor: ['#f5a623', '#164b78', '#426b9c', '#e9b15a', '#a8c8e8'],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true },
+                        x: { ticks: { maxRotation: 0, minRotation: 0 } }
                     }
                 }
-            }
+            });
         }
-    });
 
-    // Gráfico del estado de las órdenes
-    new Chart(document.getElementById('ordenesChart'), {
-        type: 'doughnut',
-        data: {
-            labels: ['Finalizadas', 'En proceso', 'En espera', 'Canceladas'],
-            datasets: [{
-                data: [24, 12, 8, 4],
-                backgroundColor: [
-                    '#13b886', '#164b78', '#f5a623', '#dc3545'
-                ]
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { position: 'bottom' }
-            }
-        }
-    });
-
-    // Gráfico de actividad semanal
-    new Chart(document.getElementById('actividadChart'), {
-        type: 'line',
-        data: {
-            labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-            datasets: [
-                {
-                    label: 'Citas',
-                    data: [16, 19, 24, 20, 25, 22, 16],
-                    borderColor: '#164b78',
-                    backgroundColor: '#164b78',
-                    tension: 0.3
+        // 2. Gráfico del estado de las órdenes
+        const ctxOrdenes = document.getElementById('ordenesChart');
+        if (ctxOrdenes) {
+            new Chart(ctxOrdenes, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Finalizadas', 'En proceso', 'En espera', 'Canceladas'],
+                    datasets: [{
+                        data: [24, 12, 8, 4],
+                        backgroundColor: ['#13b886', '#164b78', '#f5a623', '#dc3545']
+                    }]
                 },
-                {
-                    label: 'Órdenes',
-                    data: [14, 17, 22, 19, 23, 21, 15],
-                    borderColor: '#f5a623',
-                    backgroundColor: '#f5a623',
-                    tension: 0.3
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
                 }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
+            });
+        }
+
+        // 3. Gráfico de actividad semanal
+        const ctxActividad = document.getElementById('actividadChart');
+        if (ctxActividad) {
+            new Chart(ctxActividad, {
+                type: 'line',
+                data: {
+                    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                    datasets: [
+                        {
+                            label: 'Citas',
+                            data: [16, 19, 24, 20, 25, 22, 16],
+                            borderColor: '#164b78',
+                            backgroundColor: '#164b78',
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Órdenes',
+                            data: [14, 17, 22, 19, 23, 21, 15],
+                            borderColor: '#f5a623',
+                            backgroundColor: '#f5a623',
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
         }
     });
 </script>
+
+<!-- js para citas-->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+
+        // Si no estamos en Gestión de citas, no hacemos nada.
+        if (!calendarEl) return;
+
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'es',
+            initialDate: '2026-09-23',
+
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek'
+            },
+
+            buttonText: {
+                today: 'Hoy',
+                month: 'Mes',
+                week: 'Semana'
+            },
+
+            events: '/citas/api/eventos',
+
+            dateClick: function (info) {
+                actualizarCitasDelDia(info.dateStr);
+            },
+
+            eventClick: function (info) {
+                actualizarCitasDelDia(info.event.startStr.split('T')[0]);
+            }
+        });
+
+        calendar.render();
+
+        function actualizarCitasDelDia(fechaStr) {
+            const contenedor = document.getElementById('contenedorCitasDia');
+            const titulo = document.getElementById('fechaTextoSeleccionada');
+
+            if (!contenedor || !titulo) return;
+
+            const fecha = new Date(fechaStr + 'T00:00:00');
+
+            titulo.textContent = fecha.toLocaleDateString('es-ES', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            const eventos = calendar.getEvents().filter(evento =>
+                evento.startStr.startsWith(fechaStr)
+            );
+
+            if (eventos.length === 0) {
+                contenedor.innerHTML = `
+                <div class="empty-appointments">
+                    <i class="bi bi-calendar2-x"></i>
+                    <p>No hay citas programadas para esta fecha.</p>
+                </div>`;
+                return;
+            }
+
+            contenedor.innerHTML = '';
+
+            eventos.forEach(evento => {
+                const datos = evento.extendedProps;
+
+                const articulo = document.createElement('article');
+                articulo.className = 'appointment-item';
+
+                const hora = document.createElement('div');
+                hora.className = 'appointment-time';
+                hora.textContent = datos.hora || 'Hora no definida';
+
+                const detalles = document.createElement('div');
+                detalles.className = 'appointment-details';
+
+                const tituloVehiculo = document.createElement('h3');
+                tituloVehiculo.textContent = datos.marcaModelo || evento.title;
+
+                const placa = document.createElement('p');
+                placa.textContent = 'Placa: ' + (datos.placa || 'No registrada');
+
+                const cliente = document.createElement('p');
+                cliente.textContent = 'Cliente: ' + (datos.cliente || 'No registrado');
+
+                detalles.append(tituloVehiculo, placa, cliente);
+
+                const enlace = document.createElement('a');
+                enlace.href = '/ordenes/crear?citaId=' + encodeURIComponent(evento.id);
+                enlace.className = 'btn btn-outline-primary btn-sm w-100';
+                enlace.textContent = 'Convertir a orden';
+
+                articulo.append(hora, detalles, enlace);
+                contenedor.appendChild(articulo);
+            });
+        }
+    });
+</script>
+
 </body>
 </html>

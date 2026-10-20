@@ -1,0 +1,58 @@
+.topbar {
+    min-height: 58px;
+    background: var(--azul-principal);
+    color: white;
+    position: relative;
+    z-index: 1030;
+}
+
+.brand-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+}
+
+.brand-logo strong {
+    font-size: 27px;
+    font-style: italic;
+}
+
+.brand-logo small {
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+.info-button {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topbar-divider {
+    height: 38px;
+    border-left: 3px solid var(--amarillo);
+}
+
+.profile-button {
+    border: 0;
+    background: var(--azul-oscuro);
+    color: white;
+    padding: 6px 12px;
+}
+
+.profile-button strong,
+.profile-button small {
+    display: block;
+}
+
+.profile-button strong {
+    font-size: 12px;
+}
+
+.profile-button small {
+    font-size: 10px;
+    opacity: 0.8;
+}

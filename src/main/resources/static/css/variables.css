@@ -1,0 +1,13 @@
+
+:root {
+    --azul-principal: #1769aa;
+    --azul-oscuro: #12466f;
+    --azul-profundo: #0d3555;
+    --amarillo: #f5b51b;
+    --fondo: #f1f2f7;
+    --texto: #252a31;
+}
+
+* {
+    box-sizing: border-box;
+}
