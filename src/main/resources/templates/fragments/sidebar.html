@@ -1,12 +1,34 @@
-<aside th:fragment="sidebar" xmlns:th="http://www.thymeleaf.org" class="sidebar">
-    <h4>2G Automotriz</h4>
+<aside th:fragment="sidebar" xmlns:th="http://www.thymeleaf.org" class="sidebar collapse show" id="sidebarMenu">
+    <nav class="nav flex-column">
 
-    <nav class="navbar col-md-6">
-        <a th:href="@{/dashboard}">Dashboard</a>
-        <a th:href="@{/cita}">Cita</a>
-        <a th:href="@{/ordenes}">Órdenes</a>
-        <a th:href="@{/comprobante}">Comprobante</a>
-        <a th:href="@{/almacen}">Almacén</a>
-        <a th:href="@{/administracion}">Administración</a>
+        <a class="nav-link active" th:href="@{/dashboard}">
+            <i class="bi bi-bar-chart-line-fill"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a class="nav-link" th:href="@{/cita}">
+            <i class="bi bi-calendar2-week-fill"></i>
+            <span>Citas</span>
+        </a>
+
+        <a class="nav-link" th:href="@{/ordenes}">
+            <i class="bi bi-car-front-fill"></i>
+            <span>Órdenes</span>
+        </a>
+
+        <a class="nav-link" th:href="@{/comprobante}">
+            <i class="bi bi-receipt-cutoff"></i>
+            <span>Comprobantes</span>
+        </a>
+
+        <a class="nav-link" th:href="@{/almacen}">
+            <i class="bi bi-box-seam-fill"></i>
+            <span>Almacén</span>
+        </a>
+
+        <a class="nav-link" th:href="@{/administracion}">
+            <i class="bi bi-gear-fill"></i>
+            <span>Administración</span>
+        </a>
     </nav>
 </aside>

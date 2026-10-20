@@ -1,0 +1,113 @@
+
+    <div th:fragment="content">
+        <div class="page-heading mb-3">
+            <h1>DASHBOARD Y REPORTES</h1>
+            <p>Consulta el estado general del taller y sus principales indicadores.</p>
+        </div>
+
+        <form class="date-filter d-flex flex-wrap align-items-center gap-2 mb-3" th:action="@{/dashboard}" method="get">
+            <label for="desde">Filtrar por fechas:</label>
+            <input class="form-control date-input" type="date" id="desde" name="desde" th:value="${desde}" required>
+            <span>a</span>
+            <input class="form-control date-input" type="date" id="hasta" name="hasta" th:value="${hasta}" required>
+            <button class="btn btn-primary px-4" type="submit"><i class="bi bi-arrow-repeat me-1"></i> Aplicar</button>
+        </form>
+
+            <section class="panel mb-3">
+                <h2 class="section-title">INDICADORES CLAVE</h2>
+                <div class="row g-3">
+                    <div class="col-12 col-md-4">
+                        <article class="metric-card">
+                            <div class="metric-info"><span>Ingresos del mes</span><strong th:text="${ingresosTexto}">S/ 18,450.00</strong></div>
+                            <div class="metric-icon"><i class="bi bi-cash-stack"></i></div>
+                        </article>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <article class="metric-card">
+                            <div class="metric-info"><span>Órdenes atendidas</span><strong th:text="${ordenesAtendidas}">42</strong></div>
+                            <div class="metric-icon"><i class="bi bi-clipboard2-check-fill"></i></div>
+                        </article>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <article class="metric-card">
+                            <div class="metric-info"><span>Citas pendientes</span><strong th:text="${citasPendientes}">5</strong></div>
+                            <div class="metric-icon"><i class="bi bi-hourglass-split"></i></div>
+                        </article>
+                    </div>
+
+                </div>
+            </section>
+
+            <div class="row g-3">
+                <div class="col-12 col-xl-7">
+                    <section class="panel h-100">
+                        <h2 class="section-title">Ingresos por categoría de servicio</h2>
+                        <p class="section-subtitle">Distribución demostrativa de ingresos por tipo de servicio.</p>
+                        <div class="chart-container"><canvas id="ingresosChart"></canvas></div>
+                    </section>
+                </div>
+
+                <div class="col-12 col-xl-5">
+                    <section class="panel">
+                        <h2 class="section-title">REPORTES</h2>
+                        <p>Generar reporte detallado:</p>
+
+                        <form th:action="@{/dashboard/exportar-excel}" method="get">
+                            <label for="tipoReporte" class="form-label">Tipo de reporte</label>
+                            <select class="form-select mb-3" id="tipoReporte" name="tipo">
+                                <option value="ventas">Ventas del mes</option>
+                                <option value="ordenes">Órdenes atendidas</option>
+                                <option value="citas">Citas pendientes</option>
+                            </select>
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="bi bi-file-earmark-excel-fill me-2"></i>Exportar a Excel
+                            </button>
+                        </form>
+
+                        <button type="button" class="btn btn-outline-secondary w-100 mt-2" onclick="window.print()">
+                            <i class="bi bi-printer-fill me-2"></i>Imprimir / Guardar como PDF
+                        </button>
+                    </section>
+
+                    <section class="panel mt-3">
+                        <h2 class="section-title">Estado de las órdenes</h2>
+                        <p class="section-subtitle">Distribución de las órdenes registradas.</p>
+                        <div class="chart-container chart-small"><canvas id="ordenesChart"></canvas></div>
+                    </section>
+                </div>
+
+                <div class="col-12 col-xl-7">
+                    <section class="panel">
+                        <h2 class="section-title">Actividad semanal del taller</h2>
+                        <p class="section-subtitle">Comparación demostrativa entre citas y órdenes.</p>
+                        <div class="chart-container"><canvas id="actividadChart"></canvas></div>
+                    </section>
+                </div>
+
+                <div class="col-12 col-xl-5">
+                    <section class="panel">
+                        <h2 class="section-title">Servicios destacados</h2>
+                        <ul class="service-list">
+                            <li>
+                                <i class="bi bi-wrench-adjustable-circle"></i>
+                                <span>Mantenimiento preventivo</span>
+                            </li>
+                            <li>
+                                <i class="bi bi-gear-wide-connected"></i>
+                                <span>Reparación de motor</span>
+                            </li>
+                            <li>
+                                <i class="bi bi-disc"></i>
+                                <span>Frenos y suspensión</span>
+                            </li>
+                            <li>
+                                <i class="bi bi-droplet-fill"></i>
+                                <span>Cambio de aceite y filtros</span>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+    </div>

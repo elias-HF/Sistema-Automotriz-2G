@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2G Automotriz</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<!-- Barra superior -->
+<header th:replace="~{fragments/barraSuperior :: barraSuperior}"></header>
+
+<div class="main-container">
+
+    <!-- Menú lateral -->
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <!-- Contenido central -->
+    <main class="content">
+        <div th:replace="~{fragments/dashboard :: content}"></div>
+    </main>
+
+</div>
+
+<!-- Pie de página -->
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<!-- Bootstrap JS: cargar una sola vez -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Chart.js: debe cargarse antes de crear los gráficos -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+
+<!-- Inicialización de los gráficos -->
+<script th:inline="javascript">
+    console.log("Chart.js cargado:", typeof Chart);
+    console.log("Canvas ingresos:", document.getElementById("ingresosChart"));
+
+    const categorias = /*[[${categorias}]]*/
+        ['Mantenimiento', 'Diagnóstico', 'Frenos', 'Electricidad', 'Otros'];
+
+    const ingresos = /*[[${ingresosPorCategoria}]]*/
+        [8500, 4200, 2800, 1900, 1050];
+
+    // Gráfico de ingresos por categoría
+    new Chart(document.getElementById('ingresosChart'), {
+        type: 'bar',
+        data: {
+            labels: categorias,
+            datasets: [{
+                label: 'Ingresos (S/)',
+                data: ingresos,
+                backgroundColor: [
+                    '#f5a623', '#164b78', '#426b9c',
+                    '#e9b15a', '#a8c8e8'
+                ],
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true },
+                x: {
+                    ticks: {
+                        maxRotation: 0,
+                        minRotation: 0
+                    }
+                }
+            }
+        }
+    });
+
+    // Gráfico del estado de las órdenes
+    new Chart(document.getElementById('ordenesChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Finalizadas', 'En proceso', 'En espera', 'Canceladas'],
+            datasets: [{
+                data: [24, 12, 8, 4],
+                backgroundColor: [
+                    '#13b886', '#164b78', '#f5a623', '#dc3545'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+
+    // Gráfico de actividad semanal
+    new Chart(document.getElementById('actividadChart'), {
+        type: 'line',
+        data: {
+            labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+            datasets: [
+                {
+                    label: 'Citas',
+                    data: [16, 19, 24, 20, 25, 22, 16],
+                    borderColor: '#164b78',
+                    backgroundColor: '#164b78',
+                    tension: 0.3
+                },
+                {
+                    label: 'Órdenes',
+                    data: [14, 17, 22, 19, 23, 21, 15],
+                    borderColor: '#f5a623',
+                    backgroundColor: '#f5a623',
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
+</body>
+</html>
