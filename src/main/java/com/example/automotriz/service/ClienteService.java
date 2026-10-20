@@ -25,25 +25,30 @@ public class ClienteService {
         return entities.stream().map(e -> adapter.toModel(e)).collect(Collectors.toList());
     }
 
+    public List<ClienteModel> listarFiltrado(String filtro){
+        String texto = filtro == null ? "" : filtro.trim().toLowerCase();
+        return listar().stream().filter(
+                        c -> c.getNombre().toLowerCase().contains(texto) || c.getDni().contains(texto) || c.getCodigo().toLowerCase().contains(texto) || c.getCorreo().toLowerCase().contains(texto))
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public ClienteModel registrar(ClienteModel model){
         ClienteEntity entity = adapter.toEntity(model);
         entity.setIdCliente(0);
         entity.setActivo(true);
 
-        ClienteEntity clienteGuardado = clienteRepository.save(cliente);
+        ClienteEntity clienteGuardado = repository.save(entity);
         String codigo = String.format("CLI-%03d", clienteGuardado.getIdCliente());
-
         clienteGuardado.setCod(codigo);
-
         ClienteEntity guardado = repository.save(entity);
 
         return adapter.toModel(guardado);
     }
 
     @Transactional
-    public void desactivar(ClienteModel model){
-        ClienteEntity entity = repository.findById(model.getIdCliente()).orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
+    public void desactivar(int idCliente){
+        ClienteEntity entity = repository.findById(idCliente).orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
         entity.setActivo(false);
     }
 
@@ -58,10 +63,9 @@ public class ClienteService {
         repository.save(entity);
     }
 
-    public List<ClienteModel> listarFiltrado(String filtro){
-        String texto = filtro == null ? "" : filtro.trim().toLowerCase();
-        return listar().stream().filter(
-                c -> c.getNombre().toLowerCase().contains(texto) || c.getDni().contains(texto) || c.getCodigo().toLowerCase().contains(texto) || c.getCorreo().toLowerCase().contains(texto))
-                .collect(Collectors.toList());
+    @Transactional
+    public ClienteModel buscarPorId(int id){
+        ClienteEntity entity = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
+        return adapter.toModel(entity);
     }
 }
