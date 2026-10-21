@@ -1,0 +1,149 @@
+
+/* Módulo de órdenes */
+.page-heading h1 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #17202a;
+    margin-bottom: 3px;
+}
+
+.page-heading p {
+    color: #84909f;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+.panel {
+    position: relative;
+    padding: 18px 20px;
+    background: #fff;
+    border: 1px solid #e0e4e9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+}
+
+.section-title {
+    color: #2477b9;
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.vehicle-info {
+    padding-right: 75px;
+    font-size: .84rem;
+}
+
+.vehicle-info p {
+    margin-bottom: 3px;
+    line-height: 1.35;
+}
+
+.vehicle-icon {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    color: #164c78;
+    background: #f5b719;
+    border-radius: 8px;
+    font-size: 2.4rem;
+}
+
+.service-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid #dce2e8;
+    font-size: .88rem;
+}
+
+.service-name {
+    flex: 1;
+}
+
+.service-price {
+    white-space: nowrap;
+}
+
+.btn-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #e94250;
+    font-size: 1.1rem;
+}
+
+#tablaArticulos {
+    font-size: .85rem;
+}
+
+#tablaArticulos thead th {
+    background: #f5b719;
+    color: #fff;
+    border-color: #e8c66d;
+    font-size: .8rem;
+    white-space: nowrap;
+}
+
+#tablaArticulos td {
+    padding: 7px 10px;
+}
+
+.cost-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: .9rem;
+}
+
+.cost-row strong {
+    white-space: nowrap;
+}
+
+.total-estimado {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #164c78;
+    color: #fff;
+    border-radius: 3px;
+    font-weight: 800;
+}
+
+.btn-primary {
+    background-color: #2477b9;
+    border-color: #2477b9;
+}
+
+.btn-primary:hover {
+    background-color: #185d91;
+    border-color: #185d91;
+}
+
+@media (max-width: 576px) {
+    .panel {
+        padding: 14px;
+    }
+
+    .cost-row,
+    .total-estimado {
+        font-size: .82rem;
+    }
+
+    .vehicle-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.9rem;
+    }
+}

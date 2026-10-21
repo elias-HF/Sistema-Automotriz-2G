@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso al sistema | 2G Automotriz</title>
+
+    <!-- Bootstrap y Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+
+<body class="login-page">
+
+<!-- LOGOTIPO Y NOMBRE -->
+<header class="login-brand">
+    <div class="brand-logo">
+        <img th:src="@{/img/logo-2g.png}"
+             src="/img/logo-2g.png"
+             alt="Logo 2G Automotriz">
+    </div>
+
+    <div class="brand-text">
+        <strong>2G AUTOMOTRIZ</strong>
+        <span>TALLER Y GESTIÓN</span>
+    </div>
+</header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="login-main">
+
+    <section class="login-card">
+
+        <!-- IMAGEN DEL TALLER -->
+        <div class="login-image">
+            <img th:src="@{/img/taller-login.jpg}"
+                 src="/img/taller-login.jpg"
+                 alt="Taller mecánico 2G Automotriz">
+        </div>
+
+        <!-- FORMULARIO -->
+        <div class="login-form-container">
+
+            <div class="login-heading">
+                <h1>ACCEDER AL SISTEMA</h1>
+                <p>Ingresa tus credenciales autorizadas para acceder al sistema.</p>
+            </div>
+
+            <!--
+                Ajusta la ruta y los nombres de los campos
+                según tu configuración de autenticación.
+            -->
+            <form th:action="@{/login}"
+                  method="post"
+                  id="loginForm">
+
+                <h2 class="profile-title">PERFIL DE OPERACIÓN</h2>
+
+                <!-- SELECCIÓN DE PERFIL -->
+                <div class="profile-options">
+
+                    <button type="button"
+                            class="profile-option active"
+                            data-role="ADMINISTRADOR">
+                        <i class="bi bi-shield-lock-fill"></i>
+                        <span>ADMINISTRADOR</span>
+                    </button>
+
+                    <button type="button"
+                            class="profile-option"
+                            data-role="MECANICO">
+                        <i class="bi bi-wrench-adjustable"></i>
+                        <span>MECÁNICO</span>
+                    </button>
+
+                    <button type="button"
+                            class="profile-option"
+                            data-role="RECEPCION">
+                        <i class="bi bi-person-workspace"></i>
+                        <span>RECEPCIÓN</span>
+                    </button>
+
+                    <button type="button"
+                            class="profile-option"
+                            data-role="ALMACEN">
+                        <i class="bi bi-cart3"></i>
+                        <span>ALMACÉN</span>
+                    </button>
+
+                </div>
+
+                <input type="hidden"
+                       name="perfil"
+                       id="perfil"
+                       value="ADMINISTRADOR">
+
+                <!-- USUARIO -->
+                <div class="login-field">
+                    <label for="username">
+                        NOMBRE DE USUARIO / CORREO ELECTRÓNICO
+                    </label>
+
+                    <div class="input-group login-input">
+                        <input type="text"
+                               class="form-control"
+                               id="username"
+                               name="username"
+                               placeholder="Ingresa tu usuario o correo"
+                               autocomplete="username"
+                               required>
+
+                        <span class="input-group-text">
+                                <i class="bi bi-person-square"></i>
+                            </span>
+                    </div>
+                </div>
+
+                <!-- CONTRASEÑA -->
+                <div class="login-field">
+                    <label for="password">CONTRASEÑA</label>
+
+                    <div class="input-group login-input">
+                        <input type="password"
+                               class="form-control"
+                               id="password"
+                               name="password"
+                               placeholder="Ingresa tu contraseña"
+                               autocomplete="current-password"
+                               required>
+
+                        <button type="button"
+                                class="input-group-text password-toggle"
+                                id="togglePassword"
+                                aria-label="Mostrar u ocultar contraseña">
+                            <i class="bi bi-lock-fill"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RECORDAR Y RECUPERAR -->
+                <div class="login-options">
+                    <label class="remember-option">
+                        <input type="checkbox"
+                               name="remember-me"
+                               id="rememberMe">
+                        <span>Recordar sesión en el equipo</span>
+                    </label>
+
+                    <a th:href="@{/recuperar-password}"
+                       href="/recuperar-password">
+                        ¿Olvidaste tus datos?
+                    </a>
+                </div>
+
+                <!-- MENSAJES DE SPRING SECURITY -->
+                <div class="alert alert-danger py-2 mt-3"
+                     th:if="${param.error}">
+                    Usuario o contraseña incorrectos.
+                </div>
+
+                <div class="alert alert-success py-2 mt-3"
+                     th:if="${param.logout}">
+                    Has cerrado sesión correctamente.
+                </div>
+
+                <!-- BOTÓN DE ACCESO -->
+                <button type="submit" class="btn-login">
+                    <i class="bi bi-door-open-fill"></i>
+                    <span>ACCEDER AL SISTEMA</span>
+                </button>
+
+            </form>
+        </div>
+    </section>
+</main>
+
+<!-- PIE DE PÁGINA -->
+<footer class="login-footer">
+
+    <div class="footer-location">
+        <i class="bi bi-map-fill"></i>
+        <span>Taller 2G Automotriz - Sede Los Olivos</span>
+    </div>
+
+    <div class="footer-support">
+        <i class="bi bi-telephone-fill"></i>
+        <span>Soporte Técnico Interno: Anexo 102 / +51 987 654 213</span>
+    </div>
+
+    <div class="footer-version">
+        <i class="bi bi-diagram-3"></i>
+        <span>V1.0.0 ©2026</span>
+    </div>
+
+</footer>
+
+<script>
+    // Selección visual del perfil.
+    document.querySelectorAll('.profile-option').forEach(boton => {
+        boton.addEventListener('click', () => {
+            document.querySelectorAll('.profile-option').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            boton.classList.add('active');
+
+            document.getElementById('perfil').value =
+                boton.dataset.role;
+        });
+    });
+
+    // Mostrar u ocultar contraseña.
+    document.getElementById('togglePassword').addEventListener('click', () => {
+        const password = document.getElementById('password');
+        const icono = document.querySelector('#togglePassword i');
+
+        const mostrar = password.type === 'password';
+        password.type = mostrar ? 'text' : 'password';
+
+        icono.className = mostrar
+            ? 'bi bi-unlock-fill'
+            : 'bi bi-lock-fill';
+    });
+</script>
+
+</body>
+</html>

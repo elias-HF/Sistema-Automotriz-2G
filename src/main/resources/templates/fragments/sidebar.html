@@ -1,13 +1,13 @@
 <aside th:fragment="sidebar" xmlns:th="http://www.thymeleaf.org" class="sidebar collapse show" id="sidebarMenu">
     <nav class="nav flex-column">
 
-        <a th:href="@{/dashboard}"
+        <a th:href="@{/dashboard}" class="nav-link"
            th:classappend="${vista == 'dashboard'} ? ' active' : ''">
             <i class="bi bi-speedometer2"></i>
             <span>Dashboard</span>
         </a>
 
-        <a th:href="@{/citas}"
+        <a th:href="@{/citas}" class="nav-link"
            th:classappend="${vista == 'citas'} ? ' active' : ''">
             <i class="bi bi-calendar-check"></i>
             <span>Gestión de citas</span>
@@ -20,7 +20,7 @@
 
         <a class="nav-link" th:href="@{/comprobante}">
             <i class="bi bi-receipt-cutoff"></i>
-            <span>Comprobantes</span>
+            <span>Comprobante</span>
         </a>
 
         <a class="nav-link" th:href="@{/almacen}">

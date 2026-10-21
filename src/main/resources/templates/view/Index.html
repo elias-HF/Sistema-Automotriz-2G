@@ -17,45 +17,32 @@
     <link rel="stylesheet" th:href="@{/css/citas.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/css/comprobante.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/ordenes.css}">
 </head>
 <body>
 
-<!-- Barra superior -->
 <header th:replace="~{fragments/barraSuperior :: barraSuperior}"></header>
 
 <div class="main-container">
 
-    <!-- Menú lateral -->
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
     <!-- Contenido central dinámico en Index.html -->
     <main class="content">
         <th:block th:switch="${vista}">
 
-            <!-- Gestión de citas -->
             <th:block th:case="'citas'">
                 <div th:replace="~{fragments/citas :: content}"></div>
             </th:block>
 
-            <!-- Otros módulos -->
             <th:block th:case="'ordenes'">
-                <div class="page-heading mb-3">
-                    <h1>GESTIÓN DE ÓRDENES</h1>
-                    <p>Consulta y administra las órdenes de reparación del taller.</p>
-                </div>
-                <section class="panel">
-                    <p>Contenido de órdenes.</p>
-                </section>
+                <div th:replace="~{fragments/ordenes :: content}"></div>
             </th:block>
 
             <th:block th:case="'comprobante'">
-                <div class="page-heading mb-3">
-                    <h1>COMPROBANTES</h1>
-                    <p>Consulta los comprobantes del taller.</p>
-                </div>
-                <section class="panel">
-                    <p>Contenido de comprobantes.</p>
-                </section>
+                <div th:replace="~{fragments/comprobante :: content}"></div>
             </th:block>
 
             <th:block th:case="'almacen'">

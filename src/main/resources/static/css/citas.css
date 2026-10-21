@@ -1,27 +1,5 @@
-.citas-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-}
 
-.citas-heading h1 {
-    color: var(--azul-oscuro);
-}
-
-.btn-agendar {
-    background: var(--azul-principal);
-    border-color: var(--azul-principal);
-    font-weight: 600;
-    white-space: nowrap;
-    padding: 10px 16px;
-}
-
-.btn-agendar:hover {
-    background: var(--azul-profundo);
-    border-color: var(--azul-profundo);
-}
-
+/* CONTENEDOR DEL CALENDARIO */
 .calendar-container {
     position: relative;
     width: 100%;
@@ -29,18 +7,7 @@
     font-size: 12px;
 }
 
-.calendar-summary {
-    border-top: 1px solid #e5e7eb;
-    margin-top: 18px;
-    padding-top: 14px;
-    font-size: 13px;
-    color: #555f6b;
-}
-
-.calendar-summary i {
-    color: var(--azul-principal);
-}
-
+/* LISTADO DE CITAS DEL DÍA */
 .appointments-list {
     display: flex;
     flex-direction: column;
@@ -95,6 +62,7 @@
     color: white;
 }
 
+/* ESTADO SIN CITAS */
 .empty-appointments {
     padding: 35px 15px;
     text-align: center;
@@ -104,7 +72,9 @@
     border-radius: 6px;
 }
 
-.empty-appointments i {display: block;margin-bottom: 12px;
+.empty-appointments i {
+    display: block;
+    margin-bottom: 12px;
     font-size: 32px;
 }
 
@@ -113,8 +83,7 @@
     font-size: 13px;
 }
 
-/* FullCalendar con los colores de 2G */
-
+/* FULLCALENDAR */
 #calendar .fc-toolbar-title {
     color: var(--azul-oscuro);
     font-size: 18px;
@@ -164,17 +133,8 @@
     text-decoration: none;
 }
 
+/* RESPONSIVE */
 @media (max-width: 767px) {
-    .citas-heading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .btn-agendar {
-        width: 100%;
-        justify-content: center;
-    }
-
     .calendar-container {
         min-height: 380px;
     }
@@ -187,27 +147,4 @@
     #calendar .fc-toolbar-title {
         font-size: 15px;
     }
-}
-
-/* Encabezado uniforme para todas las vistas */
-.page-heading h1 {
-    color: var(--azul-principal);
-    font-size: 25px;
-    font-weight: 700;
-    margin-bottom: 6px;
-}
-
-.page-heading p {
-    color: #64748b;
-    margin-bottom: 0;
-    font-size: 14px;
-}
-
-/* Separador amarillo bajo el título */
-.heading-divider {
-    width: 100%;
-    height: 3px;
-    background-color: #f5b51b;
-    border-radius: 3px;
-    margin-bottom: 20px;
 }

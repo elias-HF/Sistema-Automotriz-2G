@@ -1,0 +1,623 @@
+
+<div th:fragment="content">
+
+    <!-- ENCABEZADO -->
+    <div class="page-heading mb-3">
+        <div>
+            <h1>MÓDULO DE ÓRDENES</h1>
+            <p>Registra, consulta y actualiza las reparaciones y servicios realizados.</p>
+        </div>
+    </div>
+
+    <!-- ENCABEZADO DE LA ORDEN -->
+    <section class="panel mb-3">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <h2 class="section-title mb-0">
+                ORDEN DE SERVICIO
+                <span th:text="${orden != null ? '#' + orden.id : '#00124'}">#00124</span>
+            </h2>
+
+            <div class="d-flex align-items-center gap-2">
+                <label for="estadoOrden" class="fw-bold">ESTADO:</label>
+                <select class="form-select form-select-sm"
+                        id="estadoOrden"
+                        name="estado"
+                        style="min-width: 165px;">
+                    <option value="DIAGNOSTICO" selected>En diagnóstico</option>
+                    <option value="PENDIENTE">Pendiente</option>
+                    <option value="REPARACION">En reparación</option>
+                    <option value="FINALIZADA">Finalizada</option>
+                    <option value="CANCELADA">Cancelada</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- DATOS DEL VEHÍCULO Y SERVICIOS -->
+    <div class="row g-3 mb-3">
+
+        <!-- DATOS DEL VEHÍCULO -->
+        <div class="col-12 col-lg-4">
+            <section class="panel h-100">
+                <h2 class="section-title">DATOS DEL VEHÍCULO</h2>
+
+                <div class="vehicle-info">
+                    <p><strong>Marca / Modelo:</strong>
+                        <span th:text="${orden != null ? orden.vehiculo.marca + ' / ' + orden.vehiculo.modelo : 'Nissan / Sentra'}">
+                            Nissan / Sentra
+                        </span>
+                    </p>
+
+                    <p><strong>Placa:</strong>
+                        <span th:text="${orden != null ? orden.vehiculo.placa : 'BXZ-451'}">BXZ-451</span>
+                    </p>
+
+                    <p><strong>Cliente:</strong>
+                        <span th:text="${orden != null ? orden.cliente.nombre : 'Ariana Lucia'}">Ariana Lucia</span>
+                    </p>
+
+                    <p><strong>Año:</strong>
+                        <span th:text="${orden != null ? orden.vehiculo.anio : 2020}">2020</span>
+                    </p>
+
+                    <p><strong>Veces en el taller:</strong> 5</p>
+
+                    <p><strong>Kilometraje:</strong>
+                        <span th:text="${orden != null ? #numbers.formatInteger(orden.vehiculo.kilometraje, 1, 'DEFAULT') : '45 000'}">
+                            45 000
+                        </span>
+                    </p>
+                </div>
+
+                <div class="vehicle-icon">
+                    <i class="bi bi-car-front-fill"></i>
+                </div>
+            </section>
+        </div>
+
+        <!-- ADMINISTRAR SERVICIOS -->
+        <div class="col-12 col-lg-8">
+            <section class="panel h-100">
+                <h2 class="section-title">ADMINISTRAR SERVICIOS</h2>
+
+                <div class="service-list mb-3" id="listaServicios">
+
+                    <div class="service-row">
+                        <button type="button"
+                                class="btn-remove"
+                                aria-label="Quitar cambio de aceite"
+                                onclick="quitarServicio(this)">
+                            <i class="bi bi-dash-circle-fill"></i>
+                        </button>
+                        <span class="service-name">Cambio de aceite</span>
+                        <strong class="service-price" data-precio="50.40">S/ 50.40</strong>
+                    </div>
+
+                    <div class="service-row">
+                        <button type="button"
+                                class="btn-remove"
+                                aria-label="Quitar alineación y balanceo"
+                                onclick="quitarServicio(this)">
+                            <i class="bi bi-dash-circle-fill"></i>
+                        </button>
+                        <span class="service-name">Alineación y balanceo</span>
+                        <strong class="service-price" data-precio="80.60">S/ 80.60</strong>
+                    </div>
+
+                    <div class="service-row">
+                        <button type="button"
+                                class="btn-remove"
+                                aria-label="Quitar revisión de frenos"
+                                onclick="quitarServicio(this)">
+                            <i class="bi bi-dash-circle-fill"></i>
+                        </button>
+                        <span class="service-name">Revisión de frenos</span>
+                        <strong class="service-price" data-precio="40.89">S/ 40.89</strong>
+                    </div>
+
+                    <div class="service-row">
+                        <button type="button"
+                                class="btn-remove"
+                                aria-label="Quitar reparación de motor"
+                                onclick="quitarServicio(this)">
+                            <i class="bi bi-dash-circle-fill"></i>
+                        </button>
+                        <span class="service-name">Reparación de motor</span>
+                        <strong class="service-price" data-precio="120.40">S/ 120.40</strong>
+                    </div>
+
+                </div>
+
+                <div class="row g-2 align-items-center">
+                    <div class="col-12 col-md">
+                        <select class="form-select" id="nuevoServicio">
+                            <option value="">Seleccionar servicio...</option>
+                            <option value="Mantenimiento preventivo" data-precio="90.00">
+                                Mantenimiento preventivo - S/ 90.00
+                            </option>
+                            <option value="Cambio de batería" data-precio="35.00">
+                                Cambio de batería - S/ 35.00
+                            </option>
+                            <option value="Reparación de suspensión" data-precio="150.00">
+                                Reparación de suspensión - S/ 150.00
+                            </option>
+                            <option value="Diagnóstico computarizado" data-precio="60.00">
+                                Diagnóstico computarizado - S/ 60.00
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-auto">
+                        <button type="button"
+                                class="btn btn-success"
+                                onclick="agregarServicio()">
+                            <i class="bi bi-plus-lg me-1"></i>
+                            Añadir servicio
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- ARTÍCULOS Y REPUESTOS -->
+    <section class="panel mb-3">
+        <h2 class="section-title">REPUESTOS Y ARTÍCULOS</h2>
+
+        <div class="row g-2 align-items-center mb-3">
+            <div class="col-12 col-md-auto">
+                <label for="nuevoArticulo" class="fw-semibold">Buscar un artículo:</label>
+            </div>
+
+            <div class="col-12 col-md">
+                <select class="form-select" id="nuevoArticulo">
+                    <option value="">Seleccionar artículo...</option>
+                    <option value="Aceite sintético 10W-30"
+                            data-precio="35.19"
+                            data-unidad="L">
+                        Aceite sintético 10W-30 - S/ 35.19
+                    </option>
+                    <option value="Filtro de aceite Toyota"
+                            data-precio="25.87"
+                            data-unidad="u">
+                        Filtro de aceite Toyota - S/ 25.87
+                    </option>
+                    <option value="Pastillas de freno delanteras"
+                            data-precio="120.00"
+                            data-unidad="u">
+                        Pastillas de freno delanteras - S/ 120.00
+                    </option>
+                    <option value="Bujías de iridio"
+                            data-precio="40.00"
+                            data-unidad="u">
+                        Bujías de iridio - S/ 40.00
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-12 col-md-auto">
+                <button type="button"
+                        class="btn btn-success"
+                        onclick="agregarArticulo()">
+                    <i class="bi bi-plus-lg me-1"></i>
+                    Añadir artículo
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle mb-0"
+                   id="tablaArticulos">
+                <thead class="table-warning">
+                <tr>
+                    <th>Artículo</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-end">Precio unitario</th>
+                    <th class="text-end">Subtotal</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+                </thead>
+
+                <tbody id="cuerpoArticulos">
+                <tr data-precio="35.19">
+                    <td>Aceite sintético 10W-30</td>
+                    <td>
+                        <div class="d-flex align-items-center justify-content-center gap-2">
+                            <input type="number"
+                                   class="form-control form-control-sm cantidad-articulo"
+                                   value="4" min="0.01" step="0.01"
+                                   style="width: 85px"
+                                   aria-label="Cantidad de aceite"
+                                   onchange="actualizarTotales()">
+                            <span>L</span>
+                        </div>
+                    </td>
+                    <td class="text-end">S/ 35.19</td>
+                    <td class="text-end subtotal-articulo">S/ 140.76</td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-danger btn-sm"
+                                onclick="quitarArticulo(this)">
+                            <i class="bi bi-dash-circle me-1"></i>Quitar
+                        </button>
+                    </td>
+                </tr>
+
+                <tr data-precio="25.87">
+                    <td>Filtro de aceite Toyota</td>
+                    <td>
+                        <div class="d-flex align-items-center justify-content-center gap-2">
+                            <input type="number"
+                                   class="form-control form-control-sm cantidad-articulo"
+                                   value="1" min="0.01" step="0.01"
+                                   style="width: 85px"
+                                   aria-label="Cantidad de filtros"
+                                   onchange="actualizarTotales()">
+                            <span>u</span>
+                        </div>
+                    </td>
+                    <td class="text-end">S/ 25.87</td>
+                    <td class="text-end subtotal-articulo">S/ 25.87</td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-danger btn-sm"
+                                onclick="quitarArticulo(this)">
+                            <i class="bi bi-dash-circle me-1"></i>Quitar
+                        </button>
+                    </td>
+                </tr>
+
+                <tr data-precio="120.00">
+                    <td>Pastillas de freno delanteras</td>
+                    <td>
+                        <div class="d-flex align-items-center justify-content-center gap-2">
+                            <input type="number"
+                                   class="form-control form-control-sm cantidad-articulo"
+                                   value="1" min="0.01" step="0.01"
+                                   style="width: 85px"
+                                   aria-label="Cantidad de pastillas"
+                                   onchange="actualizarTotales()">
+                            <span>u</span>
+                        </div>
+                    </td>
+                    <td class="text-end">S/ 120.00</td>
+                    <td class="text-end subtotal-articulo">S/ 120.00</td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-danger btn-sm"
+                                onclick="quitarArticulo(this)">
+                            <i class="bi bi-dash-circle me-1"></i>Quitar
+                        </button>
+                    </td>
+                </tr>
+
+                <tr data-precio="40.00">
+                    <td>Bujías de iridio</td>
+                    <td>
+                        <div class="d-flex align-items-center justify-content-center gap-2">
+                            <input type="number"
+                                   class="form-control form-control-sm cantidad-articulo"
+                                   value="4" min="0.01" step="0.01"
+                                   style="width: 85px"
+                                   aria-label="Cantidad de bujías"
+                                   onchange="actualizarTotales()">
+                            <span>u</span>
+                        </div>
+                    </td>
+                    <td class="text-end">S/ 40.00</td>
+                    <td class="text-end subtotal-articulo">S/ 160.00</td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-danger btn-sm"
+                                onclick="quitarArticulo(this)">
+                            <i class="bi bi-dash-circle me-1"></i>Quitar
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- DIAGNÓSTICO Y COSTOS -->
+    <div class="row g-3 mb-3">
+
+        <div class="col-12 col-lg-5">
+            <section class="panel h-100">
+                <h2 class="section-title">NOTA DE DIAGNÓSTICO</h2>
+
+                <label for="diagnostico" class="form-label">
+                    Observaciones del mecánico
+                </label>
+
+                <textarea class="form-control"
+                          id="diagnostico"
+                          name="diagnostico"
+                          rows="4"
+                          placeholder="Describe las fallas detectadas y el mantenimiento requerido...">Se observa una fuga leve en la parte externa del motor. Se requiere mantenimiento preventivo.</textarea>
+            </section>
+        </div>
+
+        <div class="col-12 col-lg-7">
+            <section class="panel h-100">
+                <h2 class="section-title">RESUMEN DE COSTOS</h2>
+
+                <div class="cost-row">
+                    <span>Subtotal de mano de obra:</span>
+                    <strong id="subtotalServicios">S/ 292.29</strong>
+                </div>
+
+                <div class="cost-row">
+                    <span>Subtotal de artículos vehiculares:</span>
+                    <strong id="subtotalArticulos">S/ 446.63</strong>
+                </div>
+
+                <hr>
+
+                <div class="total-estimado">
+                    <span>TOTAL ESTIMADO:</span>
+                    <strong id="totalOrden">S/ 738.92</strong>
+                </div>
+
+                <p class="text-muted small mt-2 mb-0">
+                    Los importes se actualizan al modificar servicios o cantidades.
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <!-- ACCIONES PRINCIPALES -->
+    <div class="d-flex flex-wrap justify-content-end gap-2 mb-3">
+
+        <button type="button"
+                class="btn btn-primary btn-lg"
+                onclick="finalizarOrden()">
+            <i class="bi bi-patch-check-fill me-2"></i>
+            Finalizar orden
+        </button>
+
+        <button type="button"
+                class="btn btn-primary btn-lg"
+                onclick="guardarOrden()">
+            <i class="bi bi-floppy-fill me-2"></i>
+            Guardar orden
+        </button>
+
+    </div>
+
+    <!-- FUNCIONALIDADES INICIALES -->
+    <script>
+        (() => {
+            // Evita duplicar los eventos si el fragmento se vuelve a cargar.
+            if (window.ordenesModuloInicializado) return;
+            window.ordenesModuloInicializado = true;
+
+            const moneda = valor =>
+                'S/ ' + Number(valor).toLocaleString('es-PE', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+
+            window.actualizarTotales = function () {
+                let totalServicios = 0;
+                let totalArticulos = 0;
+
+                document.querySelectorAll('#listaServicios .service-row')
+                    .forEach(fila => {
+                        totalServicios += Number(
+                            fila.querySelector('.service-price').dataset.precio
+                        ) || 0;
+                    });
+
+                document.querySelectorAll('#cuerpoArticulos tr')
+                    .forEach(fila => {
+                        const precio = Number(fila.dataset.precio) || 0;
+                        const input = fila.querySelector('.cantidad-articulo');
+
+                        let cantidad = Number(input.value);
+                        if (!Number.isFinite(cantidad) || cantidad <= 0) {
+                            cantidad = 0;
+                        }
+
+                        const subtotal = precio * cantidad;
+                        fila.querySelector('.subtotal-articulo').textContent =
+                            moneda(subtotal);
+
+                        totalArticulos += subtotal;
+                    });
+
+                document.getElementById('subtotalServicios').textContent =
+                    moneda(totalServicios);
+
+                document.getElementById('subtotalArticulos').textContent =
+                    moneda(totalArticulos);
+
+                document.getElementById('totalOrden').textContent =
+                    moneda(totalServicios + totalArticulos);
+            };
+
+            window.quitarServicio = function (boton) {
+                boton.closest('.service-row').remove();
+                actualizarTotales();
+            };
+
+            window.agregarServicio = function () {
+                const select = document.getElementById('nuevoServicio');
+                const opcion = select.selectedOptions[0];
+
+                if (!opcion || !opcion.value) {
+                    alert('Selecciona un servicio para agregar.');
+                    return;
+                }
+
+                const nombre = opcion.value;
+                const precio = Number(opcion.dataset.precio) || 0;
+
+                const existe = [...document.querySelectorAll(
+                    '#listaServicios .service-name'
+                )].some(elemento => elemento.textContent === nombre);
+
+                if (existe) {
+                    alert('Este servicio ya está agregado.');
+                    return;
+                }
+
+                const fila = document.createElement('div');
+                fila.className = 'service-row';
+
+                const boton = document.createElement('button');
+                boton.type = 'button';
+                boton.className = 'btn-remove';
+                boton.setAttribute('aria-label', 'Quitar servicio');
+                boton.innerHTML = '<i class="bi bi-dash-circle-fill"></i>';
+                boton.addEventListener('click', () => quitarServicio(boton));
+
+                const texto = document.createElement('span');
+                texto.className = 'service-name';
+                texto.textContent = nombre;
+
+                const importe = document.createElement('strong');
+                importe.className = 'service-price';
+                importe.dataset.precio = precio;
+                importe.textContent = moneda(precio);
+
+                fila.append(boton, texto, importe);
+                document.getElementById('listaServicios').appendChild(fila);
+
+                select.value = '';
+                actualizarTotales();
+            };
+
+            window.quitarArticulo = function (boton) {
+                boton.closest('tr').remove();
+                actualizarTotales();
+            };
+
+            window.agregarArticulo = function () {
+                const select = document.getElementById('nuevoArticulo');
+                const opcion = select.selectedOptions[0];
+
+                if (!opcion || !opcion.value) {
+                    alert('Selecciona un artículo para agregar.');
+                    return;
+                }
+
+                const nombre = opcion.value;
+                const precio = Number(opcion.dataset.precio) || 0;
+                const unidad = opcion.dataset.unidad || 'u';
+
+                const filas = [
+                    ...document.querySelectorAll('#cuerpoArticulos tr')
+                ];
+
+                const existente = filas.find(fila =>
+                    fila.cells[0].textContent.trim() === nombre
+                );
+
+                if (existente) {
+                    const input = existente.querySelector('.cantidad-articulo');
+                    input.value = (Number(input.value) + 1).toFixed(2)
+                        .replace(/\.00$/, '');
+                    actualizarTotales();
+                    select.value = '';
+                    return;
+                }
+
+                const fila = document.createElement('tr');
+                fila.dataset.precio = precio;
+
+                const celdaNombre = fila.insertCell();
+                celdaNombre.textContent = nombre;
+
+                const celdaCantidad = fila.insertCell();
+                celdaCantidad.className = 'text-center';
+
+                const cantidad = document.createElement('input');
+                cantidad.type = 'number';
+                cantidad.min = '0.01';
+                cantidad.step = '0.01';
+                cantidad.value = '1';
+                cantidad.className =
+                    'form-control form-control-sm cantidad-articulo mx-auto';
+                cantidad.style.width = '85px';
+                cantidad.setAttribute('aria-label', 'Cantidad de ' + nombre);
+                cantidad.addEventListener('input', actualizarTotales);
+                celdaCantidad.append(cantidad);
+
+                const celdaPrecio = fila.insertCell();
+                celdaPrecio.className = 'text-end';
+                celdaPrecio.textContent = moneda(precio);
+
+                const celdaSubtotal = fila.insertCell();
+                celdaSubtotal.className = 'text-end subtotal-articulo';
+                celdaSubtotal.textContent = moneda(precio);
+
+                const celdaAcciones = fila.insertCell();
+                celdaAcciones.className = 'text-center';
+
+                const quitar = document.createElement('button');
+                quitar.type = 'button';
+                quitar.className = 'btn btn-danger btn-sm';
+                quitar.innerHTML =
+                    '<i class="bi bi-dash-circle me-1"></i>Quitar';
+                quitar.addEventListener('click', () => quitarArticulo(quitar));
+                celdaAcciones.appendChild(quitar);
+
+                // Muestra la unidad del artículo.
+                celdaCantidad.append(' ' + unidad);
+
+                document.getElementById('cuerpoArticulos').appendChild(fila);
+                select.value = '';
+                actualizarTotales();
+            };
+
+            window.guardarOrden = function () {
+                const datos = {
+                    estado: document.getElementById('estadoOrden').value,
+                    diagnostico: document.getElementById('diagnostico').value,
+                    servicios: [...document.querySelectorAll(
+                        '#listaServicios .service-row'
+                    )].map(fila => ({
+                        nombre: fila.querySelector('.service-name').textContent,
+                        precio: Number(
+                            fila.querySelector('.service-price').dataset.precio
+                        )
+                    })),
+                    articulos: [...document.querySelectorAll(
+                        '#cuerpoArticulos tr'
+                    )].map(fila => ({
+                        nombre: fila.cells[0].textContent.trim(),
+                        precio: Number(fila.dataset.precio),
+                        cantidad: Number(
+                            fila.querySelector('.cantidad-articulo').value
+                        )
+                    })),
+                    total: Number(
+                        document.getElementById('totalOrden')
+                            .textContent.replace('S/', '').trim()
+                            .replace(/\./g, '').replace(',', '.')
+                    )
+                };
+
+                // Temporal: permite revisar los datos mientras se implementa
+                // el endpoint POST de Spring Boot.
+                console.log('Datos de la orden:', datos);
+                alert('Los datos están preparados. Falta conectarlos al servidor para guardarlos en la base de datos.');
+            };
+
+            window.finalizarOrden = function () {
+                const estado = document.getElementById('estadoOrden');
+                if (estado.value === 'CANCELADA') {
+                    alert('No se puede finalizar una orden cancelada.');
+                    return;
+                }
+
+                if (!confirm('¿Deseas marcar esta orden como finalizada?')) {
+                    return;
+                }
+
+                estado.value = 'FINALIZADA';
+                actualizarTotales();
+                alert('Estado actualizado en pantalla. Guarda la orden para persistir el cambio en el servidor.');
+            };
+
+            actualizarTotales();
+        })();
+    </script>
+</div>
