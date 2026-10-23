@@ -1,57 +1,57 @@
-<!--<div th:fragment="tabla" xmlns:th="http://www.thymeleaf.org">-->
-<!--    <div class="d-flex justify-content-between gap-2 mb-3">-->
-<!--        <form th:action="@{/administracion}" method="get" class="input-group" style="max-width: 400px">-->
-<!--            <input type="hidden" name="elemento" value="clientes">-->
-<!--            <input type="search" name="filtro" class="form-control" placeholder="Buscar cliente..." th:value="${filtro}">-->
-<!--            <button class="btn btn-secondary" type="submit">-->
-<!--                <i class="bi bi-search"></i>-->
-<!--            </button>-->
-<!--        </form>-->
+<div th:fragment="tabla" xmlns:th="http://www.thymeleaf.org">
+    <div class="d-flex justify-content-between gap-2 mb-3">
+        <form th:action="@{/administracion}" method="get" class="input-group" style="max-width: 400px">
+            <input type="hidden" name="elemento" value="clientes">
+            <input type="search" name="filtro" class="form-control" placeholder="Buscar cliente..." th:value="${filtro}">
+            <button class="btn btn-secondary" type="submit">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
 
-<!--        <a th:href="@{/clientes/nuevo}" class="btn btn-success text-nowrap"><i class="bi bi-plus-lg"></i>Registrar cliente</a>-->
-<!--    </div>-->
+        <a th:href="@{/clientes/nuevo}" class="btn btn-success text-nowrap"><i class="bi bi-plus-lg"></i>Registrar cliente</a>
+    </div>
 
-<!--    <div class="table-responsive">-->
-<!--        <table class="table table-hover align-middle">-->
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
 
-<!--            <thead class="table-primary">-->
-<!--                <tr>-->
-<!--                    <th>Nombre</th>-->
-<!--                    <th>DNI</th>-->
-<!--                    <th>Teléfono</th>-->
-<!--                    <th>Correo electrónico</th>-->
-<!--                    <th>Acciones</th>-->
-<!--                </tr>-->
-<!--            </thead>-->
+            <thead class="table-primary">
+                <tr>
+                    <th>Nombre</th>
+                    <th>DNI</th>
+                    <th>Teléfono</th>
+                    <th>Correo electrónico</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
 
-<!--            <tbody>-->
-<!--                <tr th:each="cliente : ${clientes}">-->
-<!--                    <td>-->
-<!--                        <span th:text="${cliente.nombre}"></span>-->
-<!--                        <small class="d-block text-secondary" th:text="'ID: ' + ${cliente.codigo}"></small>-->
-<!--                    </td>-->
+            <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td>
+                       <span th:text="${cliente.nombre}"></span>
+                        <small class="d-block text-secondary" th:text="'ID: ' + ${cliente.codigo}"></small>
+                    </td>
 
-<!--                    <td th:text="${cliente.dni}"></td>-->
-<!--                    <td th:text="${cliente.telefono}"></td>-->
-<!--                    <td th:text="${cliente.correo}"></td>-->
+                    <td th:text="${cliente.dni}"></td>
+                    <td th:text="${cliente.telefono}"></td>
+                    <td th:text="${cliente.correo}"></td>
 
-<!--                    <td class="text-nowrap">-->
-<!--                        <a th:href="@{/clientes/editar/{id}(id=${cliente.idCliente})}" class="btn btn-warning btn-sm">-->
-<!--                            <i class="bi bi-pencil-square"></i>-->
-<!--                        </a>-->
+                    <td class="text-nowrap">
+                        <a th:href="@{/clientes/editar/{id}(id=${cliente.idCliente})}" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
 
-<!--                        <form th:action="@{/clientes/desactivar/{id}(id=${cliente.idCliente})}" method="post" class="d-inline">-->
-<!--                            <button type="submit" class="btn btn-danger btn-sm">-->
-<!--                                <i class="bi bi-x-lg"></i>-->
-<!--                            </button>-->
-<!--                        </form>-->
-<!--                    </td>-->
-<!--                </tr>-->
+                        <form th:action="@{/clientes/desactivar/{id}(id=${cliente.idCliente})}" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-x-lg"></i>
+                           </button>
+                        </form>
+                   </td>
+                </tr>
 
-<!--                <tr th:if="${#lists.isEmpty(clientes)}">-->
-<!--                    <td colspan="5" class="text-center">No hay clientes registrados.</td>-->
-<!--                </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
-<!--</div>-->
+               <tr th:if="${#lists.isEmpty(clientes)}">
+                   <td colspan="5" class="text-center">No hay clientes registrados.</td>
+               </tr>
+            </tbody>
+        </table>
+   </div>
+</div>

@@ -26,6 +26,6 @@ public class AdministracionController {
         if (elemento.equals("clientes")) {model.addAttribute("clientes", service.listarFiltrado(filtro));}
 
         model.addAttribute("filtro", filtro);
-        return "AdministracionFragment";
+        return "fragments/AdministracionFragment";
     }
 }
