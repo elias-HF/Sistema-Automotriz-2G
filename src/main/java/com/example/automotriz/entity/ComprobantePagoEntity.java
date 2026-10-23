@@ -1,55 +1,72 @@
 package com.example.automotriz.entity;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Table
-@Entity(name = "comprobante_pago")
+@Entity
+@Table(name = "comprobante_pago")
 public class ComprobantePagoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_comprobante")
-    private int id_comprobante;
+    private Integer id_comprobante;
 
-    @Column(name = "fechaHora_emision", nullable = false)
-    private LocalDateTime fechaHora_emision;
+    @Column(name = "codigo", nullable = false, unique = true, length = 20)
+    private String codigo;
 
-    @Column(name = "met_pago", length = 50, nullable = false)
-    private String met_pago = "EFECTIVO";
+    @Column(name = "tipo_comprobante", nullable = false, length = 20)
+    private String tipoComprobante;
 
-    @Column(name = "cod", nullable = false, length = 15, unique = true)
-    private String cod;
+    @Column(name = "medio_pago", nullable = false, length = 30)
+    private String medioPago;
 
-    @Column(name = "tipo_comp", length = 50, nullable = false)
-    private String tipo_comp = "FACTURA";
+    @Column(name = "estado_pago", nullable = false, length = 20)
+    private String estadoPago;
 
-    @Column(name = "estado", length = 50, nullable = false)
-    private String estado = "PENDIENTE";
+    @Column(name = "fecha_emision", nullable = false)
+    private LocalDateTime fechaEmision;
+
+    @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
+    private BigDecimal subtotal;
+
+    @Column(name = "igv", nullable = false, precision = 10, scale = 2)
+    private BigDecimal igv;
+
+    @Column(name = "total", nullable = false, precision = 10, scale = 2)
+    private BigDecimal total;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_orden", nullable = false)
+    @JoinColumn(name = "id_orden", nullable = false, unique = true)
     private OrdenServicioEntity orden;
 
-    public ComprobantePagoEntity() {}
+    public Integer getId_comprobante() {return id_comprobante;}
+    public void setId_comprobante(Integer id_comprobante) {this.id_comprobante = id_comprobante;}
 
-    public int getId_comprobante() {return id_comprobante;}
-    public void setId_comprobante(int id_comprobante) {this.id_comprobante = id_comprobante;}
+    public String getCodigo() {return codigo;}
+    public void setCodigo(String codigo) {this.codigo = codigo;}
 
-    public LocalDateTime getFechaHora_emision() {return fechaHora_emision;}
-    public void setFechaHora_emision(LocalDateTime fechaHora_emision) {this.fechaHora_emision = fechaHora_emision;}
+    public String getTipoComprobante() {return tipoComprobante;}
+    public void setTipoComprobante(String tipoComprobante) {this.tipoComprobante = tipoComprobante;}
 
-    public String getMet_pago() {return met_pago;}
-    public void setMet_pago(String met_pago) {this.met_pago = met_pago;}
+    public String getMedioPago() {return medioPago;}
+    public void setMedioPago(String medioPago) {this.medioPago = medioPago;}
 
-    public String getCod() {return cod;}
-    public void setCod(String cod) {this.cod = cod;}
+    public String getEstadoPago() {return estadoPago;}
+    public void setEstadoPago(String estadoPago) {this.estadoPago = estadoPago;}
 
-    public String getTipo_comp() {return tipo_comp;}
-    public void setTipo_comp(String tipo_comp) {this.tipo_comp = tipo_comp;}
+    public LocalDateTime getFechaEmision() {return fechaEmision;}
+    public void setFechaEmision(LocalDateTime fechaEmision) {this.fechaEmision = fechaEmision;}
 
-    public String getEstado() {return estado;}
-    public void setEstado(String estado) {this.estado = estado;}
+    public BigDecimal getSubtotal() {return subtotal;}
+    public void setSubtotal(BigDecimal subtotal) {this.subtotal = subtotal;}
+
+    public BigDecimal getIgv() {return igv;}
+    public void setIgv(BigDecimal igv) {this.igv = igv;}
+
+    public BigDecimal getTotal() {return total;}
+    public void setTotal(BigDecimal total) {this.total = total;}
 
     public OrdenServicioEntity getOrden() {return orden;}
     public void setOrden(OrdenServicioEntity orden) {this.orden = orden;}

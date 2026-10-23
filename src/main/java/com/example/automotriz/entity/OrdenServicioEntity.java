@@ -14,10 +14,10 @@ public class OrdenServicioEntity {
     @Column(name = "id_orden")
     private int id_orden;
 
-    @Column(name = "fechaHora_ingreso", nullable = false)
+    @Column(name = "fecha_hora_ingreso", nullable = false)
     private LocalDateTime fechaHora_ingreso;
 
-    @Column(name = "fechaHora_salida", nullable = false)
+    @Column(name = "fecha_hora_salida")
     private LocalDateTime fechaHora_salida;
 
     @Column(name = "diagnostico", nullable = false, length = 200)
@@ -30,7 +30,7 @@ public class OrdenServicioEntity {
     private String cod;
 
     @Column(name = "estado", length = 50, nullable = false)
-    private String estado = "APROBADA";
+    private String estado = "PENDIENTE";
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_vehiculo", nullable = false)

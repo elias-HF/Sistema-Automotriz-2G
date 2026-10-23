@@ -1,5 +1,9 @@
-
 package com.example.automotriz.controller;
+
+import com.example.automotriz.entity.ComprobantePagoEntity;
+import com.example.automotriz.entity.OrdenServicioEntity;
+import com.example.automotriz.repository.ComprobantePagoRepository;
+import com.example.automotriz.repository.OrdenRepository;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,166 +13,175 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/comprobante")
 public class ComprobanteController {
 
-    // Datos de prueba para mostrar órdenes finalizadas.
-    private final List<OrdenDemo> ordenesFinalizadas = List.of(
-            new OrdenDemo(
-                    124L, "MYT-089", "Toyota", "Yaris", "Carlos Manuel",
-                    "130.00", "165.84", "250.71", "45.13", "295.84"
-            ),
-            new OrdenDemo(
-                    125L, "BXZ-451", "Nissan", "Sentra", "Ariana Lucia",
-                    "180.00", "220.00", "338.98", "61.02", "400.00"
-            )
-    );
+    private final OrdenRepository ordenRepository;
+    private final ComprobantePagoRepository comprobanteRepository;
+
+    public ComprobanteController(
+            OrdenRepository ordenRepository,
+            ComprobantePagoRepository comprobantePagoRepository) {
+        this.ordenRepository = ordenRepository;
+        this.comprobanteRepository = comprobantePagoRepository;
+    }
 
     @GetMapping
-    public String mostrarFacturacion(
-            @RequestParam(required = false) Long ordenId,
+    public String mostrarComprobante(
+            @RequestParam(required = false) Integer ordenId,
             Model model) {
 
+        cargarOrdenesFinalizadas(model);
         model.addAttribute("vista", "comprobante");
-        model.addAttribute("ordenesFinalizadas", ordenesFinalizadas);
 
-        OrdenDemo ordenSeleccionada = ordenesFinalizadas.stream()
-                .filter(orden -> orden.getId().equals(ordenId))
-                .findFirst()
-                .orElse(null);
+        if (ordenId != null) {
+            OrdenServicioEntity orden = ordenRepository.findById(ordenId)
+                    .orElse(null);
 
-        model.addAttribute("ordenSeleccionada", ordenSeleccionada);
+            if (orden == null || !"FINALIZADA".equals(orden.getEstado())) {
+                model.addAttribute(
+                        "errorComprobante",
+                        "La orden no existe o no está finalizada."
+                );
+            } else {
+                model.addAttribute("ordenSeleccionada", orden);
 
-        if (ordenSeleccionada != null) {
-            model.addAttribute("costoArticulosTexto",
-                    "S/ " + ordenSeleccionada.getCostoArticulos());
-            model.addAttribute("costoServiciosTexto",
-                    "S/ " + ordenSeleccionada.getCostoServicios());
-            model.addAttribute("subtotalTexto",
-                    "S/ " + ordenSeleccionada.getSubtotal());
-            model.addAttribute("igvTexto",
-                    "S/ " + ordenSeleccionada.getIgv());
-            model.addAttribute("totalTexto",
-                    "S/ " + ordenSeleccionada.getTotal());
+                comprobanteRepository.findByOrden(orden)
+                        .ifPresent(comprobante ->
+                                model.addAttribute("comprobanteExistente", comprobante));
+
+                cargarImportes(model, orden.getMonto_total());
+            }
         }
-
-        model.addAttribute("fechaHora",
-                LocalDateTime.now().format(
-                        DateTimeFormatter.ofPattern("dd/MM/yyyy-HH:mm:ss")
-                ));
 
         return "view/Index";
     }
 
     @PostMapping("/emitir")
     public String emitirComprobante(
-            @RequestParam Long ordenId,
+            @RequestParam Integer ordenId,
             @RequestParam String tipoComprobante,
             @RequestParam String medioPago,
             @RequestParam String estadoPago,
             RedirectAttributes redirectAttributes) {
 
-        boolean ordenExiste = ordenesFinalizadas.stream()
-                .anyMatch(orden -> orden.getId().equals(ordenId));
+        OrdenServicioEntity orden = ordenRepository.findById(ordenId)
+                .orElse(null);
 
-        if (!ordenExiste) {
+        if (orden == null || !"FINALIZADA".equals(orden.getEstado())) {
             redirectAttributes.addFlashAttribute(
                     "errorComprobante",
-                    "La orden seleccionada no existe o no está finalizada."
+                    "Solo se pueden emitir comprobantes de órdenes finalizadas."
             );
             return "redirect:/comprobante";
         }
 
-        // Validación inicial de los datos recibidos.
-        if (!List.of("BOLETA", "FACTURA").contains(tipoComprobante)
-                || !List.of("YAPE_PLIN", "EFECTIVO", "TARJETA",
-                "TRANSFERENCIA").contains(medioPago)
-                || !List.of("PENDIENTE", "PAGADO", "PARCIAL")
-                .contains(estadoPago)) {
-
+        if (!tipoComprobante.equals("BOLETA")
+                && !tipoComprobante.equals("FACTURA")) {
             redirectAttributes.addFlashAttribute(
-                    "errorComprobante",
-                    "Verifica el tipo de comprobante y los datos del pago."
+                    "errorComprobante", "El tipo de comprobante no es válido."
             );
             return "redirect:/comprobante?ordenId=" + ordenId;
         }
 
-        // Temporal: todavía no se guarda en una base de datos.
+        if (!List.of("YAPE_PLIN", "EFECTIVO", "TARJETA", "TRANSFERENCIA")
+                .contains(medioPago)) {
+            redirectAttributes.addFlashAttribute(
+                    "errorComprobante", "El medio de pago no es válido."
+            );
+            return "redirect:/comprobante?ordenId=" + ordenId;
+        }
+
+        if (!List.of("PENDIENTE", "PAGADO", "PARCIAL").contains(estadoPago)) {
+            redirectAttributes.addFlashAttribute(
+                    "errorComprobante", "El estado de pago no es válido."
+            );
+            return "redirect:/comprobante?ordenId=" + ordenId;
+        }
+
+        if (comprobanteRepository.existsByOrden(orden)) {
+            redirectAttributes.addFlashAttribute(
+                    "errorComprobante",
+                    "Esta orden ya tiene un comprobante registrado."
+            );
+            return "redirect:/comprobante?ordenId=" + ordenId;
+        }
+
+        BigDecimal subtotal = orden.getMonto_total();
+
+        if (subtotal == null || subtotal.signum() < 0) {
+            redirectAttributes.addFlashAttribute(
+                    "errorComprobante", "El monto de la orden no es válido."
+            );
+            return "redirect:/comprobante?ordenId=" + ordenId;
+        }
+
+        subtotal = subtotal.setScale(2, RoundingMode.HALF_UP);
+
+        BigDecimal igv = subtotal.multiply(new BigDecimal("0.18"))
+                .setScale(2, RoundingMode.HALF_UP);
+
+        BigDecimal total = subtotal.add(igv)
+                .setScale(2, RoundingMode.HALF_UP);
+
+        ComprobantePagoEntity comprobante = new ComprobantePagoEntity();
+        comprobante.setOrden(orden);
+        comprobante.setTipoComprobante(tipoComprobante);
+        comprobante.setMedioPago(medioPago);
+        comprobante.setEstadoPago(estadoPago);
+        comprobante.setFechaEmision(LocalDateTime.now());
+        comprobante.setSubtotal(subtotal);
+        comprobante.setIgv(igv);
+        comprobante.setTotal(total);
+
+        // El ID de la orden permite generar un código identificable.
+        comprobante.setCodigo(String.format(
+                Locale.ROOT, "CMP-%05d", orden.getId_orden()
+        ));
+
+        comprobanteRepository.save(comprobante);
+
         redirectAttributes.addFlashAttribute(
                 "mensajeComprobante",
-                "Comprobante de prueba procesado para la orden #" + ordenId
-                        + ". Tipo: " + tipoComprobante
-                        + ". Estado de pago: " + estadoPago + "."
+                "Comprobante " + comprobante.getCodigo()
+                        + " emitido correctamente."
         );
 
         return "redirect:/comprobante?ordenId=" + ordenId;
     }
 
-    // DTO sencillo para los datos ficticios.
-    public static class OrdenDemo {
-        private final Long id;
-        private final VehiculoDemo vehiculo;
-        private final ClienteDemo cliente;
-        private final String costoArticulos;
-        private final String costoServicios;
-        private final String subtotal;
-        private final String igv;
-        private final String total;
+    private void cargarOrdenesFinalizadas(Model model) {
+        List<OrdenServicioEntity> finalizadas = ordenRepository.findAll()
+                .stream()
+                .filter(orden -> "FINALIZADA".equals(orden.getEstado()))
+                .toList();
 
-        public OrdenDemo(
-                Long id, String placa, String marca, String modelo,
-                String nombreCliente, String costoArticulos,
-                String costoServicios, String subtotal,
-                String igv, String total) {
-
-            this.id = id;
-            this.vehiculo = new VehiculoDemo(placa, marca, modelo);
-            this.cliente = new ClienteDemo(nombreCliente);
-            this.costoArticulos = costoArticulos;
-            this.costoServicios = costoServicios;
-            this.subtotal = subtotal;
-            this.igv = igv;
-            this.total = total;
-        }
-
-        public Long getId() { return id; }
-        public VehiculoDemo getVehiculo() { return vehiculo; }
-        public ClienteDemo getCliente() { return cliente; }
-        public String getCostoArticulos() { return costoArticulos; }
-        public String getCostoServicios() { return costoServicios; }
-        public String getSubtotal() { return subtotal; }
-        public String getIgv() { return igv; }
-        public String getTotal() { return total; }
+        model.addAttribute("ordenesFinalizadas", finalizadas);
     }
 
-    public static class VehiculoDemo {
-        private final String placa;
-        private final String marca;
-        private final String modelo;
-
-        public VehiculoDemo(String placa, String marca, String modelo) {
-            this.placa = placa;
-            this.marca = marca;
-            this.modelo = modelo;
+    private void cargarImportes(Model model, BigDecimal subtotalOriginal) {
+        if (subtotalOriginal == null || subtotalOriginal.signum() < 0) {
+            return;
         }
 
-        public String getPlaca() { return placa; }
-        public String getMarca() { return marca; }
-        public String getModelo() { return modelo; }
-    }
+        BigDecimal subtotal = subtotalOriginal.setScale(2, RoundingMode.HALF_UP);
+        BigDecimal igv = subtotal.multiply(new BigDecimal("0.18"))
+                .setScale(2, RoundingMode.HALF_UP);
+        BigDecimal total = subtotal.add(igv)
+                .setScale(2, RoundingMode.HALF_UP);
 
-    public static class ClienteDemo {
-        private final String nombre;
-
-        public ClienteDemo(String nombre) {
-            this.nombre = nombre;
-        }
-
-        public String getNombre() { return nombre; }
+        model.addAttribute("subtotalTexto", "S/ " + subtotal);
+        model.addAttribute("igvTexto", "S/ " + igv);
+        model.addAttribute("totalTexto", "S/ " + total);
+        model.addAttribute("fechaHora", LocalDateTime.now()
+                .format(java.time.format.DateTimeFormatter
+                        .ofPattern("dd/MM/yyyy HH:mm:ss")));
     }
 }

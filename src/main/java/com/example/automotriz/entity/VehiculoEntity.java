@@ -24,7 +24,7 @@ public class VehiculoEntity {
     private BigDecimal kilometros;
 
     @Column(name = "cod", unique = true, length = 15, nullable = false)
-    private int cod;
+    private String cod;
 
     @Column(name = "activo", nullable = false)
     private boolean activo = true;
@@ -51,8 +51,8 @@ public class VehiculoEntity {
     public BigDecimal getKilometros() {return kilometros;}
     public void setKilometros(BigDecimal kilometros) {this.kilometros = kilometros;}
 
-    public int getCod() {return cod;}
-    public void setCod(int cod) {this.cod = cod;}
+    public String getCod() {return cod;}
+    public void setCod(String cod) {this.cod = cod;}
 
     public boolean isActivo() {return activo;}
     public void setActivo(boolean activo) {this.activo = activo;}
