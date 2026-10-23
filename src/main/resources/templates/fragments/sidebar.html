@@ -1,34 +1,32 @@
 <aside th:fragment="sidebar" xmlns:th="http://www.thymeleaf.org" class="sidebar collapse show" id="sidebarMenu">
     <nav class="nav flex-column">
 
-        <a th:href="@{/dashboard}" class="nav-link"
-           th:classappend="${vista == 'dashboard'} ? ' active' : ''">
+        <a th:href="@{/dashboard}" class="nav-link" th:classappend="${vista == 'dashboard'} ? ' active' : ''">
             <i class="bi bi-speedometer2"></i>
             <span>Dashboard</span>
         </a>
 
-        <a th:href="@{/citas}" class="nav-link"
-           th:classappend="${vista == 'citas'} ? ' active' : ''">
+        <a th:href="@{/citas}" class="nav-link" th:classappend="${vista == 'citas'} ? ' active' : ''">
             <i class="bi bi-calendar-check"></i>
             <span>Gestión de citas</span>
         </a>
 
-        <a class="nav-link" th:href="@{/ordenes}">
+        <a class="nav-link" th:href="@{/ordenes}" th:classappend="${vista == 'ordenes'} ? ' active' : ''">
             <i class="bi bi-car-front-fill"></i>
             <span>Órdenes</span>
         </a>
 
-        <a class="nav-link" th:href="@{/comprobante}">
+        <a class="nav-link" th:href="@{/comprobante}" th:classappend="${vista == 'comprobante'} ? ' active' : ''">
             <i class="bi bi-receipt-cutoff"></i>
             <span>Comprobante</span>
         </a>
 
-        <a class="nav-link" th:href="@{/almacen}">
+        <a class="nav-link" th:href="@{/almacen}" th:classappend="${vista == 'almacen'} ? ' active' : ''">
             <i class="bi bi-box-seam-fill"></i>
             <span>Almacén</span>
         </a>
 
-        <a class="nav-link" th:href="@{/administracion}">
+        <a class="nav-link" th:href="@{/administracion}" th:classappend="${vista == 'administracion'} ? ' active' : ''">
             <i class="bi bi-gear-fill"></i>
             <span>Administración</span>
         </a>

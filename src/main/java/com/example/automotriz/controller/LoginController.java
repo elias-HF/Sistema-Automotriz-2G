@@ -16,12 +16,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String iniciarSesion(
-            @RequestParam String username,
-            @RequestParam String password,
-            @RequestParam String perfil,
-            HttpSession session) {
-
+    public String iniciarSesion(@RequestParam String username, @RequestParam String password, @RequestParam String perfil, HttpSession session) {
         // Usuarios ficticios para las pruebas
         boolean accesoValido =
                 (username.equals("admin") &&
@@ -40,11 +35,7 @@ public class LoginController {
                                 password.equals("1234") &&
                                 perfil.equals("ALMACEN"));
 
-        if (!accesoValido) {
-            return "redirect:/login?error";
-        }
-
-        // Guardar datos de la sesión de prueba
+        if (!accesoValido) {return "redirect:/login?error";}
         session.setAttribute("usuario", username);
         session.setAttribute("perfil", perfil);
 
@@ -53,8 +44,7 @@ public class LoginController {
 
     @GetMapping("/recuperar-password")
     public String mostrarRecuperacion(Model model) {
-        model.addAttribute("mensaje",
-                "Contacta con el administrador del sistema.");
+        model.addAttribute("mensaje", "Contacta con el administrador del sistema.");
         return "fragments/login";
     }
 

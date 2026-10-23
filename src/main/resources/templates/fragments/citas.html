@@ -1,45 +1,89 @@
 
 <div th:fragment="content">
 
-    <!-- Encabezado igual al dashboard -->
-    <div class="page-heading mb-3">
-        <h1>GESTIÓN DE CITAS</h1>
-        <p>Organiza las citas de atención y la recepción de vehículos.</p>
+    <!-- ENCABEZADO -->
+    <div class="page-heading appointments-heading mb-2">
+        <div>
+            <h1>GESTIÓN DE CITAS</h1>
+            <p>Organiza las citas de atención y la recepción de vehículos.</p>
+        </div>
+
+        <a th:href="@{/citas/nueva}" href="/citas/nueva"
+           class="btn btn-success btn-new-appointment">
+            <i class="bi bi-plus-lg"></i>
+            <span>AGENDAR<br>CITA</span>
+        </a>
     </div>
 
-    <!-- Calendario y citas del día -->
-    <div class="row g-3">
+    <!-- CALENDARIO Y CITAS DEL DÍA -->
+    <div class="row g-2 appointments-layout">
 
-        <!-- Calendario -->
-        <div class="col-12 col-xl-7">
-            <section class="panel h-100">
-                <h2 class="section-title">CALENDARIO DE CITAS</h2>
-                <p class="section-subtitle">
-                    Selecciona una fecha para consultar las citas programadas.
-                </p>
+        <!-- CALENDARIO -->
+        <div class="col-12 col-xl-8">
+            <section class="panel calendar-panel">
 
+                <h2 class="section-title">CALENDARIO</h2>
+
+                <!-- FullCalendar genera aquí su propia barra de controles -->
                 <div id="calendar" class="calendar-container"></div>
+
+                <div class="calendar-summary">
+                    <strong>N.º de Citas Programadas:</strong>
+                    <span id="totalCitasProgramadas"
+                          th:text="${totalCitas != null ? totalCitas : 3}">3</span>
+                </div>
+
             </section>
         </div>
 
-        <!-- Citas del día -->
-        <div class="col-12 col-xl-5">
-            <section class="panel h-100">
+        <!-- CITAS DEL DÍA -->
+        <div class="col-12 col-xl-4">
+            <section class="panel appointments-panel">
+
                 <h2 class="section-title">CITAS DEL DÍA</h2>
 
-                <p class="section-subtitle"
-                   id="fechaTextoSeleccionada">
+                <p class="appointments-date" id="fechaTextoSeleccionada">
                     Selecciona una fecha del calendario.
                 </p>
 
                 <div id="contenedorCitasDia" class="appointments-list">
-                    <div class="empty-appointments">
-                        <i class="bi bi-calendar2-x"></i>
-                        <p>Selecciona una fecha para ver sus citas.</p>
-                    </div>
+
+                    <!-- Ejemplos visuales: puedes reemplazarlos con los datos
+                         que devuelve tu JavaScript de FullCalendar. -->
+                    <article class="appointment-item">
+                        <div class="appointment-time">09:00 AM</div>
+
+                        <div class="appointment-details">
+                            <p><strong>Marca/Modelo:</strong> Toyota Yaris</p>
+                            <p><strong>Placa:</strong> MYT-089</p>
+                            <p><strong>Cliente:</strong> Carlos Manuel</p>
+                        </div>
+
+                        <a href="/citas"
+                           class="btn btn-primary btn-convert-order">
+                            Convertir a orden
+                        </a>
+                    </article>
+
+                    <article class="appointment-item">
+                        <div class="appointment-time">03:30 PM</div>
+
+                        <div class="appointment-details">
+                            <p><strong>Marca/Modelo:</strong> Nissan Sentra</p>
+                            <p><strong>Placa:</strong> BXZ-451</p>
+                            <p><strong>Cliente:</strong> Ariana Lucía</p>
+                        </div>
+
+                        <a href="/citas"
+                           class="btn btn-primary btn-convert-order">
+                            Convertir a orden
+                        </a>
+                    </article>
+
                 </div>
             </section>
         </div>
 
     </div>
+
 </div>

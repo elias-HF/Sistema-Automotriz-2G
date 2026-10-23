@@ -178,16 +178,30 @@
         if (!calendarEl) return;
 
         const calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
+            /* initialView: 'dayGridMonth',
             locale: 'es',
-            initialDate: '2026-09-23',
+            initialDate: '2026-09-23',*/
+            initialView: 'dayGridMonth',
+            height: 'auto',
+            fixedWeekCount: false,
+            dayMaxEvents: false,
 
-            headerToolbar: {
+            /* headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek'
+            }, */
+            headerToolbar: {
+                left: 'prev,title,next',
+                center: '',
+                right: 'dayGridMonth,timeGridWeek'
             },
 
+            /* buttonText: {
+                today: 'Hoy',
+                month: 'Mes',
+                week: 'Semana'
+            }, */
             buttonText: {
                 today: 'Hoy',
                 month: 'Mes',

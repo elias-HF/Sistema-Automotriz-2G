@@ -1,150 +1,335 @@
 
-/* CONTENEDOR DEL CALENDARIO */
-.calendar-container {
-    position: relative;
-    width: 100%;
-    min-height: 440px;
-    font-size: 12px;
-}
+/* ===== ENCABEZADO DE CITAS ===== */
 
-/* LISTADO DE CITAS DEL DÍA */
-.appointments-list {
+.appointments-heading {
     display: flex;
-    flex-direction: column;
-    gap: 14px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #bfc7d0;
 }
 
-.appointment-item {
-    padding: 14px;
-    border: 1px solid #e1e6ed;
-    border-left: 4px solid var(--amarillo);
-    border-radius: 6px;
-    background: #fff;
+.appointments-heading .page-heading,
+.appointments-heading h1 {
+    margin-bottom: 0;
 }
 
-.appointment-time {
-    display: inline-block;
-    padding: 6px 10px;
-    margin-bottom: 12px;
-    border-radius: 4px;
-    background: #fff3d2;
-    color: #775300;
+.btn-new-appointment {
+    min-width: 116px;
+    min-height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.btn-new-appointment i {
+    font-size: 25px;
+}
+
+/* ===== DISTRIBUCIÓN PRINCIPAL ===== */
+
+.appointments-layout {
+    align-items: stretch;
+}
+
+.calendar-panel,
+.appointments-panel {
+    height: 100%;
+    padding: 12px 17px 10px;
+}
+
+.calendar-panel .section-title,
+.appointments-panel .section-title {
+    margin-bottom: 6px;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+/* ===== CALENDARIO ===== */
+
+.calendar-container {
+    width: 100%;
+    min-height: 0;
     font-size: 12px;
-    font-weight: 700;
 }
 
-.appointment-details h3 {
-    margin: 0 0 10px;
-    color: var(--azul-oscuro);
-    font-size: 15px;
-    font-weight: 700;
+#calendar .fc-toolbar {
+    margin-bottom: 8px;
+    gap: 6px;
 }
 
-.appointment-details p {
-    margin-bottom: 7px;
-    color: #505966;
-    font-size: 12px;
-}
-
-.appointment-details p i {
-    color: var(--azul-principal);
-}
-
-.appointment-item .btn {
-    margin-top: 8px;
-    border-color: var(--azul-principal);
-    color: var(--azul-principal);
-    font-weight: 600;
-}
-
-.appointment-item .btn:hover {
-    background: var(--azul-principal);
-    color: white;
-}
-
-/* ESTADO SIN CITAS */
-.empty-appointments {
-    padding: 35px 15px;
-    text-align: center;
-    color: #87909b;
-    background: #f8f9fb;
-    border: 1px dashed #d6dce4;
-    border-radius: 6px;
-}
-
-.empty-appointments i {
-    display: block;
-    margin-bottom: 12px;
-    font-size: 32px;
-}
-
-.empty-appointments p {
-    margin: 0;
-    font-size: 13px;
-}
-
-/* FULLCALENDAR */
 #calendar .fc-toolbar-title {
-    color: var(--azul-oscuro);
-    font-size: 18px;
+    color: #164c78;
+    font-size: 16px;
     font-weight: 700;
 }
 
-#calendar .fc-col-header-cell {
-    background: var(--azul-oscuro);
+#calendar .fc-toolbar-chunk {
+    display: flex;
+    align-items: center;
+    gap: 3px;
 }
 
-#calendar .fc-col-header-cell-cushion {
-    color: white;
-    padding: 8px 3px;
-    text-decoration: none;
+#calendar .fc-button {
+    padding: 4px 9px;
+    font-size: 11px;
+    line-height: 1.3;
+    box-shadow: none !important;
+    text-transform: capitalize;
 }
 
 #calendar .fc-button-primary {
-    background: var(--azul-principal);
-    border-color: var(--azul-principal);
-    text-transform: capitalize;
+    color: #263544;
+    background: #dce7f1;
+    border: 1px solid #bac9d7;
 }
 
 #calendar .fc-button-primary:hover,
 #calendar .fc-button-primary:focus {
-    background: var(--azul-profundo);
-    border-color: var(--azul-profundo);
+    color: #164c78;
+    background: #c8d9e9;
+    border-color: #a8bdcf;
 }
 
 #calendar .fc-button-primary:disabled {
-    background: #87909b;
-    border-color: #87909b;
+    color: #fff;
+    background: #aab8c6;
+    border-color: #aab8c6;
+    opacity: 1;
 }
 
-#calendar .fc-daygrid-day.fc-day-today {
-    background: #fff4d6;
+#calendar .fc-button-primary:not(:disabled).fc-button-active {
+    color: #fff;
+    background: #164c78;
+    border-color: #164c78;
 }
 
-#calendar .fc-event {
-    cursor: pointer;
-    border: none;
-    padding: 2px 3px;
+#calendar .fc-col-header-cell {
+    background: #f5b719;
+    border-color: #f5b719;
+}
+
+#calendar .fc-col-header-cell-cushion {
+    display: block;
+    padding: 6px 2px;
+    color: #fff;
     font-size: 11px;
-}
-
-#calendar .fc-daygrid-day-number {
-    color: var(--texto);
+    font-weight: 700;
     text-decoration: none;
 }
 
-/* RESPONSIVE */
+#calendar .fc-daygrid-day-number {
+    padding: 8px;
+    color: #242a30;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#calendar .fc-daygrid-day-frame {
+    min-height: 49px;
+}
+
+#calendar .fc-daygrid-day.fc-day-today {
+    background: #dce8f4;
+}
+
+#calendar .fc-day-other .fc-daygrid-day-number {
+    color: #a0a0a0;
+}
+
+#calendar .fc-daygrid-day {
+    cursor: pointer;
+}
+
+#calendar .fc-daygrid-day:hover {
+    background-color: #eef4fa;
+}
+
+#calendar .fc-scrollgrid,
+#calendar .fc-scrollgrid td,
+#calendar .fc-scrollgrid th {
+    border-color: #d9e4ef;
+}
+
+#calendar .fc-event {
+    padding: 1px 3px;
+    border: none;
+    border-radius: 2px;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+/* Oculta el listado de eventos dentro de cada fecha para
+   mantener el calendario despejado como en la referencia. */
+#calendar .fc-daygrid-day-events {
+    margin-bottom: 2px;
+}
+
+/* RESUMEN DEL CALENDARIO */
+
+.calendar-summary {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 5px;
+    padding: 7px 0 2px;
+    border-top: 1px solid #d9e4ef;
+    font-size: 11px;
+}
+
+/* ===== CITAS DEL DÍA ===== */
+
+.appointments-date {
+    margin: 0;
+    padding: 4px 0 7px;
+    border-bottom: 1px solid #d9e4ef;
+    color: #a0adbd;
+    text-align: right;
+    font-size: 12px;
+}
+
+.appointments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.appointment-item {
+    padding: 7px 0 5px;
+    background: #fff;
+    border: 0;
+    border-bottom: 1px solid #cbd5df;
+    border-radius: 0;
+}
+
+.appointment-time {
+    display: inline-block;
+    min-width: 92px;
+    margin-bottom: 6px;
+    padding: 4px 9px;
+    border-radius: 3px;
+    background: #f5b719;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.appointment-details {
+    margin-bottom: 4px;
+}
+
+.appointment-details h3 {
+    margin: 0 0 5px;
+    color: #164c78;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.appointment-details p {
+    margin-bottom: 2px;
+    color: #242a30;
+    font-size: 10px;
+    line-height: 1.25;
+}
+
+.appointment-details p i {
+    color: #2477b9;
+}
+
+.btn-convert-order {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding: 3px 6px;
+    border-radius: 3px;
+    border: none;
+    background: #216eae;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.btn-convert-order:hover {
+    background: #164c78;
+    color: #fff;
+}
+
+/* ESTADO VACÍO */
+
+.empty-appointments {
+    padding: 30px 12px;
+    color: #87909b;
+    text-align: center;
+    font-size: 12px;
+}
+
+.empty-appointments i {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 28px;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (min-width: 1200px) {
+    #calendar .fc-daygrid-day-frame {
+        min-height: 50px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .appointments-panel {
+        min-height: 250px;
+    }
+
+    .appointments-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 16px;
+    }
+}
+
 @media (max-width: 767px) {
-    .calendar-container {
-        min-height: 380px;
+    .appointments-heading {
+        align-items: flex-start;
+    }
+
+    .btn-new-appointment {
+        min-width: 100px;
+    }
+
+    .calendar-panel,
+    .appointments-panel {
+        padding: 12px;
     }
 
     #calendar .fc-toolbar {
         flex-wrap: wrap;
-        gap: 8px;
     }
 
     #calendar .fc-toolbar-title {
-        font-size: 15px;
+        font-size: 14px;
+    }
+
+    #calendar .fc-daygrid-day-frame {
+        min-height: 38px;
+    }
+
+    #calendar .fc-daygrid-day-number {
+        padding: 5px;
+    }
+
+    .appointments-list {
+        grid-template-columns: 1fr;
     }
 }

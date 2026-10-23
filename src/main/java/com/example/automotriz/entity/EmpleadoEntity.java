@@ -31,7 +31,7 @@ public class EmpleadoEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_rol", nullable = false)
-    private RolEntity id_rol;
+    private RolEntity rol;
 
     public EmpleadoEntity() {}
 
@@ -53,9 +53,9 @@ public class EmpleadoEntity {
     public String getContrasenia() {return contrasenia;}
     public void setContrasenia(String contrasenia) {this.contrasenia = contrasenia;}
 
-    public boolean isActivo() {return activo;}
+    public Boolean getActivo() {return activo;}
     public void setActivo(boolean activo) {this.activo = activo;}
 
-    public RolEntity getId_rol() {return id_rol;}
-    public void setId_rol(RolEntity id_rol) {this.id_rol = id_rol;}
+    public RolEntity getRol() {return rol;}
+    public void setRol(RolEntity rol) {this.rol = rol;}
 }
