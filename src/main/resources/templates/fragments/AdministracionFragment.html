@@ -43,12 +43,12 @@
 
             <section class="bg-white rounded shadow-sm p-3">
                 <h2 th:text="'Lista de ' + ${elemento}">LISTA DE CLIENTES</h2>
-                <div th:if="${elemento == 'empleados'}" th:replace="~{fragments/administracion/tablaEmpleado :: tabla}"></div>
+                <div th:if="${elemento == 'empleados'}" th:replace="~{fragments/administracion/tablaEmpleado :: tablaEmpleado}"></div>
                 <div th:if="${elemento == 'clientes'}" th:replace="~{fragments/administracion/tablaCliente :: tabla}"></div>
-                <div th:if="${elemento == 'vehiculos'}" th:replace="~{fragments/administracion/tablaVehiculo :: tabla}"></div>
-                <div th:if="${elemento == 'servicios'}" th:replace="~{fragments/administracion/tablaServicio :: tabla}"></div>
-                <div th:if="${elemento == 'comprobantes'}" th:replace="~{fragments/administracion/tablaComprobante :: tabla}"></div>
-                <div th:if="${elemento == 'categorias'}" th:replace="~{fragments/administracion/tablaCategoria :: tabla}"></div>
+                <div th:if="${elemento == 'vehiculos'}" th:replace="~{fragments/administracion/tablaVehiculo :: tablaVehiculo}"></div>
+                <div th:if="${elemento == 'servicios'}" th:replace="~{fragments/administracion/tablaServicio :: tablaServicio}"></div>
+                <div th:if="${elemento == 'comprobantes'}" th:replace="~{fragments/administracion/tablaComprobante :: tablaComprobante}"></div>
+                <div th:if="${elemento == 'categorias'}" th:replace="~{fragments/administracion/tablaCategoria :: tablaCategoria}"></div>
 
             </section>
 
