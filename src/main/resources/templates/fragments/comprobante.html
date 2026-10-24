@@ -14,8 +14,8 @@
             <div class="col-12 col-md">
                 <select class="form-select" id="ordenId" name="ordenId" required>
                     <option value="">Seleccione una orden...</option>
-                    <option th:each="orden : ${ordenesFinalizadas}" th:value="${orden.id_orden}" th:selected="${ordenSeleccionada != null
-                     and ordenSeleccionada.id_orden == orden.id_orden}" th:text="'Ord. #' + ${orden.id_orden} + ' / ' + ${orden.vehiculo.placa}">
+                    <option th:each="orden : ${ordenesFinalizadas}" th:value="${orden.id}" th:selected="${ordenSeleccionada != null
+                     and ordenSeleccionada.id == orden.id}" th:text="'Ord. #' + ${orden.id} + ' / ' + ${orden.vehiculo.placa}">
                         Ord. #00124 / MYT-089
                     </option>
                 </select>
@@ -93,7 +93,7 @@
                 <form id="formComprobante" th:action="@{/comprobante/emitir}" method="post">
                     <!-- Token CSRF de Spring Security, si está habilitado -->
                     <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                    <input type="hidden" name="ordenId" id="ordenIdFormulario" th:value="${ordenSeleccionada != null ? ordenSeleccionada.id_orden : ''}">
+                    <input type="hidden" name="ordenId" id="ordenIdFormulario" th:value="${ordenSeleccionada != null ? ordenSeleccionada.id : ''}">
                     <div class="mb-3">
                         <label class="form-label fw-bold">Tipo de comprobante</label>
                         <div class="form-check">

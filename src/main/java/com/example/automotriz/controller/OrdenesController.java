@@ -102,6 +102,23 @@ public class OrdenesController {
         }
     }
 
+    @PostMapping("/actualizar")
+    public String actualizarOrden(
+            @RequestParam int idOrden,
+            @RequestParam String diagnostico,
+            @RequestParam BigDecimal montoTotal,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            OrdenServicioEntity orden = ordenService.actualizarOrden(idOrden, diagnostico, montoTotal);
+            redirectAttributes.addFlashAttribute("mensajeOrden", "¡Los datos de la orden se guardaron correctamente en la base de datos!");
+            return "redirect:/ordenes?codigo=" + orden.getCod();
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorOrden", e.getMessage());
+            return "redirect:/ordenes";
+        }
+    }
+
     // Cargar orden finalizada para el comprobante
     @GetMapping("/comprobante")
     public String mostrarComprobante(

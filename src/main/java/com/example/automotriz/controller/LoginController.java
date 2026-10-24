@@ -18,6 +18,9 @@ public class LoginController {
     @PostMapping("/login")
     public String iniciarSesion(@RequestParam String username, @RequestParam String password, @RequestParam String perfil, HttpSession session) {
         // Usuarios ficticios para las pruebas
+
+        System.out.println(">>> LOGIN INTENTO - Usuario: [" + username + "], Password: [" + password + "], Perfil: [" + perfil + "]");
+
         boolean accesoValido =
                 (username.equals("admin") &&
                         password.equals("1234") &&
@@ -45,12 +48,12 @@ public class LoginController {
     @GetMapping("/recuperar-password")
     public String mostrarRecuperacion(Model model) {
         model.addAttribute("mensaje", "Contacta con el administrador del sistema.");
-        return "fragments/login";
+        return "/login";
     }
 
     @GetMapping("/cerrar-sesion")
     public String cerrarSesion(HttpSession session) {
         session.invalidate();
-        return "redirect:fragments/login";
+        return "redirect:/login";
     }
 }

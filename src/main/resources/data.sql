@@ -25,11 +25,9 @@ INSERT INTO modelo (nombre, id_marca) VALUES ('Accent', 2);
 INSERT INTO modelo (nombre, id_marca) VALUES ('Rio', 3);
 
 INSERT INTO cliente (nombre, telefono, correo, cod, dni, activo)
-VALUES ('Carlos Mendoza', '987654321', 'carlos@gmail.com', 'CLI-00001', '71234561', TRUE);
-INSERT INTO cliente (nombre, telefono, correo, cod, dni, activo)
-VALUES ('María Torres', '986123456', 'maria@gmail.com', 'CLI-00002', '72345612', TRUE);
-INSERT INTO cliente (nombre, telefono, correo, cod, dni, activo)
-VALUES ('Luis Ramírez', '985234567', 'luis@gmail.com', 'CLI-00003', '73456123', TRUE);
+VALUES ('Carlos Mendoza', '987654321', 'carlos@gmail.com', 'CLI-00001', '71234561', TRUE),
+('María Torres', '986123456', 'maria@gmail.com', 'CLI-00002', '72345612', TRUE),
+('Luis Ramírez', '985234567', 'luis@gmail.com', 'CLI-00003', '73456123', TRUE);
 
 INSERT INTO medio_contacto (nombre) VALUES ('Teléfono');
 INSERT INTO medio_contacto (nombre) VALUES ('WhatsApp');

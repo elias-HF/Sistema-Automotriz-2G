@@ -12,7 +12,7 @@ public class OrdenServicioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_orden")
-    private int id_orden;
+    private int id;
 
     @Column(name = "fecha_hora_ingreso", nullable = false)
     private LocalDateTime fechaHora_ingreso;
@@ -38,8 +38,8 @@ public class OrdenServicioEntity {
 
     public OrdenServicioEntity() {}
 
-    public int getId_orden() {return id_orden;}
-    public void setId_orden(int id_orden) {this.id_orden = id_orden;}
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
 
     public LocalDateTime getFechaHora_ingreso() {return fechaHora_ingreso;}
     public void setFechaHora_ingreso(LocalDateTime fechaHora_ingreso) {this.fechaHora_ingreso = fechaHora_ingreso;}

@@ -11,7 +11,7 @@ public class ComprobantePagoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_comprobante")
-    private Integer id_comprobante;
+    private Integer id;
 
     @Column(name = "codigo", nullable = false, unique = true, length = 20)
     private String codigo;
@@ -41,8 +41,8 @@ public class ComprobantePagoEntity {
     @JoinColumn(name = "id_orden", nullable = false, unique = true)
     private OrdenServicioEntity orden;
 
-    public Integer getId_comprobante() {return id_comprobante;}
-    public void setId_comprobante(Integer id_comprobante) {this.id_comprobante = id_comprobante;}
+    public Integer getId() {return id;}
+    public void setId(Integer id) {this.id = id;}
 
     public String getCodigo() {return codigo;}
     public void setCodigo(String codigo) {this.codigo = codigo;}

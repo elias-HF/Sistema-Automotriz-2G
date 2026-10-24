@@ -250,10 +250,19 @@
 
     <div class="d-flex flex-wrap justify-content-end gap-2 mb-3">
         <form th:if="${orden != null and orden.estado != 'FINALIZADA' and orden.estado != 'CANCELADA'}" th:action="@{/ordenes/finalizar}" method="post" onsubmit="return confirm('¿Deseas finalizar esta orden y generar su comprobante?');">
-            <input type="hidden" name="idOrden" th:value="${orden.id_orden}">
+            <input type="hidden" name="idOrden" th:value="${orden.id}">
             <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-patch-check-fill me-2"></i>Finalizar orden</button>
         </form>
-        <button type="button" class="btn btn-primary btn-lg" onclick="guardarOrden()"><i class="bi bi-floppy-fill me-2"></i>Guardar orden</button>
+
+        <form th:action="@{/ordenes/actualizar}" method="post" id="formGuardarOrden">
+            <input type="hidden" name="idOrden" th:value="${orden != null ? orden.id : 0}">
+            <input type="hidden" name="montoTotal" id="inputMontoTotal" value="0">
+            <input type="hidden" name="diagnostico" id="inputDiagnostico" value="">
+
+            <button type="submit" class="btn btn-primary btn-lg" onclick="guardarOrden()">
+                <i class="bi bi-floppy-fill me-2"></i>Guardar orden
+            </button>
+        </form>
     </div>
 
     <script>
@@ -435,24 +444,22 @@
             };
 
             window.guardarOrden = function () {
-                const estadoElemento = document.getElementById('estadoOrden');
-                const diagnosticoElemento = document.getElementById('diagnostico');
+                const ordenId = document.querySelector('input[name="idOrden"]').value;
+                if (!ordenId || ordenId === "0") {
+                    alert('Primero debes buscar o seleccionar una orden existente para guardar los cambios.');
+                    return;
+                }
 
-                const datos = {
-                    estado: estadoElemento ? estadoElemento.value : 'PENDIENTE',
-                    diagnostico: diagnosticoElemento ? diagnosticoElemento.value : '', servicios: [...document.querySelectorAll('#listaServicios .service-row')]
-                        .map(fila => ({nombre: fila.querySelector('.service-name').textContent, precio: Number(fila.querySelector('.service-price').dataset.precio)
-                    })),
-                    articulos: [...document.querySelectorAll('#cuerpoArticulos tr')].map(fila => ({
-                        nombre: fila.cells[0].textContent.trim(),
-                        precio: Number(fila.dataset.precio),
-                        cantidad: Number(fila.querySelector('.cantidad-articulo').value)
-                    })),
-                    total: Number(document.getElementById('totalOrden').textContent.replace('S/', '').trim().replace(/\./g, '').replace(',', '.'))
-                };
+                const totalTexto = document.getElementById('totalOrden').textContent;
+                const totalNumerico = Number(
+                    totalTexto.replace('S/', '').trim().replace(',', '')
+                );
+                document.getElementById('inputMontoTotal').value = totalNumerico;
 
-                console.log('Datos de la orden:', datos);
-                alert('Los datos están preparados, pero esta función todavía no los guarda en la base de datos.');
+                const textoDiagnostico = document.getElementById('diagnostico').value;
+                document.getElementById('inputDiagnostico').value = textoDiagnostico;
+
+                document.getElementById('formGuardarOrden').submit();
             };
 
             window.finalizarOrden = function () {

@@ -89,7 +89,7 @@ public class OrdenesService {
                 ordenRepository.saveAndFlush(orden);
 
         String codigo = String.format(
-                Locale.ROOT, "ORD-%05d", guardada.getId_orden());
+                Locale.ROOT, "ORD-%05d", guardada.getId());
 
         if (ordenRepository.existsByCod(codigo)) {
             throw new IllegalStateException(
@@ -100,6 +100,30 @@ public class OrdenesService {
 
         return ordenRepository.save(guardada);
     }
+
+    @Transactional
+    public OrdenServicioEntity actualizarOrden(int idOrden, String diagnostico, BigDecimal montoTotal) {
+        OrdenServicioEntity orden = ordenRepository.findById(idOrden)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró la orden solicitada."));
+
+        if ("FINALIZADA".equals(orden.getEstado()) || "CANCELADA".equals(orden.getEstado())) {
+            throw new IllegalArgumentException("No se puede modificar una orden finalizada o cancelada.");
+        }
+
+        if (diagnostico != null && !diagnostico.isBlank()) {
+            if (diagnostico.trim().length() > 200) {
+                throw new IllegalArgumentException("El diagnóstico no puede superar los 200 caracteres.");
+            }
+            orden.setDiagnostico(diagnostico.trim());
+        }
+
+        if (montoTotal != null && montoTotal.signum() >= 0) {
+            orden.setMonto_total(montoTotal);
+        }
+
+        return ordenRepository.save(orden);
+    }
+
 
     @Transactional
     public OrdenServicioEntity finalizar(int idOrden) {

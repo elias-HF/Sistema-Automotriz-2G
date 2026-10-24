@@ -143,7 +143,7 @@ public class ComprobanteController {
 
         // El ID de la orden permite generar un código identificable.
         comprobante.setCodigo(String.format(
-                Locale.ROOT, "CMP-%05d", orden.getId_orden()
+                Locale.ROOT, "CMP-%05d", orden.getId()
         ));
 
         comprobanteRepository.save(comprobante);
