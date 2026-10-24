@@ -26,7 +26,8 @@
                 <label for="idVehiculo" class="form-label">Vehículo</label>
                 <select id="idVehiculo" name="idVehiculo" class="form-select" required>
                     <option value="">Seleccionar vehículo...</option>
-                    <option th:each="vehiculo : ${vehiculos}" th:value="${vehiculo.id_vehiculo}" th:text="${vehiculo.placa + ' - ' +
+                    <option th:each="vehiculo : ${vehiculos}" th:value="${vehiculo.id_vehiculo}" th:selected="${citaSeleccionada != null and citaSeleccionada.vehiculo.id_vehiculo == vehiculo.id_vehiculo}"
+                            th:text="${vehiculo.placa + ' - ' +
                                   vehiculo.modelo.marca.nombre + ' ' +
                                   vehiculo.modelo.nombre + ' - ' +
                                   vehiculo.cliente.nombre}">
@@ -41,7 +42,7 @@
 
             <div class="col-12">
                 <label for="diagnosticoNuevo" class="form-label">Diagnóstico inicial</label>
-                <textarea id="diagnosticoNuevo" name="diagnostico" class="form-control" rows="3" maxlength="200" placeholder="Describe el problema del vehículo..." required></textarea>
+                <textarea id="diagnosticoNuevo" name="diagnostico" class="form-control" rows="3" maxlength="200" placeholder="Describe el problema del vehículo..." required th:text="${citaSeleccionada != null ? citaSeleccionada.motivo : ''}"></textarea>
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle me-1"></i>Crear orden</button>
