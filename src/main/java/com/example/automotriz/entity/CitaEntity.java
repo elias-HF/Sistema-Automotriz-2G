@@ -12,7 +12,7 @@ public class CitaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cita")
-    private int id_cita;
+    private int id;
 
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
@@ -43,8 +43,8 @@ public class CitaEntity {
 
     public CitaEntity() {}
 
-    public int getId_cita() {return id_cita;}
-    public void setId_cita(int id_cita) {this.id_cita = id_cita;}
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
 
     public VehiculoEntity getVehiculo() {return vehiculo;}
     public void setVehiculo(VehiculoEntity vehiculo) {this.vehiculo = vehiculo;}

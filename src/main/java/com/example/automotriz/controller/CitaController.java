@@ -59,13 +59,13 @@ public class CitaController {
 
             LocalDateTime fechaHora = LocalDateTime.of(cita.getFecha(), cita.getHora());
 
-            evento.put("id", cita.getId_cita());
+            evento.put("id", cita.getId());
             evento.put("title", modelo + " - " + nombreCliente);
             evento.put("start", fechaHora.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             evento.put("color", colorPorEstado(cita.getEstado()));
 
             Map<String, Object> datos = new HashMap<>();
-            datos.put("idCita", cita.getId_cita());
+            datos.put("idCita", cita.getId());
             datos.put("codigo", cita.getCod());
             datos.put("hora", cita.getHora().toString());
             datos.put("marcaModelo", modelo);
