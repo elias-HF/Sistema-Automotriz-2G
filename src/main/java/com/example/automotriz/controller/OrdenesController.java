@@ -2,6 +2,7 @@ package com.example.automotriz.controller;
 
 import com.example.automotriz.entity.CitaEntity;
 import com.example.automotriz.entity.OrdenServicioEntity;
+import com.example.automotriz.repository.CitaRepository;
 import com.example.automotriz.repository.VehiculoRepository;
 import com.example.automotriz.service.CitaService;
 import com.example.automotriz.service.OrdenesService;
@@ -23,13 +24,15 @@ public class OrdenesController {
     private final OrdenesService ordenService;
     private final CitaService citaService;
     private final VehiculoRepository vehiculoRepository;
+    private final CitaRepository citaRepository;
 
     public OrdenesController(
             OrdenesService ordenService,CitaService citaService,
-            VehiculoRepository vehiculoRepository) {
+            VehiculoRepository vehiculoRepository, CitaRepository citaRepository) {
         this.ordenService = ordenService;
         this.citaService = citaService;
         this.vehiculoRepository = vehiculoRepository;
+        this.citaRepository = citaRepository;
     }
 
     @GetMapping("/crear")
@@ -38,8 +41,9 @@ public class OrdenesController {
             Model model) {
 
         if (citaId != null) {
-            CitaEntity cita = citaService.buscarPorId(citaId);
+            citaRepository.findById(citaId).ifPresent(cita -> {
             model.addAttribute("citaSeleccionada", cita);
+            });
         }
 
         model.addAttribute("vehiculos", vehiculoRepository.findByActivoTrue());
