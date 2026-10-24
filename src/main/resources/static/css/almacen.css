@@ -1,0 +1,240 @@
+
+/* CONTENEDOR */
+.almacen-page {
+    width: 100%;
+    min-width: 0;
+    color: #183452;
+    font-family: inherit;
+}
+
+/* ENCABEZADO */
+.almacen-page .page-heading h1 {
+    margin-bottom: 2px;
+    color: #171717;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+}
+
+.almacen-page .page-heading p {
+    margin-bottom: 0;
+    color: #8995a6;
+    font-size: 0.88rem;
+}
+
+/* BARRA DE BÚSQUEDA */
+.almacen-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.almacen-buscador {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.almacen-buscador label {
+    color: #222;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.almacen-buscador .input-group {
+    width: min(350px, 100%);
+}
+
+.almacen-buscador .form-control {
+    min-width: 0;
+    font-size: 0.78rem;
+    border-color: #c5ced8;
+}
+
+.almacen-buscador .btn {
+    padding-inline: 10px;
+}
+
+.almacen-btn-nuevo {
+    padding: 5px 14px;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* PANELES */
+.almacen-resumen,
+.almacen-listado {
+    padding: 14px 20px 16px;
+    background: #fff;
+    border: 1px solid #e2e5e9;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 17%);
+}
+
+.almacen-titulo {
+    margin: 0 0 10px;
+    color: #1670c5;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* TARJETAS DEL STOCK */
+.stock-card {
+    display: flex;
+    min-height: 72px;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #c5ced8;
+    border-left: 11px solid;
+    border-radius: 6px;
+}
+
+.stock-total {
+    border-left-color: #f5b313;
+    color: #f2aa00;
+}
+
+.stock-suficiente {
+    border-left-color: #24a148;
+    color: #24a148;
+}
+
+.stock-critico {
+    border-left-color: #e63245;
+    color: #e63245;
+}
+
+.stock-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px 12px;
+}
+
+.stock-card-info span {
+    color: #7b899b;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.stock-card-info strong {
+    font-size: 1.65rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.stock-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+}
+
+.stock-card-icon i {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+/* TABLA DEL FRAGMENTO */
+.almacen-listado .table {
+    width: 100%;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.almacen-listado .table thead th {
+    padding: 6px 8px;
+    background: #dc9909;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    border-color: #dc9909;
+    white-space: nowrap;
+}
+
+.almacen-listado .table tbody td {
+    padding: 5px 8px;
+    color: #333;
+    font-size: 0.78rem;
+    border-color: #dce4ed;
+}
+
+.almacen-listado .table tbody tr:hover {
+    background: #f5f8fc;
+}
+
+/* ESTADOS DE STOCK */
+.almacen-listado .badge {
+    min-width: 76px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.68rem;
+}
+
+.almacen-listado .badge.bg-danger {
+    background-color: #e63245 !important;
+}
+
+.almacen-listado .badge.bg-success {
+    background-color: #24a148 !important;
+}
+
+/* ACCIONES */
+.almacen-listado .btn {
+    margin: 0 2px;
+}
+
+.almacen-listado .table-responsive {
+    overflow-x: auto;
+}
+
+/* MÓVILES */
+@media (max-width: 767.98px) {
+    .almacen-page .page-heading h1 {
+        font-size: 1.2rem;
+    }
+
+    .almacen-toolbar {
+        align-items: stretch;
+    }
+
+    .almacen-buscador {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .almacen-buscador .input-group {
+        width: 100%;
+    }
+
+    .almacen-btn-nuevo {
+        align-self: flex-end;
+    }
+
+    .almacen-resumen,
+    .almacen-listado {
+        padding: 12px;
+    }
+
+    .stock-card {
+        min-height: 68px;
+    }
+
+    .stock-card-icon i {
+        font-size: 2.4rem;
+    }
+
+    .stock-card-info strong {
+        font-size: 1.4rem;
+    }
+}

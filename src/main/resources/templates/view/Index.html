@@ -20,6 +20,9 @@
     <link rel="stylesheet" th:href="@{/css/comprobante.css}">
     <link rel="stylesheet" th:href="@{/css/login.css}">
     <link rel="stylesheet" th:href="@{/css/ordenes.css}">
+    <link rel="stylesheet" th:href="@{/css/administracion.css}">
+    <link rel="stylesheet" th:href="@{/css/almacen.css}">
+
 </head>
 <body>
 
@@ -46,23 +49,11 @@
             </th:block>
 
             <th:block th:case="'almacen'">
-                <div class="page-heading mb-3">
-                    <h1>ALMACÉN</h1>
-                    <p>Administra los repuestos y el inventario.</p>
-                </div>
-                <section class="panel">
-                    <p>Contenido de almacén.</p>
-                </section>
+                <div th:replace="~{fragments/almacen :: content}"></div>
             </th:block>
 
             <th:block th:case="'administracion'">
-                <div class="page-heading mb-3">
-                    <h1>ADMINISTRACIÓN</h1>
-                    <p>Gestiona la configuración del taller.</p>
-                </div>
-                <section class="panel">
-                    <p>Contenido de administración.</p>
-                </section>
+                <div th:replace="~{fragments/administracion :: content}"></div>
             </th:block>
 
             <!-- Dashboard predeterminado: siempre al final -->

@@ -1,0 +1,110 @@
+
+/* CONTENEDOR GENERAL */
+.administracion-page {
+    width: 100%;
+    min-width: 0;
+    color: #183452;
+    font-family: inherit;
+}
+
+/* ENCABEZADO: MISMO ESTILO QUE ALMACÉN */
+.administracion-page .page-heading {
+    margin-bottom: 8px;
+}
+
+.administracion-page .page-heading h1 {
+    margin-bottom: 2px;
+    color: #171717;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    line-height: 1.3;
+}
+
+.administracion-page .page-heading p {
+    margin-bottom: 0;
+    color: #8995a6;
+    font-size: 0.88rem;
+}
+
+/* TARJETAS: SE CONSERVA SU DISEÑO ACTUAL */
+.admin-modulos {
+    margin-top: 12px;
+}
+
+/* PANEL DE CONTENIDO */
+.admin-contenido {
+    min-width: 0;
+    padding: 14px 20px 16px;
+    margin-top: 12px;
+    background: #fff;
+    border: 1px solid #e2e5e9;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 17%);
+}
+
+/* TÍTULO DE CADA LISTADO */
+.admin-contenido-header {
+    display: block;
+    margin: 0 0 10px;
+}
+
+.admin-titulo {
+    margin: 0;
+    color: #1670c5;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+/* TABLAS */
+.admin-contenido .table {
+    width: 100%;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.admin-contenido .table thead th {
+    padding: 6px 8px;
+    background: #dc9909;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    border-color: #dc9909;
+    white-space: nowrap;
+}
+
+.admin-contenido .table tbody td {
+    padding: 5px 8px;
+    color: #333;
+    font-size: 0.78rem;
+    border-color: #dce4ed;
+}
+
+.admin-contenido .table tbody tr:hover {
+    background: #f5f8fc;
+}
+
+.admin-contenido .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* RESPONSIVE */
+@media (max-width: 767.98px) {
+    .administracion-page .page-heading h1 {
+        font-size: 1.2rem;
+    }
+
+    .admin-contenido {
+        padding: 12px;
+    }
+
+    .admin-contenido-header {
+        margin-bottom: 8px;
+    }
+
+    .admin-titulo {
+        font-size: 0.95rem;
+    }
+}

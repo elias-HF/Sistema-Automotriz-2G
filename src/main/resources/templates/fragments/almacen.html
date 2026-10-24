@@ -1,0 +1,167 @@
+
+<div th:fragment="content" class="almacen-page">
+
+    <!-- ENCABEZADO -->
+    <div class="page-heading mb-2">
+        <h1>CONTROL DEL ALMACÉN</h1>
+        <p>Administra los repuestos e insumos y consulta su disponibilidad.</p>
+    </div>
+
+    <hr class="border-dark opacity-25 my-2">
+
+    <!-- BUSCADOR Y REGISTRO -->
+    <div class="almacen-toolbar mb-3">
+
+        <form th:action="@{/almacen}"
+              method="get"
+              class="almacen-buscador">
+
+            <label for="buscarArticulo">Buscar un artículo:</label>
+
+            <div class="input-group">
+                <input type="search"
+                       id="buscarArticulo"
+                       name="buscar"
+                       class="form-control"
+                       placeholder="Ej. Filtro de aceite, pintura negra, bujía 16-A, etc."
+                       th:value="${buscar}">
+
+                <button class="btn btn-secondary"
+                        type="submit"
+                        aria-label="Buscar artículo">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
+
+        <a th:href="@{/almacen/nuevo}"
+           class="btn btn-success btn-sm almacen-btn-nuevo">
+            <i class="bi bi-plus-square-fill me-2"></i>
+            NUEVO ARTÍCULO
+        </a>
+
+    </div>
+
+    <hr class="border-dark opacity-25 my-2">
+
+    <!-- RESUMEN DEL STOCK -->
+    <section class="almacen-resumen mb-3">
+
+        <h2 class="almacen-titulo">
+            RESUMEN DEL STOCK
+        </h2>
+
+        <div class="row g-3">
+
+            <!-- ARTÍCULOS TOTALES -->
+            <div class="col-12 col-md-4">
+                <div class="stock-card stock-total">
+                    <div class="stock-card-info">
+                        <span>Artículos Totales</span>
+                        <strong th:text="${cantidadArticulos != null ? cantidadArticulos : 0}">
+                            0
+                        </strong>
+                    </div>
+
+                    <div class="stock-card-icon">
+                        <i class="bi bi-list-ol"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STOCK SUFICIENTE -->
+            <div class="col-12 col-md-4">
+                <div class="stock-card stock-suficiente">
+                    <div class="stock-card-info">
+                        <span>Stock Suficiente</span>
+                        <strong th:text="${stockSuficiente != null ? stockSuficiente : 0}">
+                            0
+                        </strong>
+                    </div>
+
+                    <div class="stock-card-icon">
+                        <i class="bi bi-check-square-fill"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STOCK CRÍTICO -->
+            <div class="col-12 col-md-4">
+                <div class="stock-card stock-critico">
+                    <div class="stock-card-info">
+                        <span>Stock Crítico</span>
+                        <strong th:text="${stockCritico != null ? stockCritico : 0}">
+                            0
+                        </strong>
+                    </div>
+
+                    <div class="stock-card-icon">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LISTADO DE ARTÍCULOS -->
+    <section class="almacen-listado">
+
+        <h2 class="almacen-titulo">
+            LISTA DE ARTÍCULOS VEHICULARES
+        </h2>
+
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Artículo</th>
+                    <th>Categoría</th>
+                    <th>Stock actual</th>
+                    <th>Stock mínimo</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="articulo : ${articulos}">
+                    <td th:text="${articulo.codigo}">REP-001</td>
+                    <td th:text="${articulo.nombre}">Filtro de aceite</td>
+                    <td th:text="${articulo.categoria}">Filtros</td>
+                    <td th:text="${articulo.stock}">15</td>
+                    <td th:text="${articulo.stockMinimo}">5</td>
+                    <td>
+                    <span th:if="${articulo.stock > articulo.stockMinimo}"
+                          class="badge bg-success">
+                        Disponible
+                    </span>
+                        <span th:if="${articulo.stock <= articulo.stockMinimo}"
+                              class="badge bg-danger">
+                        Stock crítico
+                    </span>
+                    </td>
+                    <td>
+                        <a th:href="@{/almacen/editar/{id}(id=${articulo.id})}"
+                           class="btn btn-sm btn-outline-primary"
+                           title="Editar">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(articulos)}">
+                    <td colspan="7" class="text-center text-muted py-4">
+                        No se encontraron artículos registrados.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </section>
+
+</div>

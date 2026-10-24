@@ -1,0 +1,249 @@
+
+<div th:fragment="content" class="administracion-page">
+
+    <!-- ENCABEZADO -->
+    <div class="page-heading mb-2">
+        <h1>ADMINISTRACIÓN GENERAL</h1>
+        <p>Administra la información general, usuarios y catálogos del taller.</p>
+    </div>
+
+    <hr class="border-dark opacity-25 my-2">
+
+    <!-- TARJETAS DE MÓDULOS -->
+    <section class="admin-modulos mb-3">
+        <div class="row g-2">
+
+            <!-- EMPLEADOS -->
+            <div class="col-6 col-md-4 col-xl-4">
+                <a th:href="@{/administracion(elemento='empleados')}"
+                   class="admin-card"
+                   th:classappend="${elemento == 'empleados'} ? ' activo' : ''">
+
+                    <div class="admin-card-info">
+                        <span class="admin-estado">
+                            <i class="bi"
+                               th:classappend="${elemento == 'empleados'} ?
+                               ' bi-circle-fill text-warning' :
+                               ' bi-circle-fill text-secondary'"></i>
+                            <span th:text="${elemento == 'empleados'} ? 'ACTIVO' : 'INACTIVO'">
+                                INACTIVO
+                            </span>
+                        </span>
+
+                        <h2>EMPLEADO</h2>
+                        <small>
+                            <span th:text="${cantidadEmpleados != null ? cantidadEmpleados : 0}">
+                                0
+                            </span> registrados
+                        </small>
+                    </div>
+
+                    <div class="admin-card-icon">
+                        <i class="bi bi-person-badge-fill"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- CLIENTES -->
+            <div class="col-6 col-md-4 col-xl-4">
+                <a th:href="@{/administracion(elemento='clientes')}"
+                   class="admin-card"
+                   th:classappend="${elemento == 'clientes' or elemento == null} ? ' activo' : ''">
+
+                    <div class="admin-card-info">
+                        <span class="admin-estado">
+                            <i class="bi"
+                               th:classappend="${elemento == 'clientes' or elemento == null} ?
+                               ' bi-circle-fill text-warning' :
+                               ' bi-circle-fill text-secondary'"></i>
+                            <span th:text="${elemento == 'clientes' or elemento == null} ?
+                            'ACTIVO' : 'INACTIVO'">ACTIVO</span>
+                        </span>
+
+                        <h2>CLIENTE</h2>
+                        <small>
+                            <span th:text="${cantidadClientes != null ? cantidadClientes : 0}">
+                                0
+                            </span> registrados
+                        </small>
+                    </div>
+
+                    <div class="admin-card-icon">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- VEHÍCULOS -->
+            <div class="col-6 col-md-4 col-xl-4">
+                <a th:href="@{/administracion(elemento='vehiculos')}"
+                   class="admin-card"
+                   th:classappend="${elemento == 'vehiculos'} ? ' activo' : ''">
+
+                    <div class="admin-card-info">
+                        <span class="admin-estado">
+                            <i class="bi"
+                               th:classappend="${elemento == 'vehiculos'} ?
+                               ' bi-circle-fill text-warning' :
+                               ' bi-circle-fill text-secondary'"></i>
+                            <span th:text="${elemento == 'vehiculos'} ? 'ACTIVO' : 'INACTIVO'">
+                                INACTIVO
+                            </span>
+                        </span>
+
+                        <h2>VEHÍCULO</h2>
+                        <small>
+                            <span th:text="${cantidadVehiculos != null ? cantidadVehiculos : 0}">
+                                0
+                            </span> registrados
+                        </small>
+                    </div>
+
+                    <div class="admin-card-icon">
+                        <i class="bi bi-car-front-fill"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- SERVICIOS -->
+            <div class="col-6 col-md-4 col-xl-4">
+                <a th:href="@{/administracion(elemento='servicios')}"
+                   class="admin-card"
+                   th:classappend="${elemento == 'servicios'} ? ' activo' : ''">
+
+                    <div class="admin-card-info">
+                        <span class="admin-estado">
+                            <i class="bi"
+                               th:classappend="${elemento == 'servicios'} ?
+                               ' bi-circle-fill text-warning' :
+                               ' bi-circle-fill text-secondary'"></i>
+                            <span th:text="${elemento == 'servicios'} ? 'ACTIVO' : 'INACTIVO'">
+                                INACTIVO
+                            </span>
+                        </span>
+
+                        <h2>SERVICIO</h2>
+                        <small>
+                            <span th:text="${cantidadServicios != null ? cantidadServicios : 0}">
+                                0
+                            </span> registrados
+                        </small>
+                    </div>
+
+                    <div class="admin-card-icon">
+                        <i class="bi bi-tools"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- ARTÍCULOS -->
+            <div class="col-6 col-md-4 col-xl-4">
+                <a th:href="@{/administracion(elemento='articulos')}" class="admin-card" th:classappend="${elemento == 'articulos'} ? ' activo' : ''">
+
+                    <div class="admin-card-info">
+                        <span class="admin-estado">
+                            <i class="bi"
+                               th:classappend="${elemento == 'articulos'} ?
+                               ' bi-circle-fill text-warning' :
+                               ' bi-circle-fill text-secondary'"></i>
+                            <span th:text="${elemento == 'articulos'} ? 'ACTIVO' : 'INACTIVO'">
+                                INACTIVO
+                            </span>
+                        </span>
+
+                        <h2>ARTÍCULO</h2>
+                        <small>
+                            <span th:text="${cantidadArticulos != null ? cantidadArticulos : 0}">
+                                0
+                            </span> registrados
+                        </small>
+                    </div>
+
+                    <div class="admin-card-icon">
+                        <i class="bi bi-cpu-fill"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- CATEGORÍAS -->
+            <div class="col-6 col-md-4 col-xl-4">
+                <a th:href="@{/administracion(elemento='categorias')}"
+                   class="admin-card"
+                   th:classappend="${elemento == 'categorias'} ? ' activo' : ''">
+
+                    <div class="admin-card-info">
+                        <span class="admin-estado">
+                            <i class="bi"
+                               th:classappend="${elemento == 'categorias'} ?
+                               ' bi-circle-fill text-warning' :
+                               ' bi-circle-fill text-secondary'"></i>
+                            <span th:text="${elemento == 'categorias'} ? 'ACTIVO' : 'INACTIVO'">
+                                INACTIVO
+                            </span>
+                        </span>
+
+                        <h2>CATEGORÍA</h2>
+                        <small>
+                            <span th:text="${cantidadCategorias != null ? cantidadCategorias : 0}">
+                                0
+                            </span> registradas
+                        </small>
+                    </div>
+
+                    <div class="admin-card-icon">
+                        <i class="bi bi-tags-fill"></i>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- CONTENIDO DEL MÓDULO -->
+    <section class="admin-contenido">
+
+        <!-- TÍTULO DEL MÓDULO -->
+        <div class="admin-contenido-header">
+            <h2 class="admin-titulo" th:switch="${elemento}">
+                <span th:case="'empleados'">LISTA DE EMPLEADOS</span>
+                <span th:case="'clientes'">LISTA DE CLIENTES</span>
+                <span th:case="'vehiculos'">LISTA DE VEHÍCULOS</span>
+                <span th:case="'servicios'">LISTA DE SERVICIOS</span>
+                <span th:case="'articulos'">LISTA DE ARTÍCULOS</span>
+                <span th:case="'comprobantes'">LISTA DE COMPROBANTES</span>
+                <span th:case="'categorias'">LISTA DE CATEGORÍAS</span>
+                <span th:case="*">LISTA DE CLIENTES</span>
+            </h2>
+        </div>
+
+        <hr class="border-dark opacity-25 my-2">
+
+        <!-- TABLAS EXISTENTES -->
+        <div th:if="${elemento == 'empleados'}"
+             th:replace="~{fragments/administracion/tablaEmpleado :: tablaEmpleado}">
+        </div>
+
+        <div th:if="${elemento == 'clientes' or elemento == null}"
+             th:replace="~{fragments/administracion/tablaCliente :: tabla}">
+        </div>
+
+        <div th:if="${elemento == 'vehiculos'}"
+             th:replace="~{fragments/administracion/tablaVehiculo :: tablaVehiculo}">
+        </div>
+
+        <div th:if="${elemento == 'servicios'}"
+             th:replace="~{fragments/administracion/tablaServicio :: tablaServicio}">
+        </div>
+
+        <div th:if="${elemento == 'categorias'}"
+             th:replace="~{fragments/administracion/tablaCategoria :: tablaCategoria}">
+        </div>
+
+        <div th:if="${elemento == 'articulos'}"
+             th:replace="~{fragments/administracion/tablaArticulo :: tablaArticulo}">
+        </div>
+
+    </section>
+
+</div>
