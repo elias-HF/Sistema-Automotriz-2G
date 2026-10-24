@@ -1,7 +1,9 @@
 package com.example.automotriz.controller;
 
+import com.example.automotriz.entity.CitaEntity;
 import com.example.automotriz.entity.OrdenServicioEntity;
 import com.example.automotriz.repository.VehiculoRepository;
+import com.example.automotriz.service.CitaService;
 import com.example.automotriz.service.OrdenesService;
 
 import org.springframework.stereotype.Controller;
@@ -19,13 +21,31 @@ import java.math.BigDecimal;
 public class OrdenesController {
 
     private final OrdenesService ordenService;
+    private final CitaService citaService;
     private final VehiculoRepository vehiculoRepository;
 
     public OrdenesController(
-            OrdenesService ordenService,
+            OrdenesService ordenService,CitaService citaService,
             VehiculoRepository vehiculoRepository) {
         this.ordenService = ordenService;
+        this.citaService = citaService;
         this.vehiculoRepository = vehiculoRepository;
+    }
+
+    @GetMapping("/crear")
+    public String mostrarFormularioCrearOrden(
+            @RequestParam(required = false) Integer citaId,
+            Model model) {
+
+        if (citaId != null) {
+            CitaEntity cita = citaService.buscarPorId(citaId);
+            model.addAttribute("citaSeleccionada", cita);
+        }
+
+        model.addAttribute("vehiculos", vehiculoRepository.findByActivoTrue());
+        model.addAttribute("vista", "ordenes");
+
+        return "view/Index";
     }
 
     // Mostrar módulo y buscar orden por código
