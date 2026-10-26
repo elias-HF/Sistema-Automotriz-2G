@@ -170,6 +170,17 @@
                             <i class="bi bi-pencil-square"></i>
                         </button>
 
+                        <form th:action="@{/almacen/desactivar/{id}(id=${articulo.id_articulo})}"
+                              method="post"
+                              class="d-inline"
+                              onsubmit="return confirm('¿Deseas desactivar este artículo?');">
+
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Desactivar artículo">
+                                <i class="bi bi-ban"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
 
@@ -229,8 +240,10 @@
                                        th:field="*{cod}"
                                        class="form-control"
                                        maxlength="15"
+                                       placeholder="Ej. REP-001"
                                        required>
                             </div>
+
 
                             <div class="col-md-6">
                                 <label for="articuloNombre" class="form-label">
