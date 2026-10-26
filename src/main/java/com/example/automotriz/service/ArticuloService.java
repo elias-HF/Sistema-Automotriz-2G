@@ -6,6 +6,9 @@ import com.example.automotriz.entity.UnidadMedidaEntity;
 import com.example.automotriz.repository.ArticuloRepository;
 import com.example.automotriz.repository.UnidadMedidaRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +22,7 @@ public class ArticuloService {
 
     private final ArticuloRepository articuloRepository;
     private final UnidadMedidaRepository unidadRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ArticuloService.class);
 
     public ArticuloService(
             ArticuloRepository articuloRepository,
@@ -78,8 +82,7 @@ public class ArticuloService {
     }
 
     // REGISTRAR
-    public ArticuloEntity guardar(
-            ArticuloEntity articulo, int idUnidad) {
+    public ArticuloEntity guardar(ArticuloEntity articulo, int idUnidad) {
 
         validarArticulo(articulo);
 
@@ -89,7 +92,11 @@ public class ArticuloService {
         articulo.setUnidad(buscarUnidad(idUnidad));
         articulo.setActivo(true);
 
-        return articuloRepository.save(articulo);
+        logger.info("Registrando artículo: {}", articulo.getNombre());
+        ArticuloEntity guardado = articuloRepository.save(articulo);
+        logger.info("Artículo registrado correctamente. Código: {}", guardado.getCod());
+
+        return articuloRepository.save(guardado);
     }
 
     // ACTUALIZAR
@@ -110,7 +117,9 @@ public class ArticuloService {
         actual.setStock_min(datos.getStock_min());
         actual.setUnidad(buscarUnidad(idUnidad));
 
-        return articuloRepository.save(actual);
+        ArticuloEntity actualizado = articuloRepository.save(actual);
+        logger.info("Artículo actualizado. Código: {}", actualizado.getCod());
+        return actualizado;
     }
 
     // DESACTIVAR SIN ELIMINAR DE LA BASE DE DATOS
@@ -118,6 +127,8 @@ public class ArticuloService {
         ArticuloEntity articulo = buscarPorId(id);
         articulo.setActivo(false);
         articuloRepository.save(articulo);
+
+        logger.info("Artículo desactivado. Código: {}", articulo.getCod());
     }
 
     // VALIDAR DATOS
