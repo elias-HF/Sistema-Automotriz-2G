@@ -1,110 +1,1246 @@
 
-/* CONTENEDOR GENERAL */
 .administracion-page {
     width: 100%;
     min-width: 0;
-    color: #183452;
+    color: #102f50;
     font-family: inherit;
 }
 
-/* ENCABEZADO: MISMO ESTILO QUE ALMACÉN */
-.administracion-page .page-heading {
-    margin-bottom: 8px;
+/* ENCABEZADO */
+
+.administracion-page .admin-page-heading {
+    margin-bottom: 5px;
 }
 
-.administracion-page .page-heading h1 {
-    margin-bottom: 2px;
+.administracion-page .admin-page-heading h1 {
+    margin: 0;
     color: #171717;
     font-size: 1.45rem;
     font-weight: 800;
-    letter-spacing: -0.4px;
-    line-height: 1.3;
+    line-height: 1.2;
 }
 
-.administracion-page .page-heading p {
-    margin-bottom: 0;
-    color: #8995a6;
+.administracion-page .admin-page-heading p {
+    margin: 3px 0 0;
+    color: #8793a3;
     font-size: 0.88rem;
 }
 
-/* TARJETAS: SE CONSERVA SU DISEÑO ACTUAL */
-.admin-modulos {
-    margin-top: 12px;
+.administracion-page .admin-divider {
+    margin: 7px 0 9px;
+    border: 0;
+    border-top: 1px solid #9ba5af;
+    opacity: 0.7;
 }
 
-/* PANEL DE CONTENIDO */
-.admin-contenido {
+/* =====================================================
+   TARJETAS
+   ===================================================== */
+
+.administracion-page .admin-modulos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.administracion-page .admin-card {
+    display: flex;
     min-width: 0;
-    padding: 14px 20px 16px;
-    margin-top: 12px;
+    height: 94px;
+    overflow: hidden;
+    color: #12365c;
+    text-decoration: none;
     background: #fff;
-    border: 1px solid #e2e5e9;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 17%);
+    border: 1px solid #d4d9df;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 18%);
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
 }
 
-/* TÍTULO DE CADA LISTADO */
-.admin-contenido-header {
-    display: block;
-    margin: 0 0 10px;
+.administracion-page .admin-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
 }
 
-.admin-titulo {
-    margin: 0;
-    color: #1670c5;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.4;
+.administracion-page .admin-card.activo {
+    border: 2px solid #f6b511;
 }
 
-/* TABLAS */
-.admin-contenido .table {
-    width: 100%;
-    margin-bottom: 0;
-    vertical-align: middle;
+/* INFORMACIÓN DE LA TARJETA */
+
+.administracion-page .admin-card-info {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+    padding: 10px 12px 8px 15px;
 }
 
-.admin-contenido .table thead th {
-    padding: 6px 8px;
-    background: #dc9909;
-    color: #fff;
-    font-size: 0.82rem;
-    font-weight: 700;
-    border-color: #dc9909;
+.administracion-page .admin-estado {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 14px;
+    color: #244a73;
+    font-size: 0.66rem;
+    font-weight: 800;
     white-space: nowrap;
 }
 
-.admin-contenido .table tbody td {
-    padding: 5px 8px;
-    color: #333;
+.administracion-page .admin-estado i {
+    color: #d9e5f0;
+    font-size: 0.85rem;
+}
+
+.administracion-page .admin-card.activo .admin-estado i {
+    color: #f5b313;
+}
+
+.administracion-page .admin-card-info h2 {
+    margin: 0;
+    overflow: hidden;
+    color: #12365c;
+    font-size: clamp(0.95rem, 1.45vw, 1.35rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.administracion-page .admin-card-info small {
+    color: #252525;
+    font-size: 0.7rem;
+    font-style: italic;
+    line-height: 1.2;
+}
+
+/* BLOQUE AMARILLO DEL ICONO */
+
+.administracion-page .admin-card-icon {
+    display: flex;
+    flex: 0 0 34%;
+    align-items: center;
+    justify-content: center;
+    min-width: 65px;
+    color: #080f19;
+    background: #f7b512;
+}
+
+.administracion-page .admin-card-icon i {
+    font-size: clamp(2rem, 3.7vw, 3.5rem);
+    line-height: 1;
+}
+
+/* =====================================================
+   CONTENEDOR DE LAS TABLAS
+   ===================================================== */
+
+.administracion-page .admin-contenido {
+    min-width: 0;
+    padding: 11px 9px 8px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 18%);
+}
+
+.administracion-page .admin-contenido-header {
+    margin: 0 11px 8px;
+}
+
+.administracion-page .admin-titulo {
+    margin: 0;
+    color: #1472c4;
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+/* =====================================================
+   BARRA DE BÚSQUEDA Y BOTONES DE LAS TABLAS
+   ===================================================== */
+
+.administracion-page .admin-contenido .d-flex.justify-content-between {
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 11px 8px !important;
+}
+
+.administracion-page .admin-contenido form.input-group {
+    max-width: 350px !important;
+}
+
+.administracion-page .admin-contenido .form-control {
+    min-height: 32px;
     font-size: 0.78rem;
-    border-color: #dce4ed;
+    border-color: #b9c8d7;
+    border-radius: 4px 0 0 4px;
 }
 
-.admin-contenido .table tbody tr:hover {
-    background: #f5f8fc;
+.administracion-page .admin-contenido .input-group .btn {
+    min-height: 32px;
+    padding: 4px 10px;
+    border-radius: 0 4px 4px 0;
 }
 
-.admin-contenido .table-responsive {
+.administracion-page .admin-contenido .btn-success {
+    padding: 5px 13px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 5px;
+}
+
+/* =====================================================
+   TABLAS
+   ===================================================== */
+
+.administracion-page .admin-contenido .table-responsive {
     width: 100%;
     overflow-x: auto;
 }
 
-/* RESPONSIVE */
+.administracion-page .admin-contenido .table {
+    width: 100%;
+    margin-bottom: 0;
+    color: #252525;
+    font-size: 0.78rem;
+    vertical-align: middle;
+}
+
+.administracion-page .admin-contenido .table > :not(caption) > * > * {
+    padding: 6px 8px;
+    border-bottom-color: #cbd5df;
+}
+
+.administracion-page .admin-contenido .table thead th {
+    color: #20252a;
+    font-weight: 800;
+    white-space: nowrap;
+    background: #d9e6f2;
+}
+
+.administracion-page .admin-contenido .table tbody tr:hover > * {
+    background-color: #f4f8fc;
+}
+
+.administracion-page .admin-contenido .table tbody td {
+    overflow-wrap: anywhere;
+}
+
+/* CÓDIGO SECUNDARIO BAJO EL NOMBRE */
+
+.administracion-page .admin-contenido .table tbody td small {
+    display: block;
+    margin-top: 2px;
+    color: #8c9caf;
+    font-size: 0.7rem;
+}
+
+/* BOTONES DE ACCIONES */
+
+.administracion-page .admin-contenido .table .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: 0 2px;
+    padding: 0;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.administracion-page .admin-contenido .table .btn-warning {
+    color: #fff;
+    background: #f7b512;
+    border-color: #f7b512;
+}
+
+.administracion-page .admin-contenido .table .btn-danger {
+    color: #fff;
+    background: #e93645;
+    border-color: #e93645;
+}
+
+/* MENSAJES DE TABLA VACÍA */
+
+.administracion-page .admin-contenido .table tbody td[colspan] {
+    padding: 22px 10px;
+    color: #788796;
+    text-align: center;
+}
+
+/* =====================================================
+   ADAPTACIÓN A PANTALLAS MEDIANAS
+   ===================================================== */
+
+@media (max-width: 1100px) {
+    .administracion-page .admin-card {
+        height: 88px;
+    }
+
+    .administracion-page .admin-card-info {
+        padding: 8px;
+    }
+
+    .administracion-page .admin-card-icon {
+        flex-basis: 32%;
+        min-width: 55px;
+    }
+
+    .administracion-page .admin-card-icon i {
+        font-size: 2.2rem;
+    }
+}
+
+/* =====================================================
+   TABLETS Y MÓVILES
+   ===================================================== */
+
 @media (max-width: 767.98px) {
-    .administracion-page .page-heading h1 {
+    .administracion-page .admin-modulos-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .administracion-page .admin-page-heading h1 {
         font-size: 1.2rem;
     }
 
-    .admin-contenido {
-        padding: 12px;
+    .administracion-page .admin-card {
+        height: 86px;
     }
 
-    .admin-contenido-header {
-        margin-bottom: 8px;
-    }
-
-    .admin-titulo {
+    .administracion-page .admin-card-info h2 {
         font-size: 0.95rem;
+    }
+
+    .administracion-page .admin-contenido {
+        padding: 9px 6px;
+    }
+
+    .administracion-page .admin-contenido-header {
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    .administracion-page .admin-contenido .d-flex.justify-content-between {
+        gap: 8px;
+        margin-right: 5px !important;
+        margin-left: 5px !important;
+    }
+
+    .administracion-page .admin-contenido form.input-group {
+        flex: 1 1 200px;
+        max-width: none !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .administracion-page .admin-modulos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .administracion-page .admin-card {
+        height: 88px;
+    }
+
+    .administracion-page .admin-card-icon {
+        flex-basis: 30%;
+    }
+
+    .administracion-page .admin-contenido .btn-success {
+        width: 100%;
+    }
+}
+
+.administracion-page .admin-tabla-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0 11px 8px;
+}
+
+.administracion-page .admin-tabla-toolbar .input-group {
+    max-width: 350px;
+}
+
+.administracion-page .admin-tabla-toolbar .btn-success {
+    flex-shrink: 0;
+}
+
+@media (max-width: 767.98px) {
+    .administracion-page .admin-tabla-toolbar {
+        flex-wrap: wrap;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    .administracion-page .admin-tabla-toolbar .input-group {
+        flex: 1 1 200px;
+        max-width: none;
+    }
+}
+
+/* =====================================================
+ TABLA ESTÁTICA DE CLIENTES
+===================================================== */
+   .administracion-page .admin-buscador-clientes {
+       max-width: 350px;
+   }
+
+.administracion-page .admin-clientes-table {
+    table-layout: auto;
+}
+
+.administracion-page .admin-clientes-table th:first-child {
+    min-width: 190px;
+}
+
+.administracion-page .admin-clientes-table th:last-child {
+    min-width: 110px;
+}
+
+.administracion-page .cliente-nombre {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 175px;
+}
+
+.administracion-page .cliente-avatar {
+    display: inline-flex;
+    flex: 0 0 29px;
+    align-items: center;
+    justify-content: center;
+    width: 29px;
+    height: 29px;
+    color: #718294;
+    background: #dce5ed;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.administracion-page .cliente-nombre strong {
+    display: block;
+    color: #252525;
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.administracion-page .cliente-nombre small {
+    margin-top: 2px;
+    color: #8b9bad;
+    font-size: 0.68rem;
+}
+
+/* PIE DE TABLA */
+
+.administracion-page .admin-tabla-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 10px 2px;
+    color: #252525;
+    font-size: 0.7rem;
+}
+
+.administracion-page .admin-paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.administracion-page .admin-pagina-numeros {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.administracion-page .admin-pagina-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 29px;
+    height: 27px;
+    padding: 0 9px;
+    color: #172e49;
+    background: #dce7f1;
+    border: 0;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.administracion-page .admin-pagina-btn.activa {
+    color: #fff;
+    background: #103760;
+}
+
+.administracion-page .admin-pagina-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.administracion-page .admin-pagina-btn:not(:disabled):hover {
+    filter: brightness(0.95);
+}
+
+/* AVISO DE FUNCIONES AÚN NO CONECTADAS */
+
+.administracion-page .admin-demo-mensaje:not([hidden]) {
+    margin: 8px 10px 2px;
+    padding: 8px 10px;
+    color: #31516f;
+    background: #edf5fc;
+    border: 1px solid #cbddeb;
+    border-radius: 4px;
+    font-size: 0.76rem;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 767.98px) {
+    .administracion-page .admin-tabla-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .administracion-page .admin-paginacion {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .administracion-page .admin-buscador-clientes {
+        max-width: none;
+    }
+}
+       /* =====================================================
+          TABLA ESTÁTICA DE EMPLEADOS
+          ===================================================== */
+
+   .administracion-page .admin-buscador-empleados {
+       max-width: 350px;
+   }
+
+.administracion-page .admin-empleados-table {
+    table-layout: auto;
+}
+
+.administracion-page .admin-empleados-table th:first-child {
+    min-width: 185px;
+}
+
+.administracion-page .admin-empleados-table th:nth-child(3) {
+    min-width: 190px;
+}
+
+/* NOMBRE Y AVATAR */
+
+.administracion-page .empleado-nombre {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 170px;
+}
+
+.administracion-page .empleado-avatar {
+    display: inline-flex;
+    flex: 0 0 29px;
+    align-items: center;
+    justify-content: center;
+    width: 29px;
+    height: 29px;
+    color: #718294;
+    background: #dce5ed;
+    border-radius: 50%;
+    font-size: 0.73rem;
+    font-weight: 800;
+}
+
+.administracion-page .empleado-nombre strong {
+    display: block;
+    color: #252525;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.administracion-page .empleado-nombre small {
+    display: block;
+    margin-top: 2px;
+    color: #8b9bad;
+    font-size: 0.68rem;
+}
+
+/* ETIQUETAS DE ROL */
+
+.administracion-page .empleado-rol {
+    display: inline-block;
+    padding: 4px 7px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.administracion-page .rol-admin {
+    color: #174c7c;
+    background: #dcecf9;
+}
+
+.administracion-page .rol-mecanico {
+    color: #735310;
+    background: #fff0c2;
+}
+
+.administracion-page .rol-recepcion {
+    color: #365f48;
+    background: #dff2e5;
+}
+
+.administracion-page .rol-almacen {
+    color: #5b4784;
+    background: #eee5fa;
+}
+
+/* ESTADO DEL EMPLEADO */
+
+.administracion-page .empleado-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.administracion-page .empleado-estado::before {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    content: "";
+    border-radius: 50%;
+}
+
+.administracion-page .estado-activo {
+    color: #25814b;
+}
+
+.administracion-page .estado-activo::before {
+    background: #2ba65a;
+}
+
+.administracion-page .estado-inactivo {
+    color: #7b8794;
+}
+
+.administracion-page .estado-inactivo::before {
+    background: #aab5bf;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 767.98px) {
+    .administracion-page .admin-buscador-empleados {
+        max-width: none;
+    }
+
+    .administracion-page .admin-empleados-table {
+        min-width: 780px;
+    }
+}
+
+       /* =====================================================
+          TABLA ESTÁTICA DE VEHÍCULOS
+          ===================================================== */
+
+   .administracion-page .admin-buscador-vehiculos {
+       max-width: 390px;
+   }
+
+.administracion-page .admin-vehiculos-table {
+    table-layout: auto;
+}
+
+.administracion-page .admin-vehiculos-table th:first-child {
+    min-width: 175px;
+}
+
+.administracion-page .admin-vehiculos-table th:nth-child(5) {
+    min-width: 155px;
+}
+
+/* INFORMACIÓN DEL VEHÍCULO */
+
+.administracion-page .vehiculo-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 160px;
+}
+
+.administracion-page .vehiculo-avatar {
+    display: inline-flex;
+    flex: 0 0 32px;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #174c7c;
+    background: #dce8f2;
+    border-radius: 50%;
+    font-size: 1rem;
+}
+
+.administracion-page .vehiculo-info strong {
+    display: block;
+    color: #252525;
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.administracion-page .vehiculo-info small {
+    display: block;
+    margin-top: 2px;
+    color: #8b9bad;
+    font-size: 0.68rem;
+}
+
+/* PLACA */
+
+.administracion-page .vehiculo-placa {
+    display: inline-block;
+    padding: 4px 7px;
+    color: #193d60;
+    background: #edf2f7;
+    border: 1px solid #d1dce6;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+/* ESTADO */
+
+.administracion-page .vehiculo-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.administracion-page .vehiculo-estado::before {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    content: "";
+    border-radius: 50%;
+}
+
+.administracion-page .vehiculo-estado.estado-activo {
+    color: #25814b;
+}
+
+.administracion-page .vehiculo-estado.estado-activo::before {
+    background: #2ba65a;
+}
+
+.administracion-page .vehiculo-estado.estado-inactivo {
+    color: #7b8794;
+}
+
+.administracion-page .vehiculo-estado.estado-inactivo::before {
+    background: #aab5bf;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 767.98px) {
+    .administracion-page .admin-buscador-vehiculos {
+        max-width: none;
+    }
+
+    .administracion-page .admin-vehiculos-table {
+        min-width: 850px;
+    }
+}
+
+       /* =====================================================
+          TABLA ESTÁTICA DE SERVICIOS
+          ===================================================== */
+
+   .administracion-page .admin-buscador-servicios {
+       max-width: 390px;
+   }
+
+.administracion-page .admin-servicios-table {
+    table-layout: auto;
+}
+
+.administracion-page .admin-servicios-table th:first-child {
+    min-width: 235px;
+}
+
+.administracion-page .admin-servicios-table th:nth-child(3) {
+    min-width: 125px;
+}
+
+/* INFORMACIÓN DEL SERVICIO */
+
+.administracion-page .servicio-info {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 220px;
+}
+
+.administracion-page .servicio-avatar {
+    display: inline-flex;
+    flex: 0 0 32px;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #174c7c;
+    background: #dce8f2;
+    border-radius: 50%;
+    font-size: 0.95rem;
+}
+
+.administracion-page .servicio-info strong {
+    display: block;
+    color: #252525;
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.administracion-page .servicio-info small {
+    display: block;
+    margin-top: 3px;
+    color: #8b9bad;
+    font-size: 0.67rem;
+    line-height: 1.3;
+}
+
+/* CATEGORÍA */
+
+.administracion-page .servicio-categoria {
+    display: inline-block;
+    padding: 4px 7px;
+    color: #365f48;
+    background: #dff2e5;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* PRECIO */
+
+.administracion-page .servicio-precio {
+    color: #174c7c;
+    font-size: 0.76rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+/* ESTADO */
+
+.administracion-page .servicio-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.administracion-page .servicio-estado::before {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    content: "";
+    border-radius: 50%;
+}
+
+.administracion-page .servicio-activo {
+    color: #25814b;
+}
+
+.administracion-page .servicio-activo::before {
+    background: #2ba65a;
+}
+
+.administracion-page .servicio-inactivo {
+    color: #7b8794;
+}
+
+.administracion-page .servicio-inactivo::before {
+    background: #aab5bf;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 767.98px) {
+    .administracion-page .admin-buscador-servicios {
+        max-width: none;
+    }
+
+    .administracion-page .admin-servicios-table {
+        min-width: 800px;
+    }
+}
+
+
+/* ==============================
+   TABLA DE CATEGORÍAS
+============================== */
+
+.categoria-admin {
+    width: 100%;
+}
+
+.admin-buscador-categorias {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: min(100%, 330px);
+    min-height: 42px;
+    padding: 0 13px;
+    background: #fff;
+    border: 1px solid #dce3eb;
+    border-radius: 7px;
+}
+
+.admin-buscador-categorias i {
+    color: #718096;
+    font-size: 15px;
+}
+
+.admin-buscador-categorias input {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #263445;
+    font-size: 13px;
+}
+
+.admin-buscador-categorias:focus-within {
+    border-color: #1769aa;
+    box-shadow: 0 0 0 3px rgb(23 105 170 / 10%);
+}
+
+.admin-categorias-table {
+    min-width: 780px;
+    margin-bottom: 0;
+    color: #334155;
+    font-size: 13px;
+}
+
+.admin-categorias-table thead th {
+    padding: 15px 14px;
+    background: #f5f7fa;
+    border-bottom: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .35px;
+    white-space: nowrap;
+}
+
+.admin-categorias-table tbody td {
+    padding: 16px 14px;
+    border-bottom: 1px solid #edf0f4;
+    vertical-align: middle;
+}
+
+.admin-categorias-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-categorias-table tbody tr:hover {
+    background: #f9fbfd;
+}
+
+.admin-categorias-table tbody tr[hidden] {
+    display: none !important;
+}
+
+.categoria-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.categoria-estado.activo {
+    color: #16804a;
+    background: #e7f7ee;
+}
+
+.categoria-estado.inactivo {
+    color: #a33a3a;
+    background: #fdecec;
+}
+
+.categoria-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.btn-categoria-editar,
+.btn-categoria-estado {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #dce4ed;
+    border-radius: 6px;
+    background: #fff;
+    color: #1769aa;
+    font-size: 15px;
+    transition: background .2s, border-color .2s;
+}
+
+.btn-categoria-editar:hover {
+    background: #eaf3fc;
+    border-color: #b9d7f2;
+}
+
+.btn-categoria-estado {
+    color: #64748b;
+}
+
+.btn-categoria-estado:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.admin-demo-mensaje {
+    margin-top: 14px;
+    padding: 11px 14px;
+    border: 1px solid #bfdbfe;
+    border-radius: 7px;
+    background: #eff6ff;
+    color: #1d4f91;
+    font-size: 13px;
+}
+
+.admin-demo-mensaje[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .categoria-admin .admin-tabla-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-buscador-categorias {
+        width: 100%;
+    }
+
+    .categoria-admin .admin-btn-registrar {
+        justify-content: center;
+    }
+}
+
+/* ==============================
+   TABLA DE ARTÍCULOS
+============================== */
+
+.articulo-admin {
+    width: 100%;
+}
+
+.admin-buscador-articulos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: min(100%, 330px);
+    min-height: 42px;
+    padding: 0 13px;
+    background: #fff;
+    border: 1px solid #dce3eb;
+    border-radius: 7px;
+}
+
+.admin-buscador-articulos i {
+    color: #718096;
+    font-size: 15px;
+}
+
+.admin-buscador-articulos input {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #263445;
+    font-size: 13px;
+}
+
+.admin-buscador-articulos:focus-within {
+    border-color: #1769aa;
+    box-shadow: 0 0 0 3px rgb(23 105 170 / 10%);
+}
+
+.admin-articulos-table {
+    min-width: 1000px;
+    margin-bottom: 0;
+    color: #334155;
+    font-size: 13px;
+}
+
+.admin-articulos-table thead th {
+    padding: 15px 12px;
+    background: #f5f7fa;
+    border-bottom: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    white-space: nowrap;
+}
+
+.admin-articulos-table tbody td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #edf0f4;
+    vertical-align: middle;
+}
+
+.admin-articulos-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-articulos-table tbody tr:hover {
+    background: #f9fbfd;
+}
+
+.admin-articulos-table tbody tr[hidden] {
+    display: none !important;
+}
+
+.articulo-nombre {
+    display: block;
+    color: #263445;
+    font-weight: 600;
+}
+
+.articulo-detalle {
+    display: block;
+    margin-top: 4px;
+    color: #8995a5;
+    font-size: 11px;
+}
+
+.articulo-stock {
+    display: inline-block;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.articulo-stock.normal {
+    color: #1769aa;
+    background: #eaf3fc;
+}
+
+.articulo-stock.bajo {
+    color: #a16207;
+    background: #fef3c7;
+}
+
+.articulo-stock.agotado {
+    color: #b42318;
+    background: #feeceb;
+}
+
+.articulo-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.articulo-estado.activo {
+    color: #16804a;
+    background: #e7f7ee;
+}
+
+.articulo-estado.inactivo {
+    color: #a33a3a;
+    background: #fdecec;
+}
+
+.articulo-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.btn-articulo-editar,
+.btn-articulo-stock {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #dce4ed;
+    border-radius: 6px;
+    background: #fff;
+    color: #1769aa;
+    font-size: 15px;
+    transition: background .2s, border-color .2s;
+}
+
+.btn-articulo-editar:hover,
+.btn-articulo-stock:hover {
+    background: #eaf3fc;
+    border-color: #b9d7f2;
+}
+
+@media (max-width: 768px) {
+    .articulo-admin .admin-tabla-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-buscador-articulos {
+        width: 100%;
+    }
+
+    .articulo-admin .admin-btn-registrar {
+        justify-content: center;
     }
 }

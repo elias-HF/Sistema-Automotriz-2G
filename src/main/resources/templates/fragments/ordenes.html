@@ -24,13 +24,18 @@
         <form th:action="@{/ordenes/crear}" method="post" class="row g-3">
             <div class="col-12 col-md-6">
                 <label for="idVehiculo" class="form-label">Vehículo</label>
-                <select id="idVehiculo" name="idVehiculo" class="form-select" required>
-                    <option value="">Seleccionar vehículo...</option>
-                    <option th:each="vehiculo : ${vehiculos}" th:value="${vehiculo.id_vehiculo}" th:selected="${citaSeleccionada != null and citaSeleccionada.vehiculo.id_vehiculo == vehiculo.id_vehiculo}"
+                <select name="idVehiculo" id="idVehiculo"
+                        class="form-select" required>
+                    <option value="">Seleccionar vehículo</option>
+
+                    <option th:each="vehiculo : ${vehiculos}"
+                            th:value="${vehiculo.id_vehiculo}"
                             th:text="${vehiculo.placa + ' - ' +
-                                  vehiculo.modelo.marca.nombre + ' ' +
-                                  vehiculo.modelo.nombre + ' - ' +
-                                  vehiculo.cliente.nombre}">
+                      vehiculo.modelo.marca.nombre + ' ' +
+                      vehiculo.modelo.nombre + ' - ' +
+                      vehiculo.cliente.nombre}"
+                            th:selected="${citaSeleccionada != null
+                and citaSeleccionada.vehiculo.id_vehiculo == vehiculo.id_vehiculo}">
                     </option>
                 </select>
             </div>
@@ -41,8 +46,18 @@
             </div>
 
             <div class="col-12">
-                <label for="diagnosticoNuevo" class="form-label">Diagnóstico inicial</label>
-                <textarea id="diagnosticoNuevo" name="diagnostico" class="form-control" rows="3" maxlength="200" placeholder="Describe el problema del vehículo..." required th:text="${citaSeleccionada != null ? citaSeleccionada.motivo : ''}"></textarea>
+                <label for="diagnosticoNuevo" class="form-label">
+                    Diagnóstico inicial
+                </label>
+
+                <textarea name="diagnostico"
+                          id="diagnosticoNuevo"
+                          class="form-control"
+                          maxlength="200"
+                          required
+                          th:text="${citaSeleccionada != null
+                  ? citaSeleccionada.motivo : ''}"
+                          placeholder="Describe las fallas detectadas..."></textarea>
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle me-1"></i>Crear orden</button>
@@ -260,8 +275,9 @@
             <input type="hidden" name="montoTotal" id="inputMontoTotal" value="0">
             <input type="hidden" name="diagnostico" id="inputDiagnostico" value="">
 
-            <button type="submit" class="btn btn-primary btn-lg" onclick="guardarOrden()">
-                <i class="bi bi-floppy-fill me-2"></i>Guardar orden
+            <button type="button" class="btn btn-primary btn-lg" onclick="guardarOrden()">
+                <i class="bi bi-floppy-fill me-2"></i>
+                Guardar orden
             </button>
         </form>
     </div>
@@ -299,6 +315,8 @@
                         totalArticulos += subtotal;
                     });
 
+                const total = totalServicios + totalArticulos;
+
                 document.getElementById('subtotalServicios').textContent =
                     moneda(totalServicios);
 
@@ -306,7 +324,15 @@
                     moneda(totalArticulos);
 
                 document.getElementById('totalOrden').textContent =
-                    moneda(totalServicios + totalArticulos);
+                    moneda(total);
+
+                const campoMontoNuevo = document.getElementById('montoTotal');
+                if (campoMontoNuevo) {campoMontoNuevo.value = total.toFixed(2);}
+                const campoMontoActualizacion = document.getElementById('inputMontoTotal');
+
+                if (campoMontoActualizacion) {
+                    campoMontoActualizacion.value = total.toFixed(2);
+                }
             };
 
             window.quitarServicio = function (boton) {
@@ -445,22 +471,27 @@
             };
 
             window.guardarOrden = function () {
-                const ordenId = document.querySelector('input[name="idOrden"]').value;
-                if (!ordenId || ordenId === "0") {
-                    alert('Primero debes buscar o seleccionar una orden existente para guardar los cambios.');
+                const formulario = document.getElementById('formGuardarOrden');
+
+                if (!formulario) return;
+
+                const campoId = formulario.querySelector('input[name="idOrden"]');
+                const ordenId = campoId.value;
+
+                if (!ordenId || ordenId === '0') {
+                    alert('Primero debes crear la orden para poder actualizarla.');
                     return;
                 }
 
-                const totalTexto = document.getElementById('totalOrden').textContent;
-                const totalNumerico = Number(
-                    totalTexto.replace('S/', '').trim().replace(',', '')
-                );
-                document.getElementById('inputMontoTotal').value = totalNumerico;
+                const diagnostico = document.getElementById('diagnostico');
 
-                const textoDiagnostico = document.getElementById('diagnostico').value;
-                document.getElementById('inputDiagnostico').value = textoDiagnostico;
+                if (diagnostico) {
+                    formulario.querySelector('input[name="diagnostico"]').value =
+                        diagnostico.value;
+                }
 
-                document.getElementById('formGuardarOrden').submit();
+                actualizarTotales();
+                formulario.submit();
             };
 
             window.finalizarOrden = function () {

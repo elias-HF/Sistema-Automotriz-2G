@@ -1,3 +1,355 @@
-<div th:fragment="tablaVehiculo" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="tablaVehiculo" class="admin-tabla-vehiculos">
+
+    <!-- BARRA DE HERRAMIENTAS -->
+    <div class="admin-tabla-toolbar">
+
+        <div class="input-group admin-buscador-vehiculos">
+            <input type="search"
+                   id="buscarVehiculoDemo"
+                   class="form-control"
+                   placeholder="Buscar por placa, marca, modelo o propietario..."
+                   aria-label="Buscar vehículos">
+
+            <button type="button"
+                    class="btn btn-secondary"
+                    id="btnBuscarVehiculoDemo"
+                    aria-label="Buscar">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+
+        <button type="button"
+                class="btn btn-success admin-btn-registrar"
+                id="btnRegistrarVehiculoDemo">
+            <i class="bi bi-plus-lg"></i>
+            REGISTRAR VEHÍCULO
+        </button>
+
+    </div>
+
+    <!-- TABLA -->
+    <div class="table-responsive">
+        <table class="table table-hover align-middle admin-vehiculos-table">
+
+            <thead>
+            <tr>
+                <th>Vehículo</th>
+                <th>Placa</th>
+                <th>Año</th>
+                <th>Kilometraje</th>
+                <th>Propietario</th>
+                <th>Estado</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+            </thead>
+
+            <tbody id="tablaVehiculosDemo">
+
+            <tr>
+                <td>
+                    <div class="vehiculo-info">
+                            <span class="vehiculo-avatar">
+                                <i class="bi bi-car-front-fill"></i>
+                            </span>
+                        <div>
+                            <strong>Toyota Corolla</strong>
+                            <small>ID: VEH-00001</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="vehiculo-placa">ABC-123</span></td>
+                <td>2020</td>
+                <td>45,000 km</td>
+                <td>Carlos Manuel Soto</td>
+                <td><span class="vehiculo-estado estado-activo">Activo</span></td>
+                <td class="text-center text-nowrap">
+                    <button type="button" class="btn btn-warning btn-accion-vehiculo"
+                            data-accion="editar" data-nombre="Toyota Corolla ABC-123"
+                            title="Editar vehículo" aria-label="Editar Toyota Corolla">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-vehiculo"
+                            data-accion="desactivar" data-nombre="Toyota Corolla ABC-123"
+                            title="Desactivar vehículo" aria-label="Desactivar Toyota Corolla">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="vehiculo-info">
+                            <span class="vehiculo-avatar">
+                                <i class="bi bi-car-front-fill"></i>
+                            </span>
+                        <div>
+                            <strong>Toyota Yaris</strong>
+                            <small>ID: VEH-00002</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="vehiculo-placa">BCD-234</span></td>
+                <td>2022</td>
+                <td>28,000 km</td>
+                <td>Carlos Manuel Soto</td>
+                <td><span class="vehiculo-estado estado-activo">Activo</span></td>
+                <td class="text-center text-nowrap">
+                    <button type="button" class="btn btn-warning btn-accion-vehiculo"
+                            data-accion="editar" data-nombre="Toyota Yaris BCD-234"
+                            title="Editar vehículo" aria-label="Editar Toyota Yaris">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-vehiculo"
+                            data-accion="desactivar" data-nombre="Toyota Yaris BCD-234"
+                            title="Desactivar vehículo" aria-label="Desactivar Toyota Yaris">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="vehiculo-info">
+                            <span class="vehiculo-avatar">
+                                <i class="bi bi-car-front-fill"></i>
+                            </span>
+                        <div>
+                            <strong>Hyundai Accent</strong>
+                            <small>ID: VEH-00003</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="vehiculo-placa">CDE-345</span></td>
+                <td>2019</td>
+                <td>62,000 km</td>
+                <td>María Torres</td>
+                <td><span class="vehiculo-estado estado-activo">Activo</span></td>
+                <td class="text-center text-nowrap">
+                    <button type="button" class="btn btn-warning btn-accion-vehiculo"
+                            data-accion="editar" data-nombre="Hyundai Accent CDE-345"
+                            title="Editar vehículo" aria-label="Editar Hyundai Accent">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-vehiculo"
+                            data-accion="desactivar" data-nombre="Hyundai Accent CDE-345"
+                            title="Desactivar vehículo" aria-label="Desactivar Hyundai Accent">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="vehiculo-info">
+                            <span class="vehiculo-avatar">
+                                <i class="bi bi-car-front-fill"></i>
+                            </span>
+                        <div>
+                            <strong>Kia Rio</strong>
+                            <small>ID: VEH-00004</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="vehiculo-placa">DEF-456</span></td>
+                <td>2023</td>
+                <td>15,000 km</td>
+                <td>Luis Ramírez</td>
+                <td><span class="vehiculo-estado estado-activo">Activo</span></td>
+                <td class="text-center text-nowrap">
+                    <button type="button" class="btn btn-warning btn-accion-vehiculo"
+                            data-accion="editar" data-nombre="Kia Rio DEF-456"
+                            title="Editar vehículo" aria-label="Editar Kia Rio">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-vehiculo"
+                            data-accion="desactivar" data-nombre="Kia Rio DEF-456"
+                            title="Desactivar vehículo" aria-label="Desactivar Kia Rio">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="vehiculo-info">
+                            <span class="vehiculo-avatar">
+                                <i class="bi bi-car-front-fill"></i>
+                            </span>
+                        <div>
+                            <strong>Toyota Corolla</strong>
+                            <small>ID: VEH-00005</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="vehiculo-placa">FGH-567</span></td>
+                <td>2021</td>
+                <td>39,500 km</td>
+                <td>Ana Flores</td>
+                <td><span class="vehiculo-estado estado-inactivo">Inactivo</span></td>
+                <td class="text-center text-nowrap">
+                    <button type="button" class="btn btn-warning btn-accion-vehiculo"
+                            data-accion="editar" data-nombre="Toyota Corolla FGH-567"
+                            title="Editar vehículo" aria-label="Editar Toyota Corolla">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-vehiculo"
+                            data-accion="desactivar" data-nombre="Toyota Corolla FGH-567"
+                            title="Desactivar vehículo" aria-label="Desactivar Toyota Corolla">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr id="vehiculosSinResultados" hidden>
+                <td colspan="7" class="text-center">
+                    No se encontraron vehículos.
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PIE Y PAGINACIÓN -->
+    <div class="admin-tabla-footer">
+        <span id="contadorVehiculosDemo">Mostrando 1 a 4 de 5 vehículos</span>
+
+        <nav class="admin-paginacion" aria-label="Paginación de vehículos">
+            <button type="button" class="admin-pagina-btn" id="vehiculosAnterior">
+                Anterior
+            </button>
+
+            <div id="numerosPaginasVehiculos" class="admin-pagina-numeros"></div>
+
+            <button type="button" class="admin-pagina-btn" id="vehiculosSiguiente">
+                Siguiente
+            </button>
+        </nav>
+    </div>
+
+    <!-- AVISOS -->
+    <div class="admin-demo-mensaje" id="mensajeVehiculoDemo" role="status" hidden></div>
+
+    <script>
+        (() => {
+            const contenedor = document.querySelector('.admin-tabla-vehiculos');
+
+            if (!contenedor || contenedor.dataset.inicializado === 'true') return;
+            contenedor.dataset.inicializado = 'true';
+
+            const cuerpo = contenedor.querySelector('#tablaVehiculosDemo');
+
+            const filas = Array.from(cuerpo.querySelectorAll('tr'))
+                .filter(fila => fila.querySelector('.vehiculo-info'));
+
+            const buscar = contenedor.querySelector('#buscarVehiculoDemo');
+            const contador = contenedor.querySelector('#contadorVehiculosDemo');
+            const paginas = contenedor.querySelector('#numerosPaginasVehiculos');
+            const anterior = contenedor.querySelector('#vehiculosAnterior');
+            const siguiente = contenedor.querySelector('#vehiculosSiguiente');
+            const sinResultados = contenedor.querySelector('#vehiculosSinResultados');
+            const mensaje = contenedor.querySelector('#mensajeVehiculoDemo');
+
+            const porPagina = 4;
+            let paginaActual = 1;
+            let filtrados = [...filas];
+
+            function renderizar() {
+                const total = filtrados.length;
+                const totalPaginas = Math.ceil(total / porPagina);
+
+                paginaActual = Math.max(1, Math.min(paginaActual, totalPaginas || 1));
+
+                filas.forEach(fila => fila.hidden = true);
+
+                const inicio = (paginaActual - 1) * porPagina;
+
+                filtrados.slice(inicio, inicio + porPagina)
+                    .forEach(fila => fila.hidden = false);
+
+                sinResultados.hidden = total !== 0;
+
+                contador.textContent = total === 0
+                    ? 'No hay vehículos para mostrar'
+                    : `Mostrando ${inicio + 1} a ${Math.min(inicio + porPagina, total)} de ${total} vehículos`;
+
+                anterior.disabled = paginaActual === 1 || total === 0;
+                siguiente.disabled = paginaActual === totalPaginas || total === 0;
+
+                paginas.replaceChildren();
+
+                for (let i = 1; i <= totalPaginas; i++) {
+                    const boton = document.createElement('button');
+
+                    boton.type = 'button';
+                    boton.className = 'admin-pagina-btn' +
+                        (i === paginaActual ? ' activa' : '');
+                    boton.textContent = i;
+                    boton.setAttribute('aria-label', `Página ${i}`);
+                    boton.setAttribute('aria-current', i === paginaActual ? 'page' : 'false');
+
+                    boton.addEventListener('click', () => {
+                        paginaActual = i;
+                        renderizar();
+                    });
+
+                    paginas.appendChild(boton);
+                }
+            }
+
+            function filtrar() {
+                const termino = buscar.value.trim().toLocaleLowerCase('es');
+
+                filtrados = filas.filter(fila =>
+                    fila.textContent.toLocaleLowerCase('es').includes(termino)
+                );
+
+                paginaActual = 1;
+                renderizar();
+            }
+
+            buscar.addEventListener('input', filtrar);
+
+            contenedor.querySelector('#btnBuscarVehiculoDemo')
+                .addEventListener('click', filtrar);
+
+            anterior.addEventListener('click', () => {
+                if (paginaActual > 1) {
+                    paginaActual--;
+                    renderizar();
+                }
+            });
+
+            siguiente.addEventListener('click', () => {
+                if (paginaActual < Math.ceil(filtrados.length / porPagina)) {
+                    paginaActual++;
+                    renderizar();
+                }
+            });
+
+            contenedor.querySelector('#btnRegistrarVehiculoDemo')
+                .addEventListener('click', () => {
+                    mensaje.textContent =
+                        'El registro de vehículos estará disponible cuando conectemos el módulo.';
+                    mensaje.hidden = false;
+                });
+
+            contenedor.querySelectorAll('.btn-accion-vehiculo')
+                .forEach(boton => {
+                    boton.addEventListener('click', () => {
+                        const accion = boton.dataset.accion === 'editar'
+                            ? 'La edición'
+                            : 'La desactivación';
+
+                        mensaje.textContent =
+                            `${accion} del vehículo ${boton.dataset.nombre} estará disponible al conectar el módulo.`;
+                        mensaje.hidden = false;
+                    });
+                });
+
+            renderizar();
+        })();
+    </script>
 
 </div>

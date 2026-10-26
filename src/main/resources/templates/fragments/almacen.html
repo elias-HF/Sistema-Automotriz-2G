@@ -7,15 +7,23 @@
         <p>Administra los repuestos e insumos y consulta su disponibilidad.</p>
     </div>
 
+    <!-- MENSAJES -->
+    <div class="alert alert-success"
+         th:if="${mensajeAlmacen}"
+         th:text="${mensajeAlmacen}">
+    </div>
+
+    <div class="alert alert-danger"
+         th:if="${errorAlmacen}"
+         th:text="${errorAlmacen}">
+    </div>
+
     <hr class="border-dark opacity-25 my-2">
 
     <!-- BUSCADOR Y REGISTRO -->
     <div class="almacen-toolbar mb-3">
 
-        <form th:action="@{/almacen}"
-              method="get"
-              class="almacen-buscador">
-
+        <form th:action="@{/almacen}" method="get" class="almacen-buscador">
             <label for="buscarArticulo">Buscar un artículo:</label>
 
             <div class="input-group">
@@ -34,12 +42,14 @@
             </div>
         </form>
 
-        <a th:href="@{/almacen/nuevo}"
-           class="btn btn-success btn-sm almacen-btn-nuevo">
+        <button type="button"
+                class="btn btn-success btn-sm almacen-btn-nuevo"
+                data-bs-toggle="modal"
+                data-bs-target="#modalArticulo"
+                id="btnNuevoArticulo">
             <i class="bi bi-plus-square-fill me-2"></i>
             NUEVO ARTÍCULO
-        </a>
-
+        </button>
     </div>
 
     <hr class="border-dark opacity-25 my-2">
@@ -47,54 +57,40 @@
     <!-- RESUMEN DEL STOCK -->
     <section class="almacen-resumen mb-3">
 
-        <h2 class="almacen-titulo">
-            RESUMEN DEL STOCK
-        </h2>
+        <h2 class="almacen-titulo">RESUMEN DEL STOCK</h2>
 
         <div class="row g-3">
 
-            <!-- ARTÍCULOS TOTALES -->
             <div class="col-12 col-md-4">
                 <div class="stock-card stock-total">
                     <div class="stock-card-info">
                         <span>Artículos Totales</span>
-                        <strong th:text="${cantidadArticulos != null ? cantidadArticulos : 0}">
-                            0
-                        </strong>
+                        <strong th:text="${cantidadArticulos != null ? cantidadArticulos : 0}">0</strong>
                     </div>
-
                     <div class="stock-card-icon">
                         <i class="bi bi-list-ol"></i>
                     </div>
                 </div>
             </div>
 
-            <!-- STOCK SUFICIENTE -->
             <div class="col-12 col-md-4">
                 <div class="stock-card stock-suficiente">
                     <div class="stock-card-info">
                         <span>Stock Suficiente</span>
-                        <strong th:text="${stockSuficiente != null ? stockSuficiente : 0}">
-                            0
-                        </strong>
+                        <strong th:text="${stockSuficiente != null ? stockSuficiente : 0}">0</strong>
                     </div>
-
                     <div class="stock-card-icon">
                         <i class="bi bi-check-square-fill"></i>
                     </div>
                 </div>
             </div>
 
-            <!-- STOCK CRÍTICO -->
             <div class="col-12 col-md-4">
                 <div class="stock-card stock-critico">
                     <div class="stock-card-info">
                         <span>Stock Crítico</span>
-                        <strong th:text="${stockCritico != null ? stockCritico : 0}">
-                            0
-                        </strong>
+                        <strong th:text="${stockCritico != null ? stockCritico : 0}">0</strong>
                     </div>
-
                     <div class="stock-card-icon">
                         <i class="bi bi-exclamation-triangle-fill"></i>
                     </div>
@@ -107,18 +103,16 @@
     <!-- LISTADO DE ARTÍCULOS -->
     <section class="almacen-listado">
 
-        <h2 class="almacen-titulo">
-            LISTA DE ARTÍCULOS VEHICULARES
-        </h2>
-
+        <h2 class="almacen-titulo">LISTA DE ARTÍCULOS VEHICULARES</h2>
 
         <div class="table-responsive">
             <table class="table table-hover align-middle">
+
                 <thead>
                 <tr>
                     <th>Código</th>
                     <th>Artículo</th>
-                    <th>Categoría</th>
+                    <th>Unidad de medida</th>
                     <th>Stock actual</th>
                     <th>Stock mínimo</th>
                     <th>Estado</th>
@@ -128,27 +122,54 @@
 
                 <tbody>
                 <tr th:each="articulo : ${articulos}">
-                    <td th:text="${articulo.codigo}">REP-001</td>
+
+                    <td th:text="${articulo.cod}">REP-001</td>
                     <td th:text="${articulo.nombre}">Filtro de aceite</td>
-                    <td th:text="${articulo.categoria}">Filtros</td>
+                    <td th:text="${articulo.unidad.nombre}">Unidad</td>
                     <td th:text="${articulo.stock}">15</td>
-                    <td th:text="${articulo.stockMinimo}">5</td>
+                    <td th:text="${articulo.stock_min}">5</td>
+
                     <td>
-                    <span th:if="${articulo.stock > articulo.stockMinimo}"
-                          class="badge bg-success">
-                        Disponible
-                    </span>
-                        <span th:if="${articulo.stock <= articulo.stockMinimo}"
+                        <span th:if="${articulo.stock.compareTo(articulo.stock_min) > 0}"
+                              class="badge bg-success">
+                            Disponible
+                        </span>
+
+                        <span th:if="${articulo.stock.compareTo(articulo.stock_min) <= 0}"
                               class="badge bg-danger">
-                        Stock crítico
-                    </span>
+                            Stock crítico
+                        </span>
                     </td>
-                    <td>
-                        <a th:href="@{/almacen/editar/{id}(id=${articulo.id})}"
-                           class="btn btn-sm btn-outline-primary"
-                           title="Editar">
+
+                    <td class="text-nowrap">
+
+                        <!-- ALERTA ESTÁTICA -->
+                        <button type="button"
+                                class="btn btn-sm btn-outline-warning me-1"
+                                title="Enviar alerta de stock"
+                                th:attr="data-articulo=${articulo.nombre}"
+                                onclick="alert('Alerta de stock para: ' + this.dataset.articulo)">
+                            <i class="bi bi-bell"></i>
+                        </button>
+
+                        <!-- ABRIR MODAL DE EDICIÓN -->
+                        <button type="button"
+                                class="btn btn-sm btn-outline-primary btn-editar-articulo"
+                                title="Modificar artículo"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalArticulo"
+                                th:attr="
+                                    data-id=${articulo.id_articulo},
+                                    data-cod=${articulo.cod},
+                                    data-nombre=${articulo.nombre},
+                                    data-descripcion=${articulo.descripcion},
+                                    data-precio=${articulo.precio},
+                                    data-stock=${articulo.stock},
+                                    data-stock-min=${articulo.stock_min},
+                                    data-unidad-id=${articulo.unidad.id_unidad}">
                             <i class="bi bi-pencil-square"></i>
-                        </a>
+                        </button>
+
                     </td>
                 </tr>
 
@@ -160,8 +181,214 @@
                 </tbody>
             </table>
         </div>
-
-
     </section>
+
+    <!-- MODAL PARA REGISTRAR Y EDITAR -->
+    <div class="modal fade"
+         id="modalArticulo"
+         tabindex="-1"
+         aria-labelledby="modalArticuloTitulo"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+
+            <div class="modal-content">
+
+                <form id="formArticulo"
+                      th:object="${articulo}"
+                      th:action="@{/almacen/guardar}"
+                      method="post">
+
+                    <!-- CABECERA DEL MODAL -->
+                    <div class="modal-header">
+                        <div>
+                            <h5 class="modal-title fw-bold" id="modalArticuloTitulo">
+                                NUEVO ARTÍCULO
+                            </h5>
+                            <p class="text-muted small mb-0">
+                                Completa los datos del repuesto o insumo.
+                            </p>
+                        </div>
+
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Cerrar">
+                        </button>
+                    </div>
+
+                    <!-- CAMPOS -->
+                    <div class="modal-body">
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+                                <label for="articuloCod" class="form-label">Código</label>
+                                <input type="text"
+                                       id="articuloCod"
+                                       th:field="*{cod}"
+                                       class="form-control"
+                                       maxlength="15"
+                                       required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="articuloNombre" class="form-label">
+                                    Nombre del artículo
+                                </label>
+                                <input type="text"
+                                       id="articuloNombre"
+                                       th:field="*{nombre}"
+                                       class="form-control"
+                                       maxlength="100"
+                                       required>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="articuloDescripcion" class="form-label">
+                                    Descripción
+                                </label>
+                                <textarea id="articuloDescripcion"
+                                          th:field="*{descripcion}"
+                                          class="form-control"
+                                          rows="3"
+                                          maxlength="200"
+                                          required></textarea>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="articuloPrecio" class="form-label">
+                                    Precio unitario (S/)
+                                </label>
+                                <input type="number"
+                                       id="articuloPrecio"
+                                       th:field="*{precio}"
+                                       class="form-control"
+                                       min="0"
+                                       step="0.01"
+                                       required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="articuloUnidad" class="form-label">
+                                    Unidad de medida
+                                </label>
+                                <select id="articuloUnidad"
+                                        name="idUnidad"
+                                        class="form-select"
+                                        required>
+                                    <option value="">Selecciona una unidad</option>
+
+                                    <option th:each="unidad : ${unidades}"
+                                            th:value="${unidad.id_unidad}"
+                                            th:text="${unidad.nombre + ' (' + unidad.abreviatura + ')'}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="articuloStock" class="form-label">
+                                    Stock actual
+                                </label>
+                                <input type="number"
+                                       id="articuloStock"
+                                       th:field="*{stock}"
+                                       class="form-control"
+                                       min="0"
+                                       step="0.01"
+                                       required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="articuloStockMin" class="form-label">
+                                    Stock mínimo
+                                </label>
+                                <input type="number"
+                                       id="articuloStockMin"
+                                       th:field="*{stock_min}"
+                                       class="form-control"
+                                       min="0"
+                                       step="0.01"
+                                       required>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- BOTONES -->
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-floppy me-1"></i>
+                            <span id="textoBotonGuardar">Registrar artículo</span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPORTAMIENTO DEL MODAL -->
+    <script>
+        (function () {
+            const modal = document.getElementById('modalArticulo');
+
+            if (!modal || modal.dataset.inicializado === 'true') {
+                return;
+            }
+
+            modal.dataset.inicializado = 'true';
+
+            const form = document.getElementById('formArticulo');
+            const titulo = document.getElementById('modalArticuloTitulo');
+            const textoBoton = document.getElementById('textoBotonGuardar');
+
+            const campos = {
+                cod: document.getElementById('articuloCod'),
+                nombre: document.getElementById('articuloNombre'),
+                descripcion: document.getElementById('articuloDescripcion'),
+                precio: document.getElementById('articuloPrecio'),
+                stock: document.getElementById('articuloStock'),
+                stockMin: document.getElementById('articuloStockMin'),
+                unidad: document.getElementById('articuloUnidad')
+            };
+
+            document.getElementById('btnNuevoArticulo')
+                .addEventListener('click', function () {
+                    form.reset();
+                    form.action = '/almacen/guardar';
+
+                    titulo.textContent = 'NUEVO ARTÍCULO';
+                    textoBoton.textContent = 'Registrar artículo';
+                });
+
+            document.querySelectorAll('.btn-editar-articulo')
+                .forEach(function (boton) {
+                    boton.addEventListener('click', function () {
+                        const datos = this.dataset;
+
+                        form.reset();
+                        form.action = '/almacen/actualizar/' + datos.id;
+
+                        campos.cod.value = datos.cod || '';
+                        campos.nombre.value = datos.nombre || '';
+                        campos.descripcion.value = datos.descripcion || '';
+                        campos.precio.value = datos.precio || '';
+                        campos.stock.value = datos.stock || '0';
+                        campos.stockMin.value = datos.stockMin || '0';
+                        campos.unidad.value = datos.unidadId || '';
+
+                        titulo.textContent = 'MODIFICAR ARTÍCULO';
+                        textoBoton.textContent = 'Guardar cambios';
+                    });
+                });
+        })();
+    </script>
 
 </div>

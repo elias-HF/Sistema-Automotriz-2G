@@ -1,36 +1,32 @@
+
 package com.example.automotriz.controller;
 
-import com.example.automotriz.entity.CitaEntity;
 import com.example.automotriz.entity.OrdenServicioEntity;
 import com.example.automotriz.repository.CitaRepository;
 import com.example.automotriz.repository.VehiculoRepository;
-import com.example.automotriz.service.CitaService;
 import com.example.automotriz.service.OrdenesService;
+
+import java.math.BigDecimal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/ordenes")
 public class OrdenesController {
 
     private final OrdenesService ordenService;
-    private final CitaService citaService;
     private final VehiculoRepository vehiculoRepository;
     private final CitaRepository citaRepository;
 
     public OrdenesController(
-            OrdenesService ordenService,CitaService citaService,
-            VehiculoRepository vehiculoRepository, CitaRepository citaRepository) {
+            OrdenesService ordenService,
+            VehiculoRepository vehiculoRepository,
+            CitaRepository citaRepository) {
+
         this.ordenService = ordenService;
-        this.citaService = citaService;
         this.vehiculoRepository = vehiculoRepository;
         this.citaRepository = citaRepository;
     }
@@ -38,16 +34,35 @@ public class OrdenesController {
     @GetMapping("/crear")
     public String mostrarFormularioCrearOrden(
             @RequestParam(required = false) Integer citaId,
-            Model model) {
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
+        model.addAttribute("vista", "ordenes");
+        model.addAttribute("vehiculos", vehiculoRepository.findByActivoTrue());
 
         if (citaId != null) {
-            citaRepository.findById(citaId).ifPresent(cita -> {
-            model.addAttribute("citaSeleccionada", cita);
-            });
-        }
+            return citaRepository.findById(citaId)
+                    .map(cita -> {
+                        if (!"PENDIENTE".equalsIgnoreCase(cita.getEstado())) {
+                            redirectAttributes.addFlashAttribute(
+                                    "errorOrden",
+                                    "Solo se pueden convertir citas pendientes en órdenes."
+                            );
+                            return "redirect:/ordenes";
+                        }
 
-        model.addAttribute("vehiculos", vehiculoRepository.findByActivoTrue());
-        model.addAttribute("vista", "ordenes");
+                        model.addAttribute("citaSeleccionada", cita);
+                        model.addAttribute("diagnosticoInicial", cita.getMotivo());
+
+                        return "view/Index";
+                    })
+                    .orElseGet(() -> {
+                        redirectAttributes.addFlashAttribute(
+                                "errorOrden", "No se encontró la cita seleccionada."
+                        );
+                        return "redirect:/ordenes";
+                    });
+        }
 
         return "view/Index";
     }
@@ -66,8 +81,7 @@ public class OrdenesController {
 
             try {
                 model.addAttribute(
-                        "orden",
-                        ordenService.buscarPorCodigo(codigo.trim()));
+                        "orden", ordenService.buscarPorCodigo(codigo.trim()));
             } catch (IllegalArgumentException e) {
                 model.addAttribute("errorOrden", e.getMessage());
             }
@@ -91,7 +105,35 @@ public class OrdenesController {
             redirectAttributes.addFlashAttribute(
                     "mensajeOrden", "Orden creada correctamente.");
 
-            return "redirect:/ordenes?codigo=" + orden.getCod();
+            redirectAttributes.addAttribute("codigo", orden.getCod());
+            return "redirect:/ordenes";
+
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute(
+                    "errorOrden", e.getMessage());
+
+            return "redirect:/ordenes";
+        }
+    }
+
+    // Actualizar datos de una orden existente
+    @PostMapping("/actualizar")
+    public String actualizarOrden(
+            @RequestParam int idOrden,
+            @RequestParam String diagnostico,
+            @RequestParam BigDecimal montoTotal,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            OrdenServicioEntity orden = ordenService.actualizarOrden(
+                    idOrden, diagnostico, montoTotal);
+
+            redirectAttributes.addFlashAttribute(
+                    "mensajeOrden",
+                    "Los datos de la orden se guardaron correctamente.");
+
+            redirectAttributes.addAttribute("codigo", orden.getCod());
+            return "redirect:/ordenes";
 
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute(
@@ -108,15 +150,13 @@ public class OrdenesController {
             RedirectAttributes redirectAttributes) {
 
         try {
-            OrdenServicioEntity orden =
-                    ordenService.finalizar(idOrden);
+            OrdenServicioEntity orden = ordenService.finalizar(idOrden);
 
             redirectAttributes.addFlashAttribute(
-                    "mensajeOrden",
-                    "La orden se finalizó correctamente.");
+                    "mensajeOrden", "La orden se finalizó correctamente.");
 
-            return "redirect:/ordenes/comprobante?codigo="
-                    + orden.getCod();
+            redirectAttributes.addAttribute("codigo", orden.getCod());
+            return "redirect:/ordenes/comprobante";
 
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute(
@@ -126,24 +166,7 @@ public class OrdenesController {
         }
     }
 
-    @PostMapping("/actualizar")
-    public String actualizarOrden(
-            @RequestParam int idOrden,
-            @RequestParam String diagnostico,
-            @RequestParam BigDecimal montoTotal,
-            RedirectAttributes redirectAttributes) {
-
-        try {
-            OrdenServicioEntity orden = ordenService.actualizarOrden(idOrden, diagnostico, montoTotal);
-            redirectAttributes.addFlashAttribute("mensajeOrden", "¡Los datos de la orden se guardaron correctamente en la base de datos!");
-            return "redirect:/ordenes?codigo=" + orden.getCod();
-        } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("errorOrden", e.getMessage());
-            return "redirect:/ordenes";
-        }
-    }
-
-    // Cargar orden finalizada para el comprobante
+    // Mostrar los datos de la orden en la vista de comprobantes
     @GetMapping("/comprobante")
     public String mostrarComprobante(
             @RequestParam String codigo,
@@ -164,6 +187,7 @@ public class OrdenesController {
         return "view/Index";
     }
 
+    // Cargar datos necesarios para los formularios
     private void cargarFormulario(Model model) {
         model.addAttribute(
                 "vehiculos", vehiculoRepository.findByActivoTrue());

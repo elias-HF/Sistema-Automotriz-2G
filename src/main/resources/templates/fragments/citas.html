@@ -256,7 +256,7 @@
                     const acciones = document.createElement('div');
                     acciones.className = 'appointment-actions d-grid gap-2';
 
-                    if (datos.estado !== 'CANCELADA' && datos.estado !== 'ATENDIDA') {
+                    if (datos.estado === 'PENDIENTE') {
                         const convertir = document.createElement('a');
                         convertir.href = '/ordenes/crear?citaId=' + encodeURIComponent(evento.id);
                         convertir.className = 'btn btn-primary btn-sm';

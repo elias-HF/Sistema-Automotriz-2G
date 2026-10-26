@@ -1,3 +1,386 @@
-<div th:fragment="tablaArticulo" xmlns:th="http://www.thymeleaf.org">
 
+<div th:fragment="tablaArticulo" class="articulo-admin">
+
+    <!-- BÚSQUEDA Y REGISTRO -->
+    <div class="admin-tabla-toolbar">
+        <div class="admin-buscador-articulos">
+            <i class="bi bi-search"></i>
+            <input type="text"
+                   id="buscarArticulo"
+                   placeholder="Buscar artículo..."
+                   autocomplete="off">
+        </div>
+
+        <button type="button"
+                class="btn btn-success admin-btn-registrar"
+                id="btnRegistrarArticulo">
+            <i class="bi bi-plus-lg"></i>
+            REGISTRAR ARTÍCULO
+        </button>
+    </div>
+
+    <!-- TABLA DE ARTÍCULOS -->
+    <div class="table-responsive">
+        <table class="table align-middle admin-articulos-table">
+            <thead>
+            <tr>
+                <th>CÓDIGO</th>
+                <th>ARTÍCULO</th>
+                <th>CATEGORÍA</th>
+                <th>PRECIO</th>
+                <th>STOCK</th>
+                <th>ESTADO</th>
+                <th class="text-center">ACCIONES</th>
+            </tr>
+            </thead>
+
+            <tbody id="tablaArticulosBody">
+            <tr>
+                <td>ART-00001</td>
+                <td>
+                    <span class="articulo-nombre">Aceite de motor 10W-40</span>
+                    <small class="articulo-detalle">Presentación: 1 litro</small>
+                </td>
+                <td>Lubricantes</td>
+                <td>S/ 35.00</td>
+                <td>
+                    <span class="articulo-stock normal">24 unidades</span>
+                </td>
+                <td>
+                        <span class="articulo-estado activo">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Activo
+                        </span>
+                </td>
+                <td class="text-center">
+                    <div class="articulo-acciones">
+                        <button type="button"
+                                class="btn-articulo-editar"
+                                title="Editar artículo"
+                                data-accion="editar"
+                                data-nombre="Aceite de motor 10W-40">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button"
+                                class="btn-articulo-stock"
+                                title="Consultar stock"
+                                data-accion="stock"
+                                data-nombre="Aceite de motor 10W-40">
+                            <i class="bi bi-box-seam"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>ART-00002</td>
+                <td>
+                    <span class="articulo-nombre">Filtro de aceite</span>
+                    <small class="articulo-detalle">Compatible con varios modelos</small>
+                </td>
+                <td>Filtros</td>
+                <td>S/ 28.00</td>
+                <td>
+                    <span class="articulo-stock bajo">4 unidades</span>
+                </td>
+                <td>
+                        <span class="articulo-estado activo">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Activo
+                        </span>
+                </td>
+                <td class="text-center">
+                    <div class="articulo-acciones">
+                        <button type="button"
+                                class="btn-articulo-editar"
+                                title="Editar artículo"
+                                data-accion="editar"
+                                data-nombre="Filtro de aceite">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button"
+                                class="btn-articulo-stock"
+                                title="Consultar stock"
+                                data-accion="stock"
+                                data-nombre="Filtro de aceite">
+                            <i class="bi bi-box-seam"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>ART-00003</td>
+                <td>
+                    <span class="articulo-nombre">Pastillas de freno</span>
+                    <small class="articulo-detalle">Juego para eje delantero</small>
+                </td>
+                <td>Frenos</td>
+                <td>S/ 95.00</td>
+                <td>
+                    <span class="articulo-stock normal">12 unidades</span>
+                </td>
+                <td>
+                        <span class="articulo-estado activo">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Activo
+                        </span>
+                </td>
+                <td class="text-center">
+                    <div class="articulo-acciones">
+                        <button type="button"
+                                class="btn-articulo-editar"
+                                title="Editar artículo"
+                                data-accion="editar"
+                                data-nombre="Pastillas de freno">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button"
+                                class="btn-articulo-stock"
+                                title="Consultar stock"
+                                data-accion="stock"
+                                data-nombre="Pastillas de freno">
+                            <i class="bi bi-box-seam"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>ART-00004</td>
+                <td>
+                    <span class="articulo-nombre">Bujía de encendido</span>
+                    <small class="articulo-detalle">Unidad de encendido</small>
+                </td>
+                <td>Electricidad</td>
+                <td>S/ 22.00</td>
+                <td>
+                    <span class="articulo-stock agotado">0 unidades</span>
+                </td>
+                <td>
+                        <span class="articulo-estado activo">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Activo
+                        </span>
+                </td>
+                <td class="text-center">
+                    <div class="articulo-acciones">
+                        <button type="button"
+                                class="btn-articulo-editar"
+                                title="Editar artículo"
+                                data-accion="editar"
+                                data-nombre="Bujía de encendido">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button"
+                                class="btn-articulo-stock"
+                                title="Consultar stock"
+                                data-accion="stock"
+                                data-nombre="Bujía de encendido">
+                            <i class="bi bi-box-seam"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>ART-00005</td>
+                <td>
+                    <span class="articulo-nombre">Refrigerante para motor</span>
+                    <small class="articulo-detalle">Presentación: 1 litro</small>
+                </td>
+                <td>Lubricantes</td>
+                <td>S/ 18.00</td>
+                <td>
+                    <span class="articulo-stock normal">18 unidades</span>
+                </td>
+                <td>
+                        <span class="articulo-estado inactivo">
+                            <i class="bi bi-x-circle-fill"></i>
+                            Inactivo
+                        </span>
+                </td>
+                <td class="text-center">
+                    <div class="articulo-acciones">
+                        <button type="button"
+                                class="btn-articulo-editar"
+                                title="Editar artículo"
+                                data-accion="editar"
+                                data-nombre="Refrigerante para motor">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button"
+                                class="btn-articulo-stock"
+                                title="Consultar stock"
+                                data-accion="stock"
+                                data-nombre="Refrigerante para motor">
+                            <i class="bi bi-box-seam"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- MENSAJES -->
+    <div id="mensajeArticulo"
+         class="admin-demo-mensaje"
+         role="status"
+         aria-live="polite"
+         hidden>
+    </div>
+
+    <!-- PAGINACIÓN -->
+    <div class="admin-tabla-footer">
+        <span id="articuloInfoRegistros">Mostrando 4 de 5 artículos</span>
+
+        <div class="admin-paginacion">
+            <button type="button"
+                    class="admin-pagina-btn"
+                    id="articuloAnterior"
+                    aria-label="Página anterior">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+
+            <div id="articuloNumeros" class="admin-pagina-numeros"></div>
+
+            <button type="button"
+                    class="admin-pagina-btn"
+                    id="articuloSiguiente"
+                    aria-label="Página siguiente">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- FUNCIONALIDAD DE DEMOSTRACIÓN -->
+    <script>
+        (() => {
+            const contenedor = document.querySelector('.articulo-admin');
+
+            if (!contenedor || contenedor.dataset.inicializado === 'true') {
+                return;
+            }
+
+            contenedor.dataset.inicializado = 'true';
+
+            const buscar = contenedor.querySelector('#buscarArticulo');
+            const cuerpo = contenedor.querySelector('#tablaArticulosBody');
+            const filas = Array.from(cuerpo.querySelectorAll('tr'));
+            const info = contenedor.querySelector('#articuloInfoRegistros');
+            const anterior = contenedor.querySelector('#articuloAnterior');
+            const siguiente = contenedor.querySelector('#articuloSiguiente');
+            const numeros = contenedor.querySelector('#articuloNumeros');
+            const mensaje = contenedor.querySelector('#mensajeArticulo');
+            const registrar = contenedor.querySelector('#btnRegistrarArticulo');
+
+            const porPagina = 4;
+            let paginaActual = 1;
+            let filasFiltradas = [...filas];
+
+            function mostrarMensaje(texto) {
+                mensaje.textContent = texto;
+                mensaje.hidden = false;
+            }
+
+            function renderizar() {
+                const total = filasFiltradas.length;
+                const totalPaginas = Math.max(1, Math.ceil(total / porPagina));
+
+                if (paginaActual > totalPaginas) {
+                    paginaActual = totalPaginas;
+                }
+
+                filas.forEach(fila => fila.hidden = true);
+
+                const inicio = (paginaActual - 1) * porPagina;
+                const visibles = filasFiltradas.slice(inicio, inicio + porPagina);
+
+                visibles.forEach(fila => fila.hidden = false);
+
+                info.textContent = total === 0
+                    ? 'No se encontraron artículos'
+                    : `Mostrando ${inicio + 1}-${inicio + visibles.length} de ${total} artículos`;
+
+                anterior.disabled = paginaActual === 1;
+                siguiente.disabled = paginaActual === totalPaginas;
+
+                numeros.replaceChildren();
+
+                for (let i = 1; i <= totalPaginas; i++) {
+                    const boton = document.createElement('button');
+                    boton.type = 'button';
+                    boton.className = 'admin-pagina-btn' +
+                        (i === paginaActual ? ' activa' : '');
+                    boton.textContent = i;
+                    boton.setAttribute('aria-label', `Ir a la página ${i}`);
+
+                    boton.addEventListener('click', () => {
+                        paginaActual = i;
+                        renderizar();
+                    });
+
+                    numeros.appendChild(boton);
+                }
+            }
+
+            function filtrar() {
+                const texto = buscar.value.trim().toLowerCase();
+
+                filasFiltradas = filas.filter(fila =>
+                    fila.textContent.toLowerCase().includes(texto)
+                );
+
+                paginaActual = 1;
+                renderizar();
+            }
+
+            buscar.addEventListener('input', filtrar);
+
+            anterior.addEventListener('click', () => {
+                if (paginaActual > 1) {
+                    paginaActual--;
+                    renderizar();
+                }
+            });
+
+            siguiente.addEventListener('click', () => {
+                const totalPaginas = Math.max(
+                    1,
+                    Math.ceil(filasFiltradas.length / porPagina)
+                );
+
+                if (paginaActual < totalPaginas) {
+                    paginaActual++;
+                    renderizar();
+                }
+            });
+
+            registrar.addEventListener('click', () => {
+                mostrarMensaje(
+                    'Demostración: el formulario para registrar artículos se implementará posteriormente.'
+                );
+            });
+
+            contenedor.querySelectorAll('[data-accion]').forEach(boton => {
+                boton.addEventListener('click', () => {
+                    const accion = boton.dataset.accion;
+                    const nombre = boton.dataset.nombre;
+
+                    if (accion === 'editar') {
+                        mostrarMensaje(
+                            `Demostración: edición del artículo "${nombre}".`
+                        );
+                    } else {
+                        mostrarMensaje(
+                            `Demostración: consulta del stock de "${nombre}".`
+                        );
+                    }
+                });
+            });
+
+            renderizar();
+        })();
+    </script>
 </div>

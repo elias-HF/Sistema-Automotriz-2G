@@ -1,57 +1,398 @@
-<div th:fragment="tabla" xmlns:th="http://www.thymeleaf.org">
-    <div class="d-flex justify-content-between gap-2 mb-3">
-        <form th:action="@{/administracion}" method="get" class="input-group" style="max-width: 400px">
-            <input type="hidden" name="elemento" value="clientes">
-            <input type="search" name="filtro" class="form-control" placeholder="Buscar cliente..." th:value="${filtro}">
-            <button class="btn btn-secondary" type="submit">
+
+<div th:fragment="tabla" class="admin-tabla-clientes">
+
+    <!-- BARRA DE HERRAMIENTAS -->
+    <div class="admin-tabla-toolbar">
+
+        <div class="input-group admin-buscador-clientes">
+            <input type="search"
+                   id="buscarClienteDemo"
+                   class="form-control"
+                   placeholder="Buscar por nombre, teléfono, DNI, etc."
+                   aria-label="Buscar clientes">
+
+            <button class="btn btn-secondary"
+                    type="button"
+                    id="btnBuscarClienteDemo"
+                    aria-label="Buscar">
                 <i class="bi bi-search"></i>
             </button>
-        </form>
+        </div>
 
-        <a th:href="@{/clientes/nuevo}" class="btn btn-success text-nowrap"><i class="bi bi-plus-lg"></i>Registrar cliente</a>
+        <button type="button"
+                class="btn btn-success admin-btn-registrar"
+                id="btnRegistrarClienteDemo">
+            <i class="bi bi-plus-lg"></i>
+            REGISTRAR CLIENTE
+        </button>
+
     </div>
 
+    <!-- TABLA -->
     <div class="table-responsive">
-        <table class="table table-hover align-middle">
+        <table class="table table-hover align-middle admin-clientes-table">
 
-            <thead class="table-primary">
-                <tr>
-                    <th>Nombre</th>
-                    <th>DNI</th>
-                    <th>Teléfono</th>
-                    <th>Correo electrónico</th>
-                    <th>Acciones</th>
-                </tr>
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Correo electrónico</th>
+                <th class="text-center">Acciones</th>
+            </tr>
             </thead>
 
-            <tbody>
-                <tr th:each="cliente : ${clientes}">
-                    <td>
-                       <span th:text="${cliente.nombre}"></span>
-                        <small class="d-block text-secondary" th:text="'ID: ' + ${cliente.codigo}"></small>
-                    </td>
+            <tbody id="tablaClientesDemo">
 
-                    <td th:text="${cliente.dni}"></td>
-                    <td th:text="${cliente.telefono}"></td>
-                    <td th:text="${cliente.correo}"></td>
+            <tr>
+                <td>
+                    <div class="cliente-nombre">
+                        <span class="cliente-avatar">CM</span>
+                        <div>
+                            <strong>Carlos Manuel Soto</strong>
+                            <small>ID: CLI-001</small>
+                        </div>
+                    </div>
+                </td>
+                <td>45892014</td>
+                <td>984512301</td>
+                <td>c.soto@gmail.com</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-warning btn-accion-cliente"
+                            data-accion="editar" data-nombre="Carlos Manuel Soto"
+                            title="Editar cliente" aria-label="Editar Carlos Manuel Soto">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-cliente"
+                            data-accion="desactivar" data-nombre="Carlos Manuel Soto"
+                            title="Desactivar cliente" aria-label="Desactivar Carlos Manuel Soto">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
 
-                    <td class="text-nowrap">
-                        <a th:href="@{/clientes/editar/{id}(id=${cliente.idCliente})}" class="btn btn-warning btn-sm">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
+            <tr>
+                <td>
+                    <div class="cliente-nombre">
+                        <span class="cliente-avatar">AL</span>
+                        <div>
+                            <strong>Ariana Lucía Mendoza</strong>
+                            <small>ID: CLI-002</small>
+                        </div>
+                    </div>
+                </td>
+                <td>71204938</td>
+                <td>971204859</td>
+                <td>ariana.mendoza@hotmail.com</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-warning btn-accion-cliente"
+                            data-accion="editar" data-nombre="Ariana Lucía Mendoza"
+                            title="Editar cliente" aria-label="Editar Ariana Lucía Mendoza">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-cliente"
+                            data-accion="desactivar" data-nombre="Ariana Lucía Mendoza"
+                            title="Desactivar cliente" aria-label="Desactivar Ariana Lucía Mendoza">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
 
-                        <form th:action="@{/clientes/desactivar/{id}(id=${cliente.idCliente})}" method="post" class="d-inline">
-                            <button type="submit" class="btn btn-danger btn-sm">
-                                <i class="bi bi-x-lg"></i>
-                           </button>
-                        </form>
-                   </td>
-                </tr>
+            <tr>
+                <td>
+                    <div class="cliente-nombre">
+                        <span class="cliente-avatar">GB</span>
+                        <div>
+                            <strong>Gustavo Adolfo Bécquer</strong>
+                            <small>ID: CLI-003</small>
+                        </div>
+                    </div>
+                </td>
+                <td>10482910</td>
+                <td>955120349</td>
+                <td>gbecquer@outlook.com</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-warning btn-accion-cliente"
+                            data-accion="editar" data-nombre="Gustavo Adolfo Bécquer"
+                            title="Editar cliente" aria-label="Editar Gustavo Adolfo Bécquer">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-cliente"
+                            data-accion="desactivar" data-nombre="Gustavo Adolfo Bécquer"
+                            title="Desactivar cliente" aria-label="Desactivar Gustavo Adolfo Bécquer">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
 
-               <tr th:if="${#lists.isEmpty(clientes)}">
-                   <td colspan="5" class="text-center">No hay clientes registrados.</td>
-               </tr>
+            <tr>
+                <td>
+                    <div class="cliente-nombre">
+                        <span class="cliente-avatar">JR</span>
+                        <div>
+                            <strong>Julio Ramón Ribeyro</strong>
+                            <small>ID: CLI-004</small>
+                        </div>
+                    </div>
+                </td>
+                <td>08392174</td>
+                <td>940192837</td>
+                <td>jribeyro@gmail.com</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-warning btn-accion-cliente"
+                            data-accion="editar" data-nombre="Julio Ramón Ribeyro"
+                            title="Editar cliente" aria-label="Editar Julio Ramón Ribeyro">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-cliente"
+                            data-accion="desactivar" data-nombre="Julio Ramón Ribeyro"
+                            title="Desactivar cliente" aria-label="Desactivar Julio Ramón Ribeyro">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="cliente-nombre">
+                        <span class="cliente-avatar">AF</span>
+                        <div>
+                            <strong>Ana Flores</strong>
+                            <small>ID: CLI-005</small>
+                        </div>
+                    </div>
+                </td>
+                <td>74561234</td>
+                <td>984123456</td>
+                <td>ana.flores@gmail.com</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-warning btn-accion-cliente"
+                            data-accion="editar" data-nombre="Ana Flores"
+                            title="Editar cliente" aria-label="Editar Ana Flores">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-cliente"
+                            data-accion="desactivar" data-nombre="Ana Flores"
+                            title="Desactivar cliente" aria-label="Desactivar Ana Flores">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="cliente-nombre">
+                        <span class="cliente-avatar">JC</span>
+                        <div>
+                            <strong>Jorge Castillo</strong>
+                            <small>ID: CLI-006</small>
+                        </div>
+                    </div>
+                </td>
+                <td>75612345</td>
+                <td>983234567</td>
+                <td>jorge.castillo@gmail.com</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-warning btn-accion-cliente"
+                            data-accion="editar" data-nombre="Jorge Castillo"
+                            title="Editar cliente" aria-label="Editar Jorge Castillo">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-cliente"
+                            data-accion="desactivar" data-nombre="Jorge Castillo"
+                            title="Desactivar cliente" aria-label="Desactivar Jorge Castillo">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="cliente-nombre">
+                        <span class="cliente-avatar">LV</span>
+                        <div>
+                            <strong>Lucía Vargas</strong>
+                            <small>ID: CLI-007</small>
+                        </div>
+                    </div>
+                </td>
+                <td>76723456</td>
+                <td>982345678</td>
+                <td>lucia.vargas@gmail.com</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-warning btn-accion-cliente"
+                            data-accion="editar" data-nombre="Lucía Vargas"
+                            title="Editar cliente" aria-label="Editar Lucía Vargas">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-cliente"
+                            data-accion="desactivar" data-nombre="Lucía Vargas"
+                            title="Desactivar cliente" aria-label="Desactivar Lucía Vargas">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="cliente-nombre">
+                        <span class="cliente-avatar">PS</span>
+                        <div>
+                            <strong>Pedro Salazar</strong>
+                            <small>ID: CLI-008</small>
+                        </div>
+                    </div>
+                </td>
+                <td>77834567</td>
+                <td>981456789</td>
+                <td>pedro.salazar@gmail.com</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-warning btn-accion-cliente"
+                            data-accion="editar" data-nombre="Pedro Salazar"
+                            title="Editar cliente" aria-label="Editar Pedro Salazar">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-cliente"
+                            data-accion="desactivar" data-nombre="Pedro Salazar"
+                            title="Desactivar cliente" aria-label="Desactivar Pedro Salazar">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr id="clientesSinResultados" hidden>
+                <td colspan="5" class="text-center">
+                    No se encontraron clientes.
+                </td>
+            </tr>
+
             </tbody>
         </table>
-   </div>
+    </div>
+
+    <!-- PIE Y PAGINACIÓN -->
+    <div class="admin-tabla-footer">
+        <span id="contadorClientesDemo">Mostrando 1 a 4 de 8 clientes</span>
+
+        <nav class="admin-paginacion" aria-label="Paginación de clientes">
+            <button type="button" class="admin-pagina-btn" id="clientesAnterior">
+                Anterior
+            </button>
+            <div id="numerosPaginasClientes" class="admin-pagina-numeros"></div>
+            <button type="button" class="admin-pagina-btn" id="clientesSiguiente">
+                Siguiente
+            </button>
+        </nav>
+    </div>
+
+    <!-- AVISO PARA ACCIONES DE DEMOSTRACIÓN -->
+    <div class="admin-demo-mensaje" id="mensajeClienteDemo" role="status" hidden></div>
+
+    <script>
+        (() => {
+            const contenedor = document.querySelector('.admin-tabla-clientes');
+            if (!contenedor || contenedor.dataset.inicializado === 'true') return;
+            contenedor.dataset.inicializado = 'true';
+
+            const cuerpo = contenedor.querySelector('#tablaClientesDemo');
+            const filas = Array.from(cuerpo.querySelectorAll('tr'))
+                .filter(fila => fila.querySelector('.cliente-nombre'));
+
+            const buscar = contenedor.querySelector('#buscarClienteDemo');
+            const contador = contenedor.querySelector('#contadorClientesDemo');
+            const paginas = contenedor.querySelector('#numerosPaginasClientes');
+            const anterior = contenedor.querySelector('#clientesAnterior');
+            const siguiente = contenedor.querySelector('#clientesSiguiente');
+            const sinResultados = contenedor.querySelector('#clientesSinResultados');
+            const mensaje = contenedor.querySelector('#mensajeClienteDemo');
+
+            const porPagina = 4;
+            let paginaActual = 1;
+            let filtrados = [...filas];
+
+            function renderizar() {
+                const total = filtrados.length;
+                const totalPaginas = Math.ceil(total / porPagina);
+                paginaActual = Math.max(1, Math.min(paginaActual, totalPaginas || 1));
+
+                filas.forEach(fila => fila.hidden = true);
+
+                const inicio = (paginaActual - 1) * porPagina;
+                const visibles = filtrados.slice(inicio, inicio + porPagina);
+                visibles.forEach(fila => fila.hidden = false);
+
+                sinResultados.hidden = total !== 0;
+
+                contador.textContent = total === 0
+                    ? 'No hay clientes para mostrar'
+                    : `Mostrando ${inicio + 1} a ${Math.min(inicio + porPagina, total)} de ${total} clientes`;
+
+                anterior.disabled = paginaActual === 1 || total === 0;
+                siguiente.disabled = paginaActual === totalPaginas || total === 0;
+
+                paginas.replaceChildren();
+
+                for (let i = 1; i <= totalPaginas; i++) {
+                    const boton = document.createElement('button');
+                    boton.type = 'button';
+                    boton.className = 'admin-pagina-btn' + (i === paginaActual ? ' activa' : '');
+                    boton.textContent = i;
+                    boton.setAttribute('aria-label', `Página ${i}`);
+                    boton.setAttribute('aria-current', i === paginaActual ? 'page' : 'false');
+
+                    boton.addEventListener('click', () => {
+                        paginaActual = i;
+                        renderizar();
+                    });
+
+                    paginas.appendChild(boton);
+                }
+            }
+
+            function filtrar() {
+                const termino = buscar.value.trim().toLocaleLowerCase('es');
+                filtrados = filas.filter(fila =>
+                    fila.textContent.toLocaleLowerCase('es').includes(termino)
+                );
+                paginaActual = 1;
+                renderizar();
+            }
+
+            buscar.addEventListener('input', filtrar);
+
+            contenedor.querySelector('#btnBuscarClienteDemo')
+                .addEventListener('click', filtrar);
+
+            anterior.addEventListener('click', () => {
+                if (paginaActual > 1) {
+                    paginaActual--;
+                    renderizar();
+                }
+            });
+
+            siguiente.addEventListener('click', () => {
+                if (paginaActual < Math.ceil(filtrados.length / porPagina)) {
+                    paginaActual++;
+                    renderizar();
+                }
+            });
+
+            contenedor.querySelector('#btnRegistrarClienteDemo')
+                .addEventListener('click', () => {
+                    mensaje.textContent = 'El registro de clientes se habilitará cuando conectemos el módulo.';
+                    mensaje.hidden = false;
+                });
+
+            contenedor.querySelectorAll('.btn-accion-cliente').forEach(boton => {
+                boton.addEventListener('click', () => {
+                    const accion = boton.dataset.accion === 'editar' ? 'La edición' : 'La desactivación';
+                    mensaje.textContent = `${accion} de ${boton.dataset.nombre} estará disponible al conectar el módulo.`;
+                    mensaje.hidden = false;
+                });
+            });
+
+            renderizar();
+        })();
+    </script>
+
 </div>

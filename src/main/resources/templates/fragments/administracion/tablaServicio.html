@@ -1,3 +1,344 @@
-<div th:fragment="tablaServicio" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="tablaServicio" class="admin-tabla-servicios">
+
+    <!-- BARRA DE HERRAMIENTAS -->
+    <div class="admin-tabla-toolbar">
+        <div class="input-group admin-buscador-servicios">
+            <input type="search"
+                   id="buscarServicioDemo"
+                   class="form-control"
+                   placeholder="Buscar por código, servicio o categoría..."
+                   aria-label="Buscar servicios">
+
+            <button type="button"
+                    class="btn btn-secondary"
+                    id="btnBuscarServicioDemo"
+                    aria-label="Buscar">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+
+        <button type="button"
+                class="btn btn-success admin-btn-registrar"
+                id="btnRegistrarServicioDemo">
+            <i class="bi bi-plus-lg"></i>
+            REGISTRAR SERVICIO
+        </button>
+    </div>
+
+    <!-- TABLA DE SERVICIOS -->
+    <div class="table-responsive">
+        <table class="table table-hover align-middle admin-servicios-table">
+            <thead>
+            <tr>
+                <th>Servicio</th>
+                <th>Código</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Estado</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+            </thead>
+
+            <tbody id="tablaServiciosDemo">
+
+            <tr>
+                <td>
+                    <div class="servicio-info">
+                            <span class="servicio-avatar">
+                                <i class="bi bi-droplet-fill"></i>
+                            </span>
+                        <div>
+                            <strong>Cambio de aceite</strong>
+                            <small>Reemplazo de aceite y revisión de niveles.</small>
+                        </div>
+                    </div>
+                </td>
+                <td>SER-00001</td>
+                <td><span class="servicio-categoria">Mantenimiento</span></td>
+                <td class="servicio-precio">S/ 120.00</td>
+                <td><span class="servicio-estado servicio-activo">Activo</span></td>
+                <td class="text-center text-nowrap">
+                    <button type="button" class="btn btn-warning btn-accion-servicio"
+                            data-accion="editar" data-nombre="Cambio de aceite"
+                            title="Editar servicio" aria-label="Editar Cambio de aceite">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-servicio"
+                            data-accion="desactivar" data-nombre="Cambio de aceite"
+                            title="Desactivar servicio" aria-label="Desactivar Cambio de aceite">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="servicio-info">
+                            <span class="servicio-avatar">
+                                <i class="bi bi-search"></i>
+                            </span>
+                        <div>
+                            <strong>Diagnóstico general</strong>
+                            <small>Evaluación inicial del estado del vehículo.</small>
+                        </div>
+                    </div>
+                </td>
+                <td>SER-00002</td>
+                <td><span class="servicio-categoria">Diagnóstico</span></td>
+                <td class="servicio-precio">S/ 80.00</td>
+                <td><span class="servicio-estado servicio-activo">Activo</span></td>
+                <td class="text-center text-nowrap">
+                    <button type="button" class="btn btn-warning btn-accion-servicio"
+                            data-accion="editar" data-nombre="Diagnóstico general"
+                            title="Editar servicio" aria-label="Editar Diagnóstico general">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-servicio"
+                            data-accion="desactivar" data-nombre="Diagnóstico general"
+                            title="Desactivar servicio" aria-label="Desactivar Diagnóstico general">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="servicio-info">
+                            <span class="servicio-avatar">
+                                <i class="bi bi-disc-fill"></i>
+                            </span>
+                        <div>
+                            <strong>Revisión de frenos</strong>
+                            <small>Inspección de pastillas y sistema de frenado.</small>
+                        </div>
+                    </div>
+                </td>
+                <td>SER-00003</td>
+                <td><span class="servicio-categoria">Frenos</span></td>
+                <td class="servicio-precio">S/ 150.00</td>
+                <td><span class="servicio-estado servicio-activo">Activo</span></td>
+                <td class="text-center text-nowrap">
+                    <button type="button" class="btn btn-warning btn-accion-servicio"
+                            data-accion="editar" data-nombre="Revisión de frenos"
+                            title="Editar servicio" aria-label="Editar Revisión de frenos">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-servicio"
+                            data-accion="desactivar" data-nombre="Revisión de frenos"
+                            title="Desactivar servicio" aria-label="Desactivar Revisión de frenos">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="servicio-info">
+                            <span class="servicio-avatar">
+                                <i class="bi bi-lightning-charge-fill"></i>
+                            </span>
+                        <div>
+                            <strong>Revisión eléctrica</strong>
+                            <small>Comprobación de batería y componentes eléctricos.</small>
+                        </div>
+                    </div>
+                </td>
+                <td>SER-00004</td>
+                <td><span class="servicio-categoria">Electricidad</span></td>
+                <td class="servicio-precio">S/ 100.00</td>
+                <td><span class="servicio-estado servicio-activo">Activo</span></td>
+                <td class="text-center text-nowrap">
+                    <button type="button" class="btn btn-warning btn-accion-servicio"
+                            data-accion="editar" data-nombre="Revisión eléctrica"
+                            title="Editar servicio" aria-label="Editar Revisión eléctrica">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-servicio"
+                            data-accion="desactivar" data-nombre="Revisión eléctrica"
+                            title="Desactivar servicio" aria-label="Desactivar Revisión eléctrica">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="servicio-info">
+                            <span class="servicio-avatar">
+                                <i class="bi bi-gear-fill"></i>
+                            </span>
+                        <div>
+                            <strong>Alineación y balanceo</strong>
+                            <small>Ajuste de ruedas para mejorar la estabilidad.</small>
+                        </div>
+                    </div>
+                </td>
+                <td>SER-00005</td>
+                <td><span class="servicio-categoria">Mantenimiento</span></td>
+                <td class="servicio-precio">S/ 180.00</td>
+                <td><span class="servicio-estado servicio-inactivo">Inactivo</span></td>
+                <td class="text-center text-nowrap">
+                    <button type="button" class="btn btn-warning btn-accion-servicio"
+                            data-accion="editar" data-nombre="Alineación y balanceo"
+                            title="Editar servicio" aria-label="Editar Alineación y balanceo">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-accion-servicio"
+                            data-accion="desactivar" data-nombre="Alineación y balanceo"
+                            title="Desactivar servicio" aria-label="Desactivar Alineación y balanceo">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr id="serviciosSinResultados" hidden>
+                <td colspan="6" class="text-center">
+                    No se encontraron servicios.
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PIE Y PAGINACIÓN -->
+    <div class="admin-tabla-footer">
+        <span id="contadorServiciosDemo">Mostrando 1 a 4 de 5 servicios</span>
+
+        <nav class="admin-paginacion" aria-label="Paginación de servicios">
+            <button type="button" class="admin-pagina-btn" id="serviciosAnterior">
+                Anterior
+            </button>
+
+            <div id="numerosPaginasServicios" class="admin-pagina-numeros"></div>
+
+            <button type="button" class="admin-pagina-btn" id="serviciosSiguiente">
+                Siguiente
+            </button>
+        </nav>
+    </div>
+
+    <div class="admin-demo-mensaje" id="mensajeServicioDemo" role="status" hidden></div>
+
+    <!-- FUNCIONES DE DEMOSTRACIÓN -->
+    <script>
+        (() => {
+            const contenedor = document.querySelector('.admin-tabla-servicios');
+
+            if (!contenedor || contenedor.dataset.inicializado === 'true') return;
+            contenedor.dataset.inicializado = 'true';
+
+            const cuerpo = contenedor.querySelector('#tablaServiciosDemo');
+            const filas = Array.from(cuerpo.querySelectorAll('tr'))
+                .filter(fila => fila.querySelector('.servicio-info'));
+
+            const buscar = contenedor.querySelector('#buscarServicioDemo');
+            const contador = contenedor.querySelector('#contadorServiciosDemo');
+            const paginas = contenedor.querySelector('#numerosPaginasServicios');
+            const anterior = contenedor.querySelector('#serviciosAnterior');
+            const siguiente = contenedor.querySelector('#serviciosSiguiente');
+            const sinResultados = contenedor.querySelector('#serviciosSinResultados');
+            const mensaje = contenedor.querySelector('#mensajeServicioDemo');
+
+            const porPagina = 4;
+            let paginaActual = 1;
+            let filtrados = [...filas];
+
+            function renderizar() {
+                const total = filtrados.length;
+                const totalPaginas = Math.ceil(total / porPagina);
+
+                paginaActual = Math.max(1, Math.min(paginaActual, totalPaginas || 1));
+
+                filas.forEach(fila => fila.hidden = true);
+
+                const inicio = (paginaActual - 1) * porPagina;
+
+                filtrados.slice(inicio, inicio + porPagina)
+                    .forEach(fila => fila.hidden = false);
+
+                sinResultados.hidden = total !== 0;
+
+                contador.textContent = total === 0
+                    ? 'No hay servicios para mostrar'
+                    : `Mostrando ${inicio + 1} a ${Math.min(inicio + porPagina, total)} de ${total} servicios`;
+
+                anterior.disabled = paginaActual === 1 || total === 0;
+                siguiente.disabled = paginaActual === totalPaginas || total === 0;
+
+                paginas.replaceChildren();
+
+                for (let i = 1; i <= totalPaginas; i++) {
+                    const boton = document.createElement('button');
+                    boton.type = 'button';
+                    boton.className = 'admin-pagina-btn' +
+                        (i === paginaActual ? ' activa' : '');
+                    boton.textContent = i;
+                    boton.setAttribute('aria-label', `Página ${i}`);
+                    boton.setAttribute('aria-current', i === paginaActual ? 'page' : 'false');
+
+                    boton.addEventListener('click', () => {
+                        paginaActual = i;
+                        renderizar();
+                    });
+
+                    paginas.appendChild(boton);
+                }
+            }
+
+            function filtrar() {
+                const termino = buscar.value.trim().toLocaleLowerCase('es');
+
+                filtrados = filas.filter(fila =>
+                    fila.textContent.toLocaleLowerCase('es').includes(termino)
+                );
+
+                paginaActual = 1;
+                renderizar();
+            }
+
+            buscar.addEventListener('input', filtrar);
+
+            contenedor.querySelector('#btnBuscarServicioDemo')
+                .addEventListener('click', filtrar);
+
+            anterior.addEventListener('click', () => {
+                if (paginaActual > 1) {
+                    paginaActual--;
+                    renderizar();
+                }
+            });
+
+            siguiente.addEventListener('click', () => {
+                if (paginaActual < Math.ceil(filtrados.length / porPagina)) {
+                    paginaActual++;
+                    renderizar();
+                }
+            });
+
+            contenedor.querySelector('#btnRegistrarServicioDemo')
+                .addEventListener('click', () => {
+                    mensaje.textContent =
+                        'El registro de servicios estará disponible cuando conectemos el módulo.';
+                    mensaje.hidden = false;
+                });
+
+            contenedor.querySelectorAll('.btn-accion-servicio')
+                .forEach(boton => {
+                    boton.addEventListener('click', () => {
+                        const accion = boton.dataset.accion === 'editar'
+                            ? 'La edición'
+                            : 'La desactivación';
+
+                        mensaje.textContent =
+                            `${accion} del servicio ${boton.dataset.nombre} estará disponible al conectar el módulo.`;
+                        mensaje.hidden = false;
+                    });
+                });
+
+            renderizar();
+        })();
+    </script>
 
 </div>

@@ -1,3 +1,356 @@
-<div th:fragment="tablaCategoria" xmlns:th="http://www.thymeleaf.org">
 
+<div th:fragment="tablaCategoria" class="categoria-admin">
+
+    <!-- ENCABEZADO Y BÚSQUEDA -->
+    <div class="admin-tabla-toolbar">
+        <div class="admin-buscador-categorias">
+            <i class="bi bi-search"></i>
+            <input type="text"
+                   id="buscarCategoria"
+                   placeholder="Buscar categoría..."
+                   autocomplete="off">
+        </div>
+
+        <button type="button"
+                class="btn btn-success admin-btn-registrar"
+                id="btnRegistrarCategoria">
+            <i class="bi bi-plus-lg"></i>
+            REGISTRAR CATEGORÍA
+        </button>
+    </div>
+
+    <!-- TABLA -->
+    <div class="table-responsive">
+        <table class="table align-middle admin-categorias-table">
+            <thead>
+            <tr>
+                <th>CÓDIGO</th>
+                <th>NOMBRE</th>
+                <th>DESCRIPCIÓN</th>
+                <th>ESTADO</th>
+                <th class="text-center">ACCIONES</th>
+            </tr>
+            </thead>
+
+            <tbody id="tablaCategoriasBody">
+
+            <tr>
+                <td>CAT-001</td>
+                <td class="fw-semibold">Mantenimiento</td>
+                <td>Servicios de mantenimiento preventivo del vehículo.</td>
+                <td>
+                        <span class="categoria-estado activo">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Activo
+                        </span>
+                </td>
+                <td class="text-center">
+                    <div class="categoria-acciones">
+                        <button type="button"
+                                class="btn-categoria-editar"
+                                title="Editar categoría"
+                                data-accion="editar"
+                                data-nombre="Mantenimiento">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button"
+                                class="btn-categoria-estado"
+                                title="Cambiar estado"
+                                data-accion="estado"
+                                data-nombre="Mantenimiento">
+                            <i class="bi bi-toggle-on"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CAT-002</td>
+                <td class="fw-semibold">Diagnóstico</td>
+                <td>Evaluación para identificar fallas mecánicas y eléctricas.</td>
+                <td>
+                        <span class="categoria-estado activo">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Activo
+                        </span>
+                </td>
+                <td class="text-center">
+                    <div class="categoria-acciones">
+                        <button type="button"
+                                class="btn-categoria-editar"
+                                title="Editar categoría"
+                                data-accion="editar"
+                                data-nombre="Diagnóstico">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button"
+                                class="btn-categoria-estado"
+                                title="Cambiar estado"
+                                data-accion="estado"
+                                data-nombre="Diagnóstico">
+                            <i class="bi bi-toggle-on"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CAT-003</td>
+                <td class="fw-semibold">Frenos</td>
+                <td>Revisión, reparación y mantenimiento del sistema de frenos.</td>
+                <td>
+                        <span class="categoria-estado activo">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Activo
+                        </span>
+                </td>
+                <td class="text-center">
+                    <div class="categoria-acciones">
+                        <button type="button"
+                                class="btn-categoria-editar"
+                                title="Editar categoría"
+                                data-accion="editar"
+                                data-nombre="Frenos">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button"
+                                class="btn-categoria-estado"
+                                title="Cambiar estado"
+                                data-accion="estado"
+                                data-nombre="Frenos">
+                            <i class="bi bi-toggle-on"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CAT-004</td>
+                <td class="fw-semibold">Electricidad</td>
+                <td>Diagnóstico y reparación de componentes eléctricos.</td>
+                <td>
+                        <span class="categoria-estado activo">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Activo
+                        </span>
+                </td>
+                <td class="text-center">
+                    <div class="categoria-acciones">
+                        <button type="button"
+                                class="btn-categoria-editar"
+                                title="Editar categoría"
+                                data-accion="editar"
+                                data-nombre="Electricidad">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button"
+                                class="btn-categoria-estado"
+                                title="Cambiar estado"
+                                data-accion="estado"
+                                data-nombre="Electricidad">
+                            <i class="bi bi-toggle-on"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CAT-005</td>
+                <td class="fw-semibold">Otros</td>
+                <td>Servicios que no pertenecen a las demás categorías.</td>
+                <td>
+                        <span class="categoria-estado inactivo">
+                            <i class="bi bi-x-circle-fill"></i>
+                            Inactivo
+                        </span>
+                </td>
+                <td class="text-center">
+                    <div class="categoria-acciones">
+                        <button type="button"
+                                class="btn-categoria-editar"
+                                title="Editar categoría"
+                                data-accion="editar"
+                                data-nombre="Otros">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button"
+                                class="btn-categoria-estado"
+                                title="Cambiar estado"
+                                data-accion="estado"
+                                data-nombre="Otros">
+                            <i class="bi bi-toggle-off"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- MENSAJES DE DEMOSTRACIÓN -->
+    <div id="mensajeCategoria"
+         class="admin-demo-mensaje"
+         role="status"
+         aria-live="polite"
+         hidden>
+    </div>
+
+    <!-- PAGINACIÓN -->
+    <div class="admin-tabla-footer">
+        <span id="categoriaInfoRegistros">Mostrando 4 de 5 categorías</span>
+
+        <div class="admin-paginacion">
+            <button type="button"
+                    class="admin-pagina-btn"
+                    id="categoriaAnterior"
+                    aria-label="Página anterior">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+
+            <div id="categoriaNumeros"
+                 class="admin-pagina-numeros"></div>
+
+            <button type="button"
+                    class="admin-pagina-btn"
+                    id="categoriaSiguiente"
+                    aria-label="Página siguiente">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- FUNCIONALIDAD DE DEMOSTRACIÓN -->
+    <script>
+        (() => {
+            const contenedor = document.querySelector('.categoria-admin');
+
+            if (!contenedor || contenedor.dataset.inicializado === 'true') {
+                return;
+            }
+
+            contenedor.dataset.inicializado = 'true';
+
+            const buscar = contenedor.querySelector('#buscarCategoria');
+            const cuerpo = contenedor.querySelector('#tablaCategoriasBody');
+            const filas = Array.from(cuerpo.querySelectorAll('tr'));
+            const info = contenedor.querySelector('#categoriaInfoRegistros');
+            const anterior = contenedor.querySelector('#categoriaAnterior');
+            const siguiente = contenedor.querySelector('#categoriaSiguiente');
+            const numeros = contenedor.querySelector('#categoriaNumeros');
+            const mensaje = contenedor.querySelector('#mensajeCategoria');
+            const registrar = contenedor.querySelector('#btnRegistrarCategoria');
+
+            const porPagina = 4;
+            let paginaActual = 1;
+            let filasFiltradas = [...filas];
+
+            function mostrarMensaje(texto) {
+                mensaje.textContent = texto;
+                mensaje.hidden = false;
+            }
+
+            function renderizar() {
+                const total = filasFiltradas.length;
+                const totalPaginas = Math.max(1, Math.ceil(total / porPagina));
+
+                if (paginaActual > totalPaginas) {
+                    paginaActual = totalPaginas;
+                }
+
+                filas.forEach(fila => {
+                    fila.hidden = true;
+                });
+
+                const inicio = (paginaActual - 1) * porPagina;
+                const visibles = filasFiltradas.slice(inicio, inicio + porPagina);
+
+                visibles.forEach(fila => {
+                    fila.hidden = false;
+                });
+
+                info.textContent = total === 0
+                    ? 'No se encontraron categorías'
+                    : `Mostrando ${inicio + 1}-${inicio + visibles.length} de ${total} categorías`;
+
+                anterior.disabled = paginaActual === 1;
+                siguiente.disabled = paginaActual === totalPaginas;
+
+                numeros.replaceChildren();
+
+                for (let i = 1; i <= totalPaginas; i++) {
+                    const boton = document.createElement('button');
+                    boton.type = 'button';
+                    boton.className = 'admin-pagina-btn' +
+                        (i === paginaActual ? ' activa' : '');
+                    boton.textContent = i;
+                    boton.setAttribute('aria-label', `Ir a la página ${i}`);
+
+                    boton.addEventListener('click', () => {
+                        paginaActual = i;
+                        renderizar();
+                    });
+
+                    numeros.appendChild(boton);
+                }
+            }
+
+            function filtrar() {
+                const texto = buscar.value.trim().toLowerCase();
+
+                filasFiltradas = filas.filter(fila =>
+                    fila.textContent.toLowerCase().includes(texto)
+                );
+
+                paginaActual = 1;
+                renderizar();
+            }
+
+            buscar.addEventListener('input', filtrar);
+
+            anterior.addEventListener('click', () => {
+                if (paginaActual > 1) {
+                    paginaActual--;
+                    renderizar();
+                }
+            });
+
+            siguiente.addEventListener('click', () => {
+                const totalPaginas = Math.max(
+                    1,
+                    Math.ceil(filasFiltradas.length / porPagina)
+                );
+
+                if (paginaActual < totalPaginas) {
+                    paginaActual++;
+                    renderizar();
+                }
+            });
+
+            registrar.addEventListener('click', () => {
+                mostrarMensaje(
+                    'Demostración: el formulario de registro de categorías se implementará posteriormente.'
+                );
+            });
+
+            contenedor.querySelectorAll('[data-accion]').forEach(boton => {
+                boton.addEventListener('click', () => {
+                    const accion = boton.dataset.accion;
+                    const nombre = boton.dataset.nombre;
+
+                    if (accion === 'editar') {
+                        mostrarMensaje(
+                            `Demostración: edición de la categoría "${nombre}".`
+                        );
+                    } else {
+                        mostrarMensaje(
+                            `Demostración: cambio de estado de la categoría "${nombre}".`
+                        );
+                    }
+                });
+            });
+
+            renderizar();
+        })();
+    </script>
 </div>
