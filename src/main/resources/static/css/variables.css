@@ -1,4 +1,4 @@
-
+/* Paleta de colores del sistema 2G Automotriz */
 :root {
     --azul-principal: #1769aa;
     --azul-oscuro: #12466f;
@@ -8,6 +8,7 @@
     --texto: #252a31;
 }
 
+/* Base global para todos los elementos */
 * {
     box-sizing: border-box;
 }

@@ -1,3 +1,6 @@
+-- Datos iniciales del sistema
+-- Se cargan registros base para habilitar la aplicación en un entorno de desarrollo.
+
 INSERT INTO rol (nombre, descripcion) SELECT 'ADMINISTRADOR', 'Acceso completo al sistema' WHERE NOT EXISTS (
     SELECT 1 FROM rol WHERE nombre = 'ADMINISTRADOR'
 );

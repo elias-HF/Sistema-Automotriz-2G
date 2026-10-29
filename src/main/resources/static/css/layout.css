@@ -5,12 +5,14 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Contenedor principal del dashboard y módulos */
 .main-container {
     display: flex;
     align-items: stretch;
     min-height: calc(100vh - 110px);
 }
 
+/* Área de contenido principal */
 .content {
     flex: 1;
     min-width: 0;

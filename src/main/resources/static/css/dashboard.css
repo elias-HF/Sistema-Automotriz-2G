@@ -8,6 +8,7 @@
     background: white;
 }
 
+/* Información textual del indicador */
 .metric-info {
     display: flex;
     flex: 1;
@@ -28,6 +29,7 @@
     overflow-wrap: anywhere;
 }
 
+/* Ícono de cada tarjeta de métricas */
 .metric-icon {
     display: flex;
     align-items: center;
@@ -42,6 +44,7 @@
     font-size: 34px;
 }
 
+/* Contenedor de gráficos del dashboard */
 .chart-container {
     height: 380px;
     position: relative;
@@ -52,7 +55,7 @@
     height: 260px;
 }
 
-/* SERVICIOS */
+/* Servicios destacados */
 .service-list {
     list-style: none;
     padding: 0;

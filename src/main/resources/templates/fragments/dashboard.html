@@ -1,10 +1,11 @@
-
-    <div th:fragment="content">
+<div th:fragment="content">
+        <!-- Encabezado principal del dashboard -->
         <div class="page-heading mb-3">
             <h1>DASHBOARD Y REPORTES</h1>
             <p>Consulta el estado general del taller y sus principales indicadores.</p>
         </div>
 
+        <!-- Filtros de fechas para la información del taller -->
         <form class="date-filter d-flex flex-wrap align-items-center gap-2 mb-3" th:action="@{/dashboard}" method="get">
             <label for="desde">Filtrar por fechas:</label>
             <input class="form-control date-input" type="date" id="desde" name="desde" th:value="${desde}" required>
