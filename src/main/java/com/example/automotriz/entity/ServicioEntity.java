@@ -1,41 +1,39 @@
 package com.example.automotriz.entity;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
-@Table
-@Entity(name = "servicio")
+@Entity
+@Table(name = "servicio")
 public class ServicioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_servicio")
-    private int id_servicio;
+    private Integer idServicio;
 
-    @Column(name = "nombre", length = 100, nullable = false, unique = true)
+    @Column(name = "nombre", length = 100, unique = true, nullable = false)
     private String nombre;
 
     @Column(name = "descripcion", length = 200, nullable = false)
     private String descripcion;
 
-    @Column(name = "cod", length = 15, unique = true, nullable = false)
-    private String cod;
+    @Column(name = "codigo", length = 10, unique = true, nullable = false)
+    private String codigo;
 
-    @Column(name = "precio", precision = 10, scale = 2, nullable = false)
-    private BigDecimal precio;
+    @Column(name = "precio_por_defecto", precision = 10, scale = 2, nullable = false)
+    private BigDecimal precioPorDefecto;
 
     @Column(name = "activo", nullable = false)
     private boolean activo = true;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_categoria", nullable = false)
-    private CategoriaEntity id_categoria;
+    @Column(name = "categoria", length = 25, nullable = false)
+    private String categoria;
 
     public ServicioEntity() {}
 
-    public int getId_servicio() {return id_servicio;}
-    public void setId_servicio(int id_servicio) {this.id_servicio = id_servicio;}
+    public Integer getIdServicio() {return idServicio;}
+    public void setIdServicio(Integer idServicio) {this.idServicio = idServicio;}
 
     public String getNombre() {return nombre;}
     public void setNombre(String nombre) {this.nombre = nombre;}
@@ -43,15 +41,15 @@ public class ServicioEntity {
     public String getDescripcion() {return descripcion;}
     public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 
-    public String getCod() {return cod;}
-    public void setCod(String cod) {this.cod = cod;}
+    public String getCodigo() {return codigo;}
+    public void setCodigo(String codigo) {this.codigo = codigo;}
 
-    public BigDecimal getPrecio() {return precio;}
-    public void setPrecio(BigDecimal precio) {this.precio = precio;}
+    public BigDecimal getPrecioPorDefecto() {return precioPorDefecto;}
+    public void setPrecioPorDefecto(BigDecimal precioPorDefecto) {this.precioPorDefecto = precioPorDefecto;}
 
     public boolean isActivo() {return activo;}
     public void setActivo(boolean activo) {this.activo = activo;}
 
-    public CategoriaEntity getId_categoria() {return id_categoria;}
-    public void setId_categoria(CategoriaEntity id_categoria) {this.id_categoria = id_categoria;}
+    public String getCategoria() {return categoria;}
+    public void setCategoria(String categoria) {this.categoria = categoria;}
 }

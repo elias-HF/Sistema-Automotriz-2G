@@ -17,25 +17,13 @@ public class AdminInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-
-        Integer existe = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM empleado WHERE usuario = ?",
-                Integer.class,
-                "admin"
-        );
+        Integer existe = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM empleado WHERE usuario = ?", Integer.class, "admin");
 
         if (existe != null && existe == 0) {
-
-            Integer idRol = jdbcTemplate.queryForObject(
-                    "SELECT id_rol FROM rol WHERE nombre = ?",
-                    Integer.class,
-                    "ADMINISTRADOR"
-            );
-
             jdbcTemplate.update(
                     """
                     INSERT INTO empleado
-                    (nombre, correo, cod, usuario, contrasenia, activo, id_rol)
+                    (nombre, correo, codigo, usuario, contrasenia, activo, rol)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
                     "Administrador del sistema",
@@ -44,9 +32,8 @@ public class AdminInitializer implements CommandLineRunner {
                     "admin",
                     passwordEncoder.encode("Admin123!"),
                     true,
-                    idRol
+                    "ADMINISTRADOR"
             );
-
             System.out.println("Administrador de prueba creado.");
         }
     }

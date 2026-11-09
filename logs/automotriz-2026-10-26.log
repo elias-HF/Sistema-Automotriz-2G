@@ -86,9 +86,9 @@
 2026-10-26 19:50:33 INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
 2026-10-26 20:37:24 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:37:24 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:37:24 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -283,9 +283,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:37:30 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:37:30 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:37:30 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -480,9 +480,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:37:33 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:37:33 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:37:33 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -677,9 +677,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:37:36 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:37:36 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:37:36 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -874,9 +874,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:37:40 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:37:40 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:37:40 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -1071,9 +1071,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:37:51 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:37:51 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:37:51 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -1268,9 +1268,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:38:17 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:38:17 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:38:17 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -1465,9 +1465,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:38:34 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:38:34 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:38:34 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -1662,9 +1662,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:39:09 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:39:09 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:39:09 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -1859,9 +1859,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:39:11 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:39:11 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:39:11 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -2056,9 +2056,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:39:28 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:39:28 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:39:28 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -2346,7 +2346,7 @@ org.thymeleaf.exceptions.TemplateInputException: An error happened during templa
 Caused by: org.attoparser.ParseException: Exception evaluating SpringEL expression: "vehiculo.placa + ' - ' +
                       vehiculo.modelo.marca.nombre + ' ' +
                       vehiculo.modelo.nombre + ' - ' +
-                      vehiculo.cliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
+                      vehiculo.idCliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
 	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:393)
 	at org.attoparser.MarkupParser.parse(MarkupParser.java:257)
 	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:230)
@@ -2354,7 +2354,7 @@ Caused by: org.attoparser.ParseException: Exception evaluating SpringEL expressi
 Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Exception evaluating SpringEL expression: "vehiculo.placa + ' - ' +
                       vehiculo.modelo.marca.nombre + ' ' +
                       vehiculo.modelo.nombre + ' - ' +
-                      vehiculo.cliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
+                      vehiculo.idCliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
 	at org.thymeleaf.spring6.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:302)
 	at org.thymeleaf.standard.expression.VariableExpression.executeVariableExpression(VariableExpression.java:166)
 	at org.thymeleaf.standard.expression.SimpleExpression.executeSimple(SimpleExpression.java:66)
@@ -2658,7 +2658,7 @@ org.thymeleaf.exceptions.TemplateInputException: An error happened during templa
 Caused by: org.attoparser.ParseException: Exception evaluating SpringEL expression: "vehiculo.placa + ' - ' +
                       vehiculo.modelo.marca.nombre + ' ' +
                       vehiculo.modelo.nombre + ' - ' +
-                      vehiculo.cliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
+                      vehiculo.idCliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
 	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:393)
 	at org.attoparser.MarkupParser.parse(MarkupParser.java:257)
 	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:230)
@@ -2666,7 +2666,7 @@ Caused by: org.attoparser.ParseException: Exception evaluating SpringEL expressi
 Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Exception evaluating SpringEL expression: "vehiculo.placa + ' - ' +
                       vehiculo.modelo.marca.nombre + ' ' +
                       vehiculo.modelo.nombre + ' - ' +
-                      vehiculo.cliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
+                      vehiculo.idCliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
 	at org.thymeleaf.spring6.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:302)
 	at org.thymeleaf.standard.expression.VariableExpression.executeVariableExpression(VariableExpression.java:166)
 	at org.thymeleaf.standard.expression.SimpleExpression.executeSimple(SimpleExpression.java:66)
@@ -2877,9 +2877,9 @@ org.hibernate.LazyInitializationException: Could not initialize proxy [com.examp
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:44:46 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:44:46 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:44:46 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -3074,9 +3074,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:45:00 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:45:00 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:45:00 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -3364,7 +3364,7 @@ org.thymeleaf.exceptions.TemplateInputException: An error happened during templa
 Caused by: org.attoparser.ParseException: Exception evaluating SpringEL expression: "vehiculo.placa + ' - ' +
                       vehiculo.modelo.marca.nombre + ' ' +
                       vehiculo.modelo.nombre + ' - ' +
-                      vehiculo.cliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
+                      vehiculo.idCliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
 	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:393)
 	at org.attoparser.MarkupParser.parse(MarkupParser.java:257)
 	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:230)
@@ -3372,7 +3372,7 @@ Caused by: org.attoparser.ParseException: Exception evaluating SpringEL expressi
 Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Exception evaluating SpringEL expression: "vehiculo.placa + ' - ' +
                       vehiculo.modelo.marca.nombre + ' ' +
                       vehiculo.modelo.nombre + ' - ' +
-                      vehiculo.cliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
+                      vehiculo.idCliente.nombre" (template: "fragments/ordenes" - line 33, col 29)
 	at org.thymeleaf.spring6.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:302)
 	at org.thymeleaf.standard.expression.VariableExpression.executeVariableExpression(VariableExpression.java:166)
 	at org.thymeleaf.standard.expression.SimpleExpression.executeSimple(SimpleExpression.java:66)
@@ -3784,9 +3784,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:50:37 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:50:37 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:50:37 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -3981,9 +3981,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:50:41 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:50:41 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:50:41 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -4178,9 +4178,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:50:43 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:50:43 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:50:43 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -4375,9 +4375,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:50:45 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:50:45 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:50:45 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -4572,9 +4572,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:50:48 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:50:48 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:50:48 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -4769,9 +4769,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:50:51 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:50:51 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:50:51 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -4966,9 +4966,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:50:54 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:50:54 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:50:54 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -5163,9 +5163,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:50:57 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:50:57 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:50:57 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -5360,9 +5360,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:56:50 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:56:50 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=? [23514-240]
+update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=? [23514-240]
 2026-10-26 20:56:50 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=? [23514-240]] [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=?]; SQL [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=?]; constraint [null]] with root cause
+update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=? [23514-240]] [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=?]; SQL [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=?]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -5516,9 +5516,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:59:06 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:59:06 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=? [23514-240]
+update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=? [23514-240]
 2026-10-26 20:59:06 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=? [23514-240]] [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=?]; SQL [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=?]; constraint [null]] with root cause
+update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=? [23514-240]] [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=?]; SQL [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=?]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -5672,9 +5672,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:59:24 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:59:24 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:59:24 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -5869,9 +5869,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:59:27 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:59:27 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:59:27 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -6066,9 +6066,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 20:59:43 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 20:59:43 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 20:59:43 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -6305,9 +6305,9 @@ The database has been closed [90098-240]
 2026-10-26 21:02:45 INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
 2026-10-26 21:47:39 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 21:47:39 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]
 2026-10-26 21:47:39 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,id_orden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
+insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default) [23514-240]] [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; SQL [insert into orden_servicio (cod,diagnostico,estado,fecha_hora_ingreso,fecha_hora_salida,monto_total,id_vehiculo,idOrden) values (?,?,?,?,?,?,?,default)]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -6703,9 +6703,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 21:48:41 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 21:48:41 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=? [23514-240]
+update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=? [23514-240]
 2026-10-26 21:48:41 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=? [23514-240]] [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=?]; SQL [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=?]; constraint [null]] with root cause
+update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=? [23514-240]] [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=?]; SQL [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=?]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
@@ -6859,9 +6859,9 @@ The database has been closed [90098-240]
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-10-26 21:48:43 WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 23514, SQLState: 23514
 2026-10-26 21:48:43 WARN  org.hibernate.orm.jdbc.error - Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=? [23514-240]
+update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=? [23514-240]
 2026-10-26 21:48:43 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [Check constraint invalid: "CHK_ESTADO_ORDEN: "; SQL statement:
-update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=? [23514-240]] [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=?]; SQL [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where id_orden=?]; constraint [null]] with root cause
+update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=? [23514-240]] [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=?]; SQL [update orden_servicio set cod=?,diagnostico=?,estado=?,fecha_hora_ingreso=?,fecha_hora_salida=?,monto_total=?,id_vehiculo=? where idOrden=?]; constraint [null]] with root cause
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
 The database has been closed [90098-240]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)

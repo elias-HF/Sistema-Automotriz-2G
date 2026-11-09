@@ -5,23 +5,13 @@
     <div class="admin-tabla-toolbar">
 
         <div class="input-group admin-buscador-clientes">
-            <input type="search"
-                   id="buscarClienteDemo"
-                   class="form-control"
-                   placeholder="Buscar por nombre, teléfono, DNI, etc."
-                   aria-label="Buscar clientes">
-
-            <button class="btn btn-secondary"
-                    type="button"
-                    id="btnBuscarClienteDemo"
-                    aria-label="Buscar">
+            <input type="search" id="buscarClienteDemo" class="form-control" placeholder="Buscar por nombre, teléfono o DNI..." aria-label="Buscar clientes">
+            <button class="btn btn-secondary" type="button" id="btnBuscarClienteDemo" aria-label="Buscar">
                 <i class="bi bi-search"></i>
             </button>
         </div>
 
-        <button type="button"
-                class="btn btn-success admin-btn-registrar"
-                id="btnRegistrarClienteDemo">
+        <button type="button" class="btn btn-success admin-btn-registrar" data-bs-toggle="modal" data-bs-target="#modalRegistrarCliente">
             <i class="bi bi-plus-lg"></i>
             REGISTRAR CLIENTE
         </button>
@@ -43,219 +33,35 @@
             </thead>
 
             <tbody id="tablaClientesDemo">
-
-            <tr>
+            <tr th:each="cliente : ${clientes}">
                 <td>
-                    <div class="cliente-nombre">
-                        <span class="cliente-avatar">CM</span>
-                        <div>
-                            <strong>Carlos Manuel Soto</strong>
-                            <small>ID: CLI-001</small>
-                        </div>
+                    <div class="d-flex flex-column">
+                        <span class="fw-semibold" th:text="${cliente.nombre}"></span>
+                        <small class="text-muted" th:text="|Código: ${cliente.codigo}|"></small>
                     </div>
                 </td>
-                <td>45892014</td>
-                <td>984512301</td>
-                <td>c.soto@gmail.com</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-warning btn-accion-cliente"
-                            data-accion="editar" data-nombre="Carlos Manuel Soto"
-                            title="Editar cliente" aria-label="Editar Carlos Manuel Soto">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-cliente"
-                            data-accion="desactivar" data-nombre="Carlos Manuel Soto"
-                            title="Desactivar cliente" aria-label="Desactivar Carlos Manuel Soto">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
+                <td th:text="${cliente.dni}"></td>
+                <td th:text="${cliente.telefono}"></td>
+                <td th:text="${cliente.correo}"></td>
 
-            <tr>
-                <td>
-                    <div class="cliente-nombre">
-                        <span class="cliente-avatar">AL</span>
-                        <div>
-                            <strong>Ariana Lucía Mendoza</strong>
-                            <small>ID: CLI-002</small>
-                        </div>
-                    </div>
-                </td>
-                <td>71204938</td>
-                <td>971204859</td>
-                <td>ariana.mendoza@hotmail.com</td>
                 <td class="text-center">
-                    <button type="button" class="btn btn-warning btn-accion-cliente"
-                            data-accion="editar" data-nombre="Ariana Lucía Mendoza"
-                            title="Editar cliente" aria-label="Editar Ariana Lucía Mendoza">
+                    <button type="button"
+                            class="btn btn-sm btn-warning"
+                            title="Modificar"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalEditarCliente"
+                            th:data-id="${cliente.idCliente}">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button type="button" class="btn btn-danger btn-accion-cliente"
-                            data-accion="desactivar" data-nombre="Ariana Lucía Mendoza"
-                            title="Desactivar cliente" aria-label="Desactivar Ariana Lucía Mendoza">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                    <div class="cliente-nombre">
-                        <span class="cliente-avatar">GB</span>
-                        <div>
-                            <strong>Gustavo Adolfo Bécquer</strong>
-                            <small>ID: CLI-003</small>
-                        </div>
-                    </div>
-                </td>
-                <td>10482910</td>
-                <td>955120349</td>
-                <td>gbecquer@outlook.com</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-warning btn-accion-cliente"
-                            data-accion="editar" data-nombre="Gustavo Adolfo Bécquer"
-                            title="Editar cliente" aria-label="Editar Gustavo Adolfo Bécquer">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-cliente"
-                            data-accion="desactivar" data-nombre="Gustavo Adolfo Bécquer"
-                            title="Desactivar cliente" aria-label="Desactivar Gustavo Adolfo Bécquer">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="cliente-nombre">
-                        <span class="cliente-avatar">JR</span>
-                        <div>
-                            <strong>Julio Ramón Ribeyro</strong>
-                            <small>ID: CLI-004</small>
-                        </div>
-                    </div>
-                </td>
-                <td>08392174</td>
-                <td>940192837</td>
-                <td>jribeyro@gmail.com</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-warning btn-accion-cliente"
-                            data-accion="editar" data-nombre="Julio Ramón Ribeyro"
-                            title="Editar cliente" aria-label="Editar Julio Ramón Ribeyro">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-cliente"
-                            data-accion="desactivar" data-nombre="Julio Ramón Ribeyro"
-                            title="Desactivar cliente" aria-label="Desactivar Julio Ramón Ribeyro">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="cliente-nombre">
-                        <span class="cliente-avatar">AF</span>
-                        <div>
-                            <strong>Ana Flores</strong>
-                            <small>ID: CLI-005</small>
-                        </div>
-                    </div>
-                </td>
-                <td>74561234</td>
-                <td>984123456</td>
-                <td>ana.flores@gmail.com</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-warning btn-accion-cliente"
-                            data-accion="editar" data-nombre="Ana Flores"
-                            title="Editar cliente" aria-label="Editar Ana Flores">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-cliente"
-                            data-accion="desactivar" data-nombre="Ana Flores"
-                            title="Desactivar cliente" aria-label="Desactivar Ana Flores">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="cliente-nombre">
-                        <span class="cliente-avatar">JC</span>
-                        <div>
-                            <strong>Jorge Castillo</strong>
-                            <small>ID: CLI-006</small>
-                        </div>
-                    </div>
-                </td>
-                <td>75612345</td>
-                <td>983234567</td>
-                <td>jorge.castillo@gmail.com</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-warning btn-accion-cliente"
-                            data-accion="editar" data-nombre="Jorge Castillo"
-                            title="Editar cliente" aria-label="Editar Jorge Castillo">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-cliente"
-                            data-accion="desactivar" data-nombre="Jorge Castillo"
-                            title="Desactivar cliente" aria-label="Desactivar Jorge Castillo">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="cliente-nombre">
-                        <span class="cliente-avatar">LV</span>
-                        <div>
-                            <strong>Lucía Vargas</strong>
-                            <small>ID: CLI-007</small>
-                        </div>
-                    </div>
-                </td>
-                <td>76723456</td>
-                <td>982345678</td>
-                <td>lucia.vargas@gmail.com</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-warning btn-accion-cliente"
-                            data-accion="editar" data-nombre="Lucía Vargas"
-                            title="Editar cliente" aria-label="Editar Lucía Vargas">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-cliente"
-                            data-accion="desactivar" data-nombre="Lucía Vargas"
-                            title="Desactivar cliente" aria-label="Desactivar Lucía Vargas">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="cliente-nombre">
-                        <span class="cliente-avatar">PS</span>
-                        <div>
-                            <strong>Pedro Salazar</strong>
-                            <small>ID: CLI-008</small>
-                        </div>
-                    </div>
-                </td>
-                <td>77834567</td>
-                <td>981456789</td>
-                <td>pedro.salazar@gmail.com</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-warning btn-accion-cliente"
-                            data-accion="editar" data-nombre="Pedro Salazar"
-                            title="Editar cliente" aria-label="Editar Pedro Salazar">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-cliente"
-                            data-accion="desactivar" data-nombre="Pedro Salazar"
-                            title="Desactivar cliente" aria-label="Desactivar Pedro Salazar">
-                        <i class="bi bi-x-lg"></i>
+                    <button type="button"
+                            class="btn btn-sm btn-danger"
+                            title="Desactivar"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalDesactivarCliente"
+                            th:data-id="${cliente.idCliente}"
+                            th:data-nombre="${cliente.nombre}">
+                        <i class="bi bi-x-circle"></i>
                     </button>
                 </td>
             </tr>
@@ -273,126 +79,124 @@
     <!-- PIE Y PAGINACIÓN -->
     <div class="admin-tabla-footer">
         <span id="contadorClientesDemo">Mostrando 1 a 4 de 8 clientes</span>
-
         <nav class="admin-paginacion" aria-label="Paginación de clientes">
-            <button type="button" class="admin-pagina-btn" id="clientesAnterior">
-                Anterior
-            </button>
+            <button type="button" class="admin-pagina-btn" id="clientesAnterior">Anterior</button>
             <div id="numerosPaginasClientes" class="admin-pagina-numeros"></div>
-            <button type="button" class="admin-pagina-btn" id="clientesSiguiente">
-                Siguiente
-            </button>
+            <button type="button" class="admin-pagina-btn" id="clientesSiguiente">Siguiente</button>
         </nav>
     </div>
 
-    <!-- AVISO PARA ACCIONES DE DEMOSTRACIÓN -->
-    <div class="admin-demo-mensaje" id="mensajeClienteDemo" role="status" hidden></div>
+    <!-- MODALES -->
+    <div class="modal fade" id="modalRegistrarCliente" tabindex="-1" aria-labelledby="tituloModalRegistrar" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModalRegistrar">Registrar nuevo cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-    <script>
-        (() => {
-            const contenedor = document.querySelector('.admin-tabla-clientes');
-            if (!contenedor || contenedor.dataset.inicializado === 'true') return;
-            contenedor.dataset.inicializado = 'true';
+                <form th:action="@{/clientes/registrar}" method="post">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre completo</label>
+                            <input type="text" class="form-control" name="nombre" placeholder="Ingrese el nombre completo" required>
+                        </div>
 
-            const cuerpo = contenedor.querySelector('#tablaClientesDemo');
-            const filas = Array.from(cuerpo.querySelectorAll('tr'))
-                .filter(fila => fila.querySelector('.cliente-nombre'));
+                        <div class="mb-3">
+                            <label class="form-label">DNI</label>
+                            <input type="text" class="form-control" name="dni" placeholder="Ingrese el DNI" maxlength="8" required>
+                        </div>
 
-            const buscar = contenedor.querySelector('#buscarClienteDemo');
-            const contador = contenedor.querySelector('#contadorClientesDemo');
-            const paginas = contenedor.querySelector('#numerosPaginasClientes');
-            const anterior = contenedor.querySelector('#clientesAnterior');
-            const siguiente = contenedor.querySelector('#clientesSiguiente');
-            const sinResultados = contenedor.querySelector('#clientesSinResultados');
-            const mensaje = contenedor.querySelector('#mensajeClienteDemo');
+                        <div class="mb-3">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" name="telefono" placeholder="Ingrese el teléfono" required>
+                        </div>
 
-            const porPagina = 4;
-            let paginaActual = 1;
-            let filtrados = [...filas];
+                        <div class="mb-3">
+                            <label class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" name="correo" placeholder="Ingrese el correo electrónico" required>
+                        </div>
+                    </div>
 
-            function renderizar() {
-                const total = filtrados.length;
-                const totalPaginas = Math.ceil(total / porPagina);
-                paginaActual = Math.max(1, Math.min(paginaActual, totalPaginas || 1));
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
 
-                filas.forEach(fila => fila.hidden = true);
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-plus-lg"></i>
+                            Registrar cliente
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                const inicio = (paginaActual - 1) * porPagina;
-                const visibles = filtrados.slice(inicio, inicio + porPagina);
-                visibles.forEach(fila => fila.hidden = false);
+    <div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="tituloModalEditar" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModalEditar">Modificar cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-                sinResultados.hidden = total !== 0;
+                <form th:action="@{/clientes/modificar}" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="idCliente">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" required>
+                        </div>
 
-                contador.textContent = total === 0
-                    ? 'No hay clientes para mostrar'
-                    : `Mostrando ${inicio + 1} a ${Math.min(inicio + porPagina, total)} de ${total} clientes`;
+                        <div class="mb-3">
+                            <label class="form-label">DNI</label>
+                            <input type="text" class="form-control" name="dni" required>
+                        </div>
 
-                anterior.disabled = paginaActual === 1 || total === 0;
-                siguiente.disabled = paginaActual === totalPaginas || total === 0;
+                        <div class="mb-3">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" name="telefono" required>
+                        </div>
 
-                paginas.replaceChildren();
+                        <div class="mb-3">
+                            <label class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" name="correo" required>
+                        </div>
+                    </div>
 
-                for (let i = 1; i <= totalPaginas; i++) {
-                    const boton = document.createElement('button');
-                    boton.type = 'button';
-                    boton.className = 'admin-pagina-btn' + (i === paginaActual ? ' activa' : '');
-                    boton.textContent = i;
-                    boton.setAttribute('aria-label', `Página ${i}`);
-                    boton.setAttribute('aria-current', i === paginaActual ? 'page' : 'false');
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                    boton.addEventListener('click', () => {
-                        paginaActual = i;
-                        renderizar();
-                    });
+    <div class="modal fade" id="modalDesactivarCliente" tabindex="-1" aria-labelledby="tituloModalDesactivar" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModalDesactivar">Desactivar cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-                    paginas.appendChild(boton);
-                }
-            }
+                <form th:action="@{/clientes/desactivar}" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="desactivarIdCliente">
+                        <div class="text-center mb-3"><i class="bi bi-exclamation-triangle text-warning" style="font-size: 3rem;"></i></div>
+                        <p class="text-center mb-2">¿Estás seguro de que deseas desactivar al cliente?</p>
+                        <h6 class="text-center fw-bold" id="desactivarNombreCliente"></h6>
+                        <p class="text-muted text-center small mt-3 mb-0">El cliente dejará de estar disponible en los registros activos.</p>
+                    </div>
 
-            function filtrar() {
-                const termino = buscar.value.trim().toLocaleLowerCase('es');
-                filtrados = filas.filter(fila =>
-                    fila.textContent.toLocaleLowerCase('es').includes(termino)
-                );
-                paginaActual = 1;
-                renderizar();
-            }
-
-            buscar.addEventListener('input', filtrar);
-
-            contenedor.querySelector('#btnBuscarClienteDemo')
-                .addEventListener('click', filtrar);
-
-            anterior.addEventListener('click', () => {
-                if (paginaActual > 1) {
-                    paginaActual--;
-                    renderizar();
-                }
-            });
-
-            siguiente.addEventListener('click', () => {
-                if (paginaActual < Math.ceil(filtrados.length / porPagina)) {
-                    paginaActual++;
-                    renderizar();
-                }
-            });
-
-            contenedor.querySelector('#btnRegistrarClienteDemo')
-                .addEventListener('click', () => {
-                    mensaje.textContent = 'El registro de clientes se habilitará cuando conectemos el módulo.';
-                    mensaje.hidden = false;
-                });
-
-            contenedor.querySelectorAll('.btn-accion-cliente').forEach(boton => {
-                boton.addEventListener('click', () => {
-                    const accion = boton.dataset.accion === 'editar' ? 'La edición' : 'La desactivación';
-                    mensaje.textContent = `${accion} de ${boton.dataset.nombre} estará disponible al conectar el módulo.`;
-                    mensaje.hidden = false;
-                });
-            });
-
-            renderizar();
-        })();
-    </script>
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger"><i class="bi bi-x-circle"></i>Sí, desactivar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

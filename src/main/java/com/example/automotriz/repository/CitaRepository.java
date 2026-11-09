@@ -2,10 +2,7 @@ package com.example.automotriz.repository;
 
 import com.example.automotriz.entity.CitaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.time.LocalDate;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
-public interface CitaRepository extends JpaRepository<CitaEntity, Integer> {
-    List<CitaEntity> findByFecha(LocalDate fecha);
-    boolean existsByCod(String cod);
-}
+@Repository
+public interface CitaRepository extends JpaRepository <CitaEntity, Integer> { }

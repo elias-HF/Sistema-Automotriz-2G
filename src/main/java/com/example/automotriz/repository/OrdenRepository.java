@@ -1,12 +1,8 @@
 package com.example.automotriz.repository;
 
-import com.example.automotriz.entity.OrdenServicioEntity;
+import com.example.automotriz.entity.OrdenEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
-public interface OrdenRepository extends JpaRepository<OrdenServicioEntity, Integer> {
-    Optional<OrdenServicioEntity> findByCod(String cod);
-    boolean existsByCod(String cod);
-}
-
+@Repository
+public interface OrdenRepository extends JpaRepository<OrdenEntity, Integer> { }

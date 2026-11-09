@@ -1,1 +1,0 @@
--- Datos iniciales del sistema: Se cargan registros base para habilitar la aplicación en un entorno de desarrollo.

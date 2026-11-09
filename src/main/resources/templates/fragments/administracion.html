@@ -125,13 +125,10 @@
                 <i class="bi bi-tags-fill"></i>
             </div>
         </a>
-
     </section>
-
 
     <!-- CONTENIDO DEL MÓDULO -->
     <section class="admin-contenido">
-
         <div class="admin-contenido-header">
             <h2 class="admin-titulo" th:switch="${elemento}">
                 <span th:case="'empleados'">LISTA DE EMPLEADOS</span>
@@ -144,48 +141,34 @@
             </h2>
         </div>
 
-
         <th:block th:switch="${elemento}">
-
-            <!-- EMPLEADOS -->
             <th:block th:case="'empleados'">
                 <div th:replace="~{fragments/administracion/tablaEmpleado :: tablaEmpleado}"></div>
             </th:block>
 
-            <!-- CLIENTES -->
             <th:block th:case="'clientes'">
                 <div th:replace="~{fragments/administracion/tablaCliente :: tabla}"></div>
             </th:block>
 
-            <!-- VEHÍCULOS -->
             <th:block th:case="'vehiculos'">
                 <div th:replace="~{fragments/administracion/tablaVehiculo :: tablaVehiculo}"></div>
             </th:block>
 
-            <!-- SERVICIOS -->
             <th:block th:case="'servicios'">
                 <div th:replace="~{fragments/administracion/tablaServicio :: tablaServicio}"></div>
             </th:block>
 
-            <!-- ARTÍCULOS -->
             <th:block th:case="'articulos'">
                 <div th:replace="~{fragments/administracion/tablaArticulo :: tablaArticulo}"></div>
             </th:block>
 
-            <!-- CATEGORÍAS -->
             <th:block th:case="'categorias'">
                 <div th:replace="~{fragments/administracion/tablaCategoria :: tablaCategoria}"></div>
             </th:block>
 
-            <!-- MÓDULO PREDETERMINADO -->
             <th:block th:case="*">
                 <div th:replace="~{fragments/administracion/tablaCliente :: tabla}"></div>
             </th:block>
-
         </th:block>
-
-
     </section>
-
-
 </div>

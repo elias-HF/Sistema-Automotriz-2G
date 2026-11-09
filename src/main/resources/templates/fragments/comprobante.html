@@ -37,7 +37,7 @@
             <section class="panel billing-detail">
                 <h2 class="section-title">DETALLE DE COBRO</h2>
                 <div class="billing-row">
-                    <span th:text="${ordenSeleccionada != null ? ordenSeleccionada.vehiculo.cliente.nombre : 'Seleccione una orden'}">Seleccione una orden</span>
+                    <span th:text="${ordenSeleccionada != null ? ordenSeleccionada.vehiculo.idCliente.nombre : 'Seleccione una orden'}">Seleccione una orden</span>
                 </div>
                 <div class="billing-row">
                     <strong>Placa:</strong>

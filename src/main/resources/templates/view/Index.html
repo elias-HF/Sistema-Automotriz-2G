@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css">
+
     <link rel="stylesheet" th:href="@{/css/variables.css}">
     <link rel="stylesheet" th:href="@{/css/layout.css}">
     <link rel="stylesheet" th:href="@{/css/topbar.css}">
@@ -23,7 +24,6 @@
     <link rel="stylesheet" th:href="@{/css/ordenes.css}">
     <link rel="stylesheet" th:href="@{/css/administracion.css}">
     <link rel="stylesheet" th:href="@{/css/almacen.css}">
-
 </head>
 <body>
 
@@ -71,6 +71,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+
+<script th:src="@{/js/clientes.js}"></script>
 
 <!-- Chart para dashboard -->
 <script th:inline="javascript">
@@ -261,10 +263,10 @@
                 const placa = document.createElement('p');
                 placa.textContent = 'Placa: ' + (datos.placa || 'No registrada');
 
-                const cliente = document.createElement('p');
-                cliente.textContent = 'Cliente: ' + (datos.cliente || 'No registrado');
+                const idCliente = document.createElement('p');
+                idCliente.textContent = 'Cliente: ' + (datos.idCliente || 'No registrado');
 
-                detalles.append(tituloVehiculo, placa, cliente);
+                detalles.append(tituloVehiculo, placa, idCliente);
 
                 const enlace = document.createElement('a');
                 enlace.href = '/ordenes/crear?citaId=' + encodeURIComponent(evento.id);

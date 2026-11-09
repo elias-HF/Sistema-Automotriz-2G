@@ -57,7 +57,7 @@
                     <div class="modal-header">
                         <div>
                             <h2 class="modal-title fs-5" id="tituloModalCita">Agendar nueva cita</h2>
-                            <p class="text-muted mb-0">Registra los datos del cliente y su vehículo.</p>
+                            <p class="text-muted mb-0">Registra los datos del idCliente y su vehículo.</p>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
@@ -67,14 +67,14 @@
                             <div class="col-12 col-md-6">
                                 <label for="idCliente" class="form-label">Cliente *</label>
                                 <select id="idCliente" name="idCliente" class="form-select" required>
-                                    <option value="">Selecciona un cliente</option>
-                                    <option th:each="cliente : ${clientes}" th:value="${cliente.idCliente}" th:text="${cliente.nombre + ' - ' + cliente.cod}"></option>
+                                    <option value="">Selecciona un idCliente</option>
+                                    <option th:each="idCliente : ${clientes}" th:value="${idCliente.idCliente}" th:text="${idCliente.nombre + ' - ' + idCliente.cod}"></option>
                                 </select>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <label for="idVehiculo" class="form-label">Vehículo *</label>
-                                <select id="idVehiculo" name="idVehiculo" class="form-select" required disabled><option value="">Primero selecciona un cliente</option></select>
+                                <select id="idVehiculo" name="idVehiculo" class="form-select" required disabled><option value="">Primero selecciona un idCliente</option></select>
                             </div>
 
                             <div class="col-12 col-md-6"><label for="fecha" class="form-label">Fecha *</label>
@@ -239,11 +239,11 @@
                     placa.append(negritaPlaca,
                         document.createTextNode(datos.placa || 'No registrada'));
 
-                    const cliente = document.createElement('p');
+                    const idCliente = document.createElement('p');
                     const negritaCliente = document.createElement('strong');
                     negritaCliente.textContent = 'Cliente: ';
-                    cliente.append(negritaCliente,
-                        document.createTextNode(datos.cliente || 'No registrado'));
+                    idCliente.append(negritaCliente,
+                        document.createTextNode(datos.idCliente || 'No registrado'));
 
                     const estado = document.createElement('p');
                     const negritaEstado = document.createElement('strong');
@@ -251,7 +251,7 @@
                     estado.append(negritaEstado,
                         document.createTextNode(datos.estado || 'PENDIENTE'));
 
-                    detalles.append(vehiculo, placa, cliente, estado);
+                    detalles.append(vehiculo, placa, idCliente, estado);
 
                     const acciones = document.createElement('div');
                     acciones.className = 'appointment-actions d-grid gap-2';
@@ -308,7 +308,7 @@
                 });
             }
 
-            // Cargar los vehículos correspondientes al cliente seleccionado.
+            // Cargar los vehículos correspondientes al idCliente seleccionado.
             const selectCliente = document.getElementById('idCliente');
             const selectVehiculo = document.getElementById('idVehiculo');
 
@@ -319,7 +319,7 @@
 
                 if (!idCliente) {
                     selectVehiculo.disabled = true;
-                    agregarOpcion(selectVehiculo, '', 'Primero selecciona un cliente');
+                    agregarOpcion(selectVehiculo, '', 'Primero selecciona un idCliente');
                     return;
                 }
 
@@ -352,14 +352,14 @@
                     selectVehiculo.disabled = false;
 
                     if (vehiculos.length === 0) {
-                        agregarOpcion(selectVehiculo, '', 'Este cliente no tiene vehículos activos');
+                        agregarOpcion(selectVehiculo, '', 'Este idCliente no tiene vehículos activos');
                         selectVehiculo.disabled = true;
                     }
 
                 } catch (error) {
                     selectVehiculo.replaceChildren();
                     agregarOpcion(selectVehiculo, '', 'No se pudieron cargar los vehículos');
-                    alert('No se pudieron cargar los vehículos del cliente.');
+                    alert('No se pudieron cargar los vehículos del idCliente.');
                 }
             });
 
@@ -382,7 +382,7 @@
                     agregarOpcion(
                         selectVehiculo,
                         '',
-                        'Primero selecciona un cliente'
+                        'Primero selecciona un idCliente'
                     );
                     selectVehiculo.disabled = true;
                 });

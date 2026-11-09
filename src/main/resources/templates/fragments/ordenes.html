@@ -33,7 +33,7 @@
                             th:text="${vehiculo.placa + ' - ' +
                       vehiculo.modelo.marca.nombre + ' ' +
                       vehiculo.modelo.nombre + ' - ' +
-                      vehiculo.cliente.nombre}"
+                      vehiculo.idCliente.nombre}"
                             th:selected="${citaSeleccionada != null
                 and citaSeleccionada.vehiculo.id_vehiculo == vehiculo.id_vehiculo}">
                     </option>
@@ -88,7 +88,7 @@
                 <div class="vehicle-info">
                     <p><strong>Marca / Modelo:</strong><span th:text="${orden != null ? orden.vehiculo.modelo.marca.nombre+ ' / ' + orden.vehiculo.modelo.nombre : '—'}">—</span></p>
                     <p><strong>Placa:</strong><span th:text="${orden != null ? orden.vehiculo.placa : '—'}">—</span></p>
-                    <p><strong>Cliente:</strong><span th:text="${orden != null ? orden.vehiculo.cliente.nombre : '—'}">—</span></p>
+                    <p><strong>Cliente:</strong><span th:text="${orden != null ? orden.vehiculo.idCliente.nombre : '—'}">—</span></p>
                     <p><strong>Año:</strong><span th:text="${orden != null ? orden.vehiculo.anio_fabricacion : '—'}">—</span></p>
                     <p><strong>Kilometraje:</strong><span th:text="${orden != null ? orden.vehiculo.kilometros : '—'}">—</span></p>
                 </div>

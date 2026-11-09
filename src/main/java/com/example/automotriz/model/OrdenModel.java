@@ -2,20 +2,34 @@ package com.example.automotriz.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import jakarta.validation.constraints.*;
 
-public class OrdenServicioModel {
-    private int idOrden;
+public class OrdenModel {
+    private Integer idOrden;
+
+    @NotNull(message = "La fecha y hora de ingreso son obligatorias")
     private LocalDateTime fechaHoraIngreso;
+
     private LocalDateTime fechaHoraSalida;
+
+    @NotBlank(message = "El diagnóstico es obligatorio")
+    @Size(max = 200, message = "Máximo 200 caracteres")
     private String diagnostico;
+
+    @NotNull(message = "El monto total es obligatorio")
+    @DecimalMin(value = "0.00", inclusive = true, message = "El monto total mínimo es S/ 0.00")
+    @Digits(integer = 8, fraction = 2, message = "Máximo 8 enteros y 2 decimales")
     private BigDecimal montoTotal;
+
     private String codigo;
+
+    @NotBlank(message = "El estado es obligatorio")
     private String estado;
 
-    private int idVehiculo;
+    private Integer idCita;
 
-    public OrdenServicioModel() {}
-    public OrdenServicioModel(int idOrden, LocalDateTime fechaHoraIngreso, LocalDateTime fechaHoraSalida, String diagnostico, BigDecimal montoTotal, String codigo, String estado, int idVehiculo) {
+    public OrdenModel() {}
+    public OrdenModel(Integer idOrden, LocalDateTime fechaHoraIngreso, LocalDateTime fechaHoraSalida, String diagnostico, BigDecimal montoTotal, String codigo, String estado, Integer idCita) {
         this.idOrden = idOrden;
         this.fechaHoraIngreso = fechaHoraIngreso;
         this.fechaHoraSalida = fechaHoraSalida;
@@ -23,11 +37,11 @@ public class OrdenServicioModel {
         this.montoTotal = montoTotal;
         this.codigo = codigo;
         this.estado = estado;
-        this.idVehiculo = idVehiculo;
+        this.idCita = idCita;
     }
 
-    public int getIdOrden() {return idOrden;}
-    public void setIdOrden(int idOrden) {this.idOrden = idOrden;}
+    public Integer getIdOrden() {return idOrden;}
+    public void setIdOrden(Integer idOrden) {this.idOrden = idOrden;}
 
     public LocalDateTime getFechaHoraIngreso() {return fechaHoraIngreso;}
     public void setFechaHoraIngreso(LocalDateTime fechaHoraIngreso) {this.fechaHoraIngreso = fechaHoraIngreso;}
@@ -47,6 +61,6 @@ public class OrdenServicioModel {
     public String getEstado() {return estado;}
     public void setEstado(String estado) {this.estado = estado;}
 
-    public int getIdVehiculo() {return idVehiculo;}
-    public void setIdVehiculo(int idVehiculo) {this.idVehiculo = idVehiculo;}
+    public Integer getIdCita() {return idCita;}
+    public void setIdCita(Integer idCita) {this.idCita = idCita;}
 }

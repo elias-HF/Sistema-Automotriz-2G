@@ -19,10 +19,11 @@ public class EmpleadoUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         EmpleadoEntity empleado = empleadoRepository.findByUsuario(username).orElseThrow(() -> new UsernameNotFoundException("Empleado no encontrado"));
 
-        return User.withUsername(empleado.getUsuario())
+        return User.withUsername(
+                empleado.getUsuario())
                 .password(empleado.getContrasenia())
-                .authorities("ROLE_" + empleado.getRol().getNombre())
-                .disabled(!empleado.getActivo())
+                .authorities("ROLE_" + empleado.getRol())
+                .disabled(!empleado.isActivo())
                 .build();
     }
 }

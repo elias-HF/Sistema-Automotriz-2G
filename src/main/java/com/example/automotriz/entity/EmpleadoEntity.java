@@ -2,25 +2,25 @@ package com.example.automotriz.entity;
 
 import jakarta.persistence.*;
 
-@Table
-@Entity(name = "empleado")
+@Entity
+@Table(name = "empleado")
 public class EmpleadoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_empleado")
-    private int id_empleado;
+    private Integer idEmpleado;
 
     @Column(name = "nombre", length = 100, nullable = false)
     private String nombre;
 
-    @Column(name = "correo", length = 100, unique = true, nullable = false)
+    @Column(name = "correo", length = 50, unique = true, nullable = false)
     private String correo;
 
-    @Column(name = "cod", length = 15, unique = true, nullable = false)
-    private String cod;
+    @Column(name = "codigo", length = 10, unique = true, nullable = false)
+    private String codigo;
 
-    @Column(name = "usuario", length = 50, unique = true, nullable = false)
+    @Column(name = "usuario", length = 25, unique = true, nullable = false)
     private String usuario;
 
     @Column(name = "contrasenia", length = 255, nullable = false)
@@ -29,14 +29,13 @@ public class EmpleadoEntity {
     @Column(name = "activo", nullable = false)
     private boolean activo = true;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_rol", nullable = false)
-    private RolEntity rol;
+    @Column(name = "rol", length = 25, nullable = false)
+    private String rol;
 
     public EmpleadoEntity() {}
 
-    public int getId_empleado() {return id_empleado;}
-    public void setId_empleado(int id_empleado) {this.id_empleado = id_empleado;}
+    public Integer getIdEmpleado() {return idEmpleado;}
+    public void setIdEmpleado(Integer idEmpleado) {this.idEmpleado = idEmpleado;}
 
     public String getNombre() {return nombre;}
     public void setNombre(String nombre) {this.nombre = nombre;}
@@ -44,8 +43,8 @@ public class EmpleadoEntity {
     public String getCorreo() {return correo;}
     public void setCorreo(String correo) {this.correo = correo;}
 
-    public String getCod() {return cod;}
-    public void setCod(String cod) {this.cod = cod;}
+    public String getCodigo() {return codigo;}
+    public void setCodigo(String codigo) {this.codigo = codigo;}
 
     public String getUsuario() {return usuario;}
     public void setUsuario(String usuario) {this.usuario = usuario;}
@@ -53,9 +52,9 @@ public class EmpleadoEntity {
     public String getContrasenia() {return contrasenia;}
     public void setContrasenia(String contrasenia) {this.contrasenia = contrasenia;}
 
-    public Boolean getActivo() {return activo;}
+    public boolean isActivo() {return activo;}
     public void setActivo(boolean activo) {this.activo = activo;}
 
-    public RolEntity getRol() {return rol;}
-    public void setRol(RolEntity rol) {this.rol = rol;}
+    public String getRol() {return rol;}
+    public void setRol(String rol) {this.rol = rol;}
 }
