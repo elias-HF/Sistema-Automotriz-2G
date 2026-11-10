@@ -102,4 +102,10 @@ public class VehiculoService {
                 .orElseThrow(() -> new IllegalArgumentException(
                         "El propietario seleccionado no existe o está desactivado"));
     }
+
+    @Transactional(readOnly = true)
+    public List<VehiculoModel> listarActivosPorCliente(Integer idCliente) {
+        return vehiculoRepository.findByCliente_IdClienteAndActivoTrue(idCliente)
+                .stream().map(vehiculoAdapter::toModel).toList();
+    }
 }

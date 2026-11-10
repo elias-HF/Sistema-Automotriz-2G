@@ -1,27 +1,24 @@
-<div th:fragment="content">
+<div th:fragment="content"
+     id="citasPagina"
+     th:data-fecha="${fechaSeleccionada}"
+     th:data-cita="${citaSeleccionada}">
+
+    <!-- ENCABEZADO -->
     <div class="page-heading appointments-heading mb-2">
         <div>
             <h1>GESTIÓN DE CITAS</h1>
             <p>Organiza las citas de atención y la recepción de vehículos.</p>
         </div>
 
-        <button type="button" class="btn btn-success btn-new-appointment" data-bs-toggle="modal" data-bs-target="#modalCita">
+        <button type="button" class="btn btn-success btn-new-appointment" id="btnAgendarCita">
             <i class="bi bi-plus-lg"></i>
             <span>AGENDAR<br>CITA</span>
         </button>
     </div>
 
-    <div th:if="${mensajeExito}" class="alert alert-success alert-dismissible fade show" role="alert">
-        <span th:text="${mensajeExito}"></span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-
-    <div th:if="${mensajeError}" class="alert alert-danger alert-dismissible fade show" role="alert">
-        <span th:text="${mensajeError}"></span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-
     <div class="row g-2 appointments-layout">
+
+        <!-- CALENDARIO -->
         <div class="col-12 col-xl-8">
             <section class="panel calendar-panel">
                 <h2 class="section-title">CALENDARIO</h2>
@@ -29,364 +26,185 @@
                 <div id="calendar" class="calendar-container"></div>
 
                 <div class="calendar-summary">
-                    <strong>N.º de citas registradas:</strong>
-                    <span id="totalCitasProgramadas" th:text="${totalCitas != null ? totalCitas : 0}">0</span>
+                    <strong>Citas en el período mostrado:</strong>
+                    <span id="totalCitasProgramadas">0</span>
+
+                    <span class="cita-leyenda">
+                        <span><span class="leyenda-punto pendiente"></span>Pendiente</span>
+                        <span><span class="leyenda-punto atendida"></span>Atendida</span>
+                        <span><span class="leyenda-punto cancelada"></span>Cancelada</span>
+                    </span>
                 </div>
             </section>
         </div>
 
+        <!-- PANEL DERECHO: LISTA DEL DÍA / DETALLE -->
         <div class="col-12 col-xl-4">
             <section class="panel appointments-panel">
-                <h2 class="section-title">CITAS DEL DÍA</h2>
+                <h2 class="section-title" id="tituloPanelCitas">CITAS DEL DÍA</h2>
+
+                <!-- Lista del día seleccionado -->
                 <p class="appointments-date" id="fechaTextoSeleccionada">Selecciona una fecha del calendario.</p>
                 <div id="contenedorCitasDia" class="appointments-list">
                     <div class="empty-appointments">
                         <i class="bi bi-calendar2-week"></i>
-                        <p>Selecciona un día para consultar sus citas.</p>
+                        <p>Cargando citas...</p>
                     </div>
+                </div>
+
+                <!-- Detalle de una cita -->
+                <div id="detalleCita" class="cita-detalle" hidden>
+                    <button type="button" class="btn btn-link btn-sm p-0 mb-2" id="btnVolverLista">
+                        <i class="bi bi-arrow-left"></i> Volver a la lista del día
+                    </button>
+
+                    <div class="cita-detalle-cabecera">
+                        <span class="cita-codigo" id="detCodigo">CIT-000</span>
+                        <span class="cita-estado" id="detEstado">Pendiente</span>
+                    </div>
+
+                    <dl class="cita-detalle-datos">
+                        <dt>Fecha y hora</dt>
+                        <dd id="detFechaHora"></dd>
+
+                        <dt>Cliente</dt>
+                        <dd id="detCliente"></dd>
+
+                        <dt>Vehículo</dt>
+                        <dd id="detVehiculo"></dd>
+
+                        <dt>Placa</dt>
+                        <dd id="detPlaca"></dd>
+
+                        <dt>Medio de contacto</dt>
+                        <dd id="detContacto"></dd>
+
+                        <dt>Motivo</dt>
+                        <dd id="detMotivo"></dd>
+                    </dl>
+
+                    <div id="detAcciones" hidden>
+                        <div class="d-flex gap-2">
+                            <button type="button" id="btnModificarCita" class="btn btn-warning btn-sm flex-fill">
+                                <i class="bi bi-pencil-square me-1"></i>Modificar
+                            </button>
+                            <button type="button" id="btnCancelarCita"
+                                    class="btn btn-outline-danger btn-sm flex-fill"
+                                    data-bs-toggle="modal" data-bs-target="#modalCancelarCita">
+                                <i class="bi bi-x-circle me-1"></i>Cancelar cita
+                            </button>
+                        </div>
+                    </div>
+
+                    <p id="detSinAcciones" class="text-muted small mb-0" hidden></p>
                 </div>
             </section>
         </div>
-
     </div>
 
-    <div class="modal fade" id="modalCita" tabindex="-1" aria-labelledby="tituloModalCita" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+    <!-- MODAL AGENDAR / MODIFICAR -->
+    <div class="modal fade" id="modalCita" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <form th:action="@{/citas/guardar}" method="post" id="formCita">
-                    <div class="modal-header">
-                        <div>
-                            <h2 class="modal-title fs-5" id="tituloModalCita">Agendar nueva cita</h2>
-                            <p class="text-muted mb-0">Registra los datos del idCliente y su vehículo.</p>
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModalCita">Agendar nueva cita</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
+                <form id="formCita" th:action="@{/citas/registrar}"
+                      th:data-url-modificar="@{/citas/modificar}" method="post">
                     <div class="modal-body">
+                        <input type="hidden" name="idCita" id="citaId">
+
                         <div class="row g-3">
-                            <div class="col-12 col-md-6">
-                                <label for="idCliente" class="form-label">Cliente *</label>
-                                <select id="idCliente" name="idCliente" class="form-select" required>
-                                    <option value="">Selecciona un idCliente</option>
-                                    <option th:each="idCliente : ${clientes}" th:value="${idCliente.idCliente}" th:text="${idCliente.nombre + ' - ' + idCliente.cod}"></option>
+                            <div class="col-12">
+                                <label for="citaCliente" class="form-label">Cliente</label>
+                                <select class="form-select" name="idCliente" id="citaCliente" required>
+                                    <option value="">Selecciona un cliente</option>
+                                    <option th:each="c : ${clientes}" th:value="${c.idCliente}"
+                                            th:text="|${c.nombre} - DNI ${c.dni}|"></option>
                                 </select>
                             </div>
 
-                            <div class="col-12 col-md-6">
-                                <label for="idVehiculo" class="form-label">Vehículo *</label>
-                                <select id="idVehiculo" name="idVehiculo" class="form-select" required disabled><option value="">Primero selecciona un idCliente</option></select>
+                            <div class="col-12">
+                                <label for="citaVehiculo" class="form-label">Vehículo</label>
+                                <select class="form-select" name="idVehiculo" id="citaVehiculo" required disabled>
+                                    <option value="">Primero selecciona un cliente</option>
+                                </select>
                             </div>
 
-                            <div class="col-12 col-md-6"><label for="fecha" class="form-label">Fecha *</label>
-                                <input type="date" id="fecha" name="fecha" class="form-control" required>
+                            <div class="col-md-6">
+                                <label for="citaFecha" class="form-label">Fecha</label>
+                                <input type="date" class="form-control" name="fecha" id="citaFecha" required>
                             </div>
 
-                            <div class="col-12 col-md-6">
-                                <label for="hora" class="form-label">Hora *</label>
-                                <input type="time" id="hora" name="hora" class="form-control" required>
+                            <div class="col-md-6">
+                                <label for="citaHora" class="form-label">Hora</label>
+                                <input type="time" class="form-control" name="hora" id="citaHora" required>
                             </div>
 
                             <div class="col-12">
-                                <label for="idContacto" class="form-label">Medio de contacto *</label>
-                                <select id="idContacto" name="idContacto" class="form-select" required>
+                                <label for="citaContacto" class="form-label">Medio de contacto</label>
+                                <select class="form-select" name="medioContacto" id="citaContacto" required>
                                     <option value="">Selecciona un medio de contacto</option>
-                                    <option th:each="medio : ${mediosContacto}" th:value="${medio.id_contacto}" th:text="${medio.nombre}"></option>
+                                    <option value="PRESENCIAL">Presencial</option>
+                                    <option value="WHATSAPP">WhatsApp</option>
+                                    <option value="FACEBOOK">Facebook</option>
+                                    <option value="TELEFONO">Teléfono</option>
                                 </select>
                             </div>
 
                             <div class="col-12">
-                                <label for="motivo" class="form-label">Motivo de la cita *</label>
-                                <textarea id="motivo" name="motivo" class="form-control" rows="3" maxlength="200" placeholder="Describe brevemente el motivo de la visita" required></textarea>
+                                <label for="citaMotivo" class="form-label">Motivo de la cita</label>
+                                <textarea class="form-control" name="motivo" id="citaMotivo" rows="3"
+                                          maxlength="200" placeholder="Describe brevemente el motivo de la visita"
+                                          required></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success"><i class="bi bi-calendar-check"></i>Guardar cita</button>
-                    </div>
 
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-calendar-check"></i>
+                            <span id="textoGuardarCita">Guardar cita</span>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Token CSRF para los formularios de cancelación creados con JavaScript -->
-    <meta name="_csrf" th:content="${_csrf.token}">
-    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <!-- MODAL CANCELAR -->
+    <div class="modal fade" id="modalCancelarCita" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cancelar cita</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-    <!-- FullCalendar -->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.10/locales-all.global.min.js"></script>
+                <form th:action="@{/citas/cancelar}" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="cancelarIdCita">
+                        <div class="text-center mb-3">
+                            <i class="bi bi-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+                        </div>
+                        <p class="text-center mb-2">¿Estás seguro de que deseas cancelar la cita?</p>
+                        <h6 class="text-center fw-bold" id="cancelarDescripcion"></h6>
+                        <p class="text-muted text-center small mt-3 mb-0">
+                            Esta acción no se puede deshacer.
+                        </p>
+                    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const calendarEl = document.getElementById('calendar');
-            if (!calendarEl || typeof FullCalendar === 'undefined') {return;}
-
-            const contenedor = document.getElementById('contenedorCitasDia');
-            const tituloFecha = document.getElementById('fechaTextoSeleccionada');
-            const total = document.getElementById('totalCitasProgramadas');
-
-            const calendario = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                locale: 'es',
-                height: 'auto',
-                fixedWeekCount: false,
-                headerToolbar: {
-                    left: 'prev,title,next',
-                    center: '',
-                    right: 'dayGridMonth,timeGridWeek'
-                },
-                buttonText: {
-                    today: 'Hoy',
-                    month: 'Mes',
-                    week: 'Semana'
-                },
-
-                events: {
-                    url: '/citas/api/eventos',
-                    failure: function () {
-                        alert('No se pudieron cargar las citas.');
-                    }
-                },
-
-                eventsSet: function (eventos) {
-                    if (total) {
-                        total.textContent = eventos.length;
-                    }
-
-                    // Selecciona hoy al cargar el calendario.
-                    actualizarCitasDelDia(
-                        fechaSeleccionada || fechaLocal(new Date()),
-                        eventos
-                    );
-                },
-
-                dateClick: function (info) {
-                    fechaSeleccionada = info.dateStr;
-                    actualizarCitasDelDia(info.dateStr, calendario.getEvents());
-                },
-
-                eventClick: function (info) {
-                    const fecha = info.event.startStr.split('T')[0];
-                    fechaSeleccionada = fecha;
-                    actualizarCitasDelDia(fecha, calendario.getEvents());
-                }
-            });
-
-            let fechaSeleccionada = fechaLocal(new Date());
-            calendario.render();
-
-            function fechaLocal(fecha) {
-                const anio = fecha.getFullYear();
-                const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-                const dia = String(fecha.getDate()).padStart(2, '0');
-
-                return `${anio}-${mes}-${dia}`;
-            }
-
-            function actualizarCitasDelDia(fechaStr, eventos) {
-                if (!contenedor || !tituloFecha) return;
-
-                const fecha = new Date(fechaStr + 'T00:00:00');
-
-                tituloFecha.textContent = fecha.toLocaleDateString('es-PE', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
-
-                const citas = eventos.filter(evento => evento.startStr.startsWith(fechaStr)).sort((a, b) => a.start - b.start);
-                contenedor.replaceChildren();
-
-                if (citas.length === 0) {
-                    const vacio = document.createElement('div');
-                    vacio.className = 'empty-appointments';
-
-                    const icono = document.createElement('i');
-                    icono.className = 'bi bi-calendar2-x';
-
-                    const texto = document.createElement('p');
-                    texto.textContent = 'No hay citas registradas para esta fecha.';
-
-                    vacio.append(icono, texto);
-                    contenedor.appendChild(vacio);
-                    return;
-                }
-
-                citas.forEach(evento => {
-                    const datos = evento.extendedProps;
-
-                    const articulo = document.createElement('article');
-                    articulo.className = 'appointment-item';
-
-                    const hora = document.createElement('div');
-                    hora.className = 'appointment-time';
-                    hora.textContent = datos.hora || 'Hora no definida';
-
-                    const detalles = document.createElement('div');
-                    detalles.className = 'appointment-details';
-
-                    const vehiculo = document.createElement('p');
-                    const negritaVehiculo = document.createElement('strong');
-                    negritaVehiculo.textContent = 'Marca/Modelo: ';
-                    vehiculo.append(negritaVehiculo,
-                        document.createTextNode(datos.marcaModelo || 'No registrado'));
-
-                    const placa = document.createElement('p');
-                    const negritaPlaca = document.createElement('strong');
-                    negritaPlaca.textContent = 'Placa: ';
-                    placa.append(negritaPlaca,
-                        document.createTextNode(datos.placa || 'No registrada'));
-
-                    const idCliente = document.createElement('p');
-                    const negritaCliente = document.createElement('strong');
-                    negritaCliente.textContent = 'Cliente: ';
-                    idCliente.append(negritaCliente,
-                        document.createTextNode(datos.idCliente || 'No registrado'));
-
-                    const estado = document.createElement('p');
-                    const negritaEstado = document.createElement('strong');
-                    negritaEstado.textContent = 'Estado: ';
-                    estado.append(negritaEstado,
-                        document.createTextNode(datos.estado || 'PENDIENTE'));
-
-                    detalles.append(vehiculo, placa, idCliente, estado);
-
-                    const acciones = document.createElement('div');
-                    acciones.className = 'appointment-actions d-grid gap-2';
-
-                    if (datos.estado === 'PENDIENTE') {
-                        const convertir = document.createElement('a');
-                        convertir.href = '/ordenes/crear?citaId=' + encodeURIComponent(evento.id);
-                        convertir.className = 'btn btn-primary btn-sm';
-                        convertir.textContent = 'Convertir a orden';
-                        acciones.appendChild(convertir);
-                    }
-
-                    if (datos.estado !== 'CANCELADA' && datos.estado !== 'ATENDIDA') {
-
-                        const cancelar = document.createElement('button');
-                        cancelar.type = 'button';
-                        cancelar.className = 'btn btn-outline-danger btn-sm';
-                        cancelar.textContent = 'Cancelar cita';
-
-                        cancelar.addEventListener('click', function () {
-                            if (!confirm('¿Deseas cancelar esta cita?')) return;
-
-                            const formulario = document.createElement('form');
-                            formulario.method = 'post';
-                            formulario.action =
-                                '/citas/' + encodeURIComponent(evento.id) + '/cancelar';
-
-                            const token = document.querySelector('meta[name="_csrf"]');
-                            const nombreToken = document.querySelector(
-                                'meta[name="_csrf_header"]'
-                            );
-
-                            if (token && nombreToken) {
-                                const campo = document.createElement('input');
-                                campo.type = 'hidden';
-                                campo.name = nombreToken.content;
-                                campo.value = token.content;
-                                formulario.appendChild(campo);
-                            }
-
-                            document.body.appendChild(formulario);
-                            formulario.submit();
-                        });
-
-                        acciones.appendChild(cancelar);
-                    }
-
-                    if (datos.estado === 'CANCELADA') {
-                        articulo.classList.add('appointment-cancelled');
-                    }
-
-                    articulo.append(hora, detalles, acciones);
-                    contenedor.appendChild(articulo);
-                });
-            }
-
-            // Cargar los vehículos correspondientes al idCliente seleccionado.
-            const selectCliente = document.getElementById('idCliente');
-            const selectVehiculo = document.getElementById('idVehiculo');
-
-            selectCliente.addEventListener('change', async function () {
-                selectVehiculo.replaceChildren();
-
-                const idCliente = selectCliente.value;
-
-                if (!idCliente) {
-                    selectVehiculo.disabled = true;
-                    agregarOpcion(selectVehiculo, '', 'Primero selecciona un idCliente');
-                    return;
-                }
-
-                selectVehiculo.disabled = true;
-                agregarOpcion(selectVehiculo, '', 'Cargando vehículos...');
-
-                try {
-                    const respuesta = await fetch(
-                        '/citas/api/vehiculos?clienteId=' +
-                        encodeURIComponent(idCliente)
-                    );
-
-                    if (!respuesta.ok) {
-                        throw new Error('Error al consultar vehículos');
-                    }
-
-                    const vehiculos = await respuesta.json();
-
-                    selectVehiculo.replaceChildren();
-                    agregarOpcion(selectVehiculo, '', 'Selecciona un vehículo');
-
-                    vehiculos.forEach(vehiculo => {
-                        agregarOpcion(
-                            selectVehiculo,
-                            vehiculo.id,
-                            vehiculo.placa + ' - ' + vehiculo.modelo
-                        );
-                    });
-
-                    selectVehiculo.disabled = false;
-
-                    if (vehiculos.length === 0) {
-                        agregarOpcion(selectVehiculo, '', 'Este idCliente no tiene vehículos activos');
-                        selectVehiculo.disabled = true;
-                    }
-
-                } catch (error) {
-                    selectVehiculo.replaceChildren();
-                    agregarOpcion(selectVehiculo, '', 'No se pudieron cargar los vehículos');
-                    alert('No se pudieron cargar los vehículos del idCliente.');
-                }
-            });
-
-            function agregarOpcion(select, valor, texto) {
-                const opcion = document.createElement('option');
-                opcion.value = valor;
-                opcion.textContent = texto;
-                select.appendChild(opcion);
-            }
-
-            // Evitar agendar en una fecha anterior a hoy.
-            const campoFecha = document.getElementById('fecha');
-            campoFecha.min = fechaLocal(new Date());
-
-            // Limpiar el formulario al cerrar el modal.
-            document.getElementById('modalCita')
-                .addEventListener('hidden.bs.modal', function () {
-                    document.getElementById('formCita').reset();
-                    selectVehiculo.replaceChildren();
-                    agregarOpcion(
-                        selectVehiculo,
-                        '',
-                        'Primero selecciona un idCliente'
-                    );
-                    selectVehiculo.disabled = true;
-                });
-        });
-    </script>
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-x-circle"></i> Sí, cancelar cita
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

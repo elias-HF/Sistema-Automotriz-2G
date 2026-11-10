@@ -11,7 +11,7 @@
             <span>Gestión de citas</span>
         </a>
 
-        <a class="nav-link" th:href="@{/ordenes}" th:classappend="${vista == 'ordenes'} ? ' active' : ''">
+        <a class="nav-link" th:if="${esMecanico}" th:href="@{/ordenes}" th:classappend="${vista == 'ordenes'} ? ' active' : ''">
             <i class="bi bi-car-front-fill"></i>
             <span>Órdenes</span>
         </a>

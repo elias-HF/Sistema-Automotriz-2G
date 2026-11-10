@@ -38,6 +38,7 @@ public class SecurityConfig {
                                 "/img/**",
                                 "/error"
                         ).permitAll()
+                        .requestMatchers("/ordenes", "/ordenes/**").hasRole("MECANICO")
                         .anyRequest().authenticated()
                 )
 

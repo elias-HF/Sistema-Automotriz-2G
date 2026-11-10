@@ -20,4 +20,14 @@ public class OrdenEmpleadoEntity {
     private EmpleadoEntity empleado;
 
     public OrdenEmpleadoEntity() {}
+
+    public OrdenEmpleadoEntity(OrdenEntity orden, EmpleadoEntity empleado) {
+        this.id = new OrdenEmpleadoId(orden.getIdOrden(), empleado.getIdEmpleado());
+        this.orden = orden;
+        this.empleado = empleado;
+    }
+
+    public OrdenEmpleadoId getId() {return id;}
+    public OrdenEntity getOrden() {return orden;}
+    public EmpleadoEntity getEmpleado() {return empleado;}
 }

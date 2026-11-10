@@ -333,3 +333,153 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ===== EVENTOS DEL CALENDARIO POR ESTADO ===== */
+
+#calendar .fc-event.evento-pendiente {
+    color: #fff;
+    background: #f5b719;
+    border-color: #f5b719;
+}
+
+#calendar .fc-event.evento-atendida {
+    color: #fff;
+    background: #24a148;
+    border-color: #24a148;
+}
+
+#calendar .fc-event.evento-cancelada {
+    color: #fff;
+    background: #aab8c6;
+    border-color: #aab8c6;
+    text-decoration: line-through;
+}
+
+#calendar .fc-event-title {
+    font-weight: 600;
+}
+
+/* Día seleccionado */
+#calendar .fc-daygrid-day.dia-seleccionado,
+#calendar .fc-timegrid-col.dia-seleccionado {
+    background: #bcd6ee;
+}
+
+/* Leyenda bajo el calendario */
+.calendar-summary {
+    flex-wrap: wrap;
+}
+
+.cita-leyenda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    color: #5f6b7a;
+}
+
+.leyenda-punto {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-right: 4px;
+    border-radius: 50%;
+}
+
+.leyenda-punto.pendiente { background: #f5b719; }
+.leyenda-punto.atendida  { background: #24a148; }
+.leyenda-punto.cancelada { background: #aab8c6; }
+
+/* ===== LISTA DEL DÍA ===== */
+
+.cita-lista-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 4px;
+    background: #fff;
+    border: 0;
+    border-bottom: 1px solid #cbd5df;
+    text-align: left;
+    cursor: pointer;
+}
+
+.cita-lista-item:hover {
+    background: #f4f8fc;
+}
+
+.cita-lista-item .appointment-time {
+    min-width: 58px;
+    margin: 0;
+    padding: 3px 6px;
+    font-size: 12px;
+}
+
+.cita-lista-info {
+    flex: 1;
+    min-width: 0;
+    color: #242a30;
+    font-size: 11px;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.cita-lista-info strong {
+    display: block;
+    color: #164c78;
+}
+
+.appointment-cancelled {
+    opacity: .6;
+}
+
+/* ===== DETALLE DE LA CITA ===== */
+
+.cita-estado {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.cita-estado.estado-pendiente { color: #a16207; background: #fef3c7; }
+.cita-estado.estado-atendida  { color: #16804a; background: #e7f7ee; }
+.cita-estado.estado-cancelada { color: #a33a3a; background: #fdecec; }
+
+.cita-detalle-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #d9e4ef;
+}
+
+.cita-codigo {
+    color: #164c78;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.cita-detalle-datos {
+    margin: 0 0 12px;
+    font-size: 12px;
+}
+
+.cita-detalle-datos dt {
+    margin-top: 8px;
+    color: #8995a5;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.cita-detalle-datos dd {
+    margin: 1px 0 0;
+    color: #242a30;
+    overflow-wrap: anywhere;
+}

@@ -4,7 +4,9 @@ import com.example.automotriz.entity.CitaEntity;
 import com.example.automotriz.model.CitaModel;
 import com.example.automotriz.repository.ClienteRepository;
 import com.example.automotriz.repository.VehiculoRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CitaAdapter {
     private final ClienteRepository clienteRepository;
     private final VehiculoRepository vehiculoRepository;
@@ -25,8 +27,16 @@ public class CitaAdapter {
         model.setEstado(entity.getEstado());
         model.setCodigo(entity.getCodigo());
         model.setMedioContacto(entity.getMedioContacto());
-        model.setIdCliente(entity.getCliente() != null ? entity.getCliente().getIdCliente() : null);
-        model.setIdVehiculo(entity.getVehiculo() != null ? entity.getVehiculo().getIdVehiculo() : null);
+
+        if (entity.getCliente() != null) {
+            model.setIdCliente(entity.getCliente().getIdCliente());
+            model.setNombreCliente(entity.getCliente().getNombre());
+        }
+        if (entity.getVehiculo() != null) {
+            model.setIdVehiculo(entity.getVehiculo().getIdVehiculo());
+            model.setPlaca(entity.getVehiculo().getPlaca());
+            model.setMarcaModelo(entity.getVehiculo().getMarca() + " " + entity.getVehiculo().getModelo());
+        }
 
         return model;
     }
