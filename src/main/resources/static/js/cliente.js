@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
 
     // MODAL DESACTIVAR
@@ -54,4 +53,17 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    // BÚSQUEDA Y PAGINACIÓN
+    iniciarTablaAdmin({
+        cuerpo: "tablaClientesDemo",
+        buscar: "buscarClienteDemo",
+        btnBuscar: "btnBuscarClienteDemo",
+        contador: "contadorClientesDemo",
+        paginas: "numerosPaginasClientes",
+        anterior: "clientesAnterior",
+        siguiente: "clientesSiguiente",
+        sinResultados: "clientesSinResultados",
+        plural: "clientes"
+    });
 });

@@ -24,6 +24,8 @@ public class VehiculoAdapter {
         model.setMarca(entity.getMarca());
         model.setActivo(entity.isActivo());
         model.setIdCliente(entity.getCliente() != null ? entity.getCliente().getIdCliente() : null);
+        model.setNombreCliente(entity.getCliente() != null ? entity.getCliente().getNombre() : null);
+
 
         return model;
     }

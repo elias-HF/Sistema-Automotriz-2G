@@ -1,32 +1,24 @@
-
 <div th:fragment="tablaServicio" class="admin-tabla-servicios">
 
     <!-- BARRA DE HERRAMIENTAS -->
     <div class="admin-tabla-toolbar">
         <div class="input-group admin-buscador-servicios">
-            <input type="search"
-                   id="buscarServicioDemo"
-                   class="form-control"
+            <input type="search" id="buscarServicio" class="form-control"
                    placeholder="Buscar por código, servicio o categoría..."
                    aria-label="Buscar servicios">
-
-            <button type="button"
-                    class="btn btn-secondary"
-                    id="btnBuscarServicioDemo"
-                    aria-label="Buscar">
+            <button type="button" class="btn btn-secondary" id="btnBuscarServicio" aria-label="Buscar">
                 <i class="bi bi-search"></i>
             </button>
         </div>
 
-        <button type="button"
-                class="btn btn-success admin-btn-registrar"
-                id="btnRegistrarServicioDemo">
+        <button type="button" class="btn btn-success admin-btn-registrar"
+                data-bs-toggle="modal" data-bs-target="#modalRegistrarServicio">
             <i class="bi bi-plus-lg"></i>
             REGISTRAR SERVICIO
         </button>
     </div>
 
-    <!-- TABLA DE SERVICIOS -->
+    <!-- TABLA -->
     <div class="table-responsive">
         <table class="table table-hover align-middle admin-servicios-table">
             <thead>
@@ -40,305 +32,217 @@
             </tr>
             </thead>
 
-            <tbody id="tablaServiciosDemo">
-
-            <tr>
+            <tbody id="tablaServicios">
+            <tr th:each="servicio : ${servicios}">
                 <td>
                     <div class="servicio-info">
-                            <span class="servicio-avatar">
-                                <i class="bi bi-droplet-fill"></i>
-                            </span>
+                        <span class="servicio-avatar" th:switch="${servicio.categoria}">
+                            <i th:case="'MANTENIMIENTO'" class="bi bi-wrench-adjustable"></i>
+                            <i th:case="'MOTOR'" class="bi bi-gear-fill"></i>
+                            <i th:case="'FRENOS Y SUSPENSION'" class="bi bi-disc-fill"></i>
+                            <i th:case="'ELECTRICIDAD'" class="bi bi-lightning-charge-fill"></i>
+                            <i th:case="'TRANSMISION'" class="bi bi-gear-wide-connected"></i>
+                            <i th:case="'DIAGNOSTICO Y OTROS'" class="bi bi-search"></i>
+                            <i th:case="*" class="bi bi-tools"></i>
+                        </span>
                         <div>
-                            <strong>Cambio de aceite</strong>
-                            <small>Reemplazo de aceite y revisión de niveles.</small>
+                            <strong th:text="${servicio.nombre}"></strong>
+                            <small th:text="${servicio.descripcion}"></small>
                         </div>
                     </div>
                 </td>
-                <td>SER-00001</td>
-                <td><span class="servicio-categoria">Mantenimiento</span></td>
-                <td class="servicio-precio">S/ 120.00</td>
-                <td><span class="servicio-estado servicio-activo">Activo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-servicio"
-                            data-accion="editar" data-nombre="Cambio de aceite"
-                            title="Editar servicio" aria-label="Editar Cambio de aceite">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-servicio"
-                            data-accion="desactivar" data-nombre="Cambio de aceite"
-                            title="Desactivar servicio" aria-label="Desactivar Cambio de aceite">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
+                <td th:text="${servicio.codigo}"></td>
                 <td>
-                    <div class="servicio-info">
-                            <span class="servicio-avatar">
-                                <i class="bi bi-search"></i>
-                            </span>
-                        <div>
-                            <strong>Diagnóstico general</strong>
-                            <small>Evaluación inicial del estado del vehículo.</small>
-                        </div>
-                    </div>
+                    <span class="servicio-categoria" th:switch="${servicio.categoria}">
+                        <th:block th:case="'MANTENIMIENTO'">Mantenimiento</th:block>
+                        <th:block th:case="'MOTOR'">Motor</th:block>
+                        <th:block th:case="'FRENOS Y SUSPENSION'">Frenos y suspensión</th:block>
+                        <th:block th:case="'ELECTRICIDAD'">Electricidad</th:block>
+                        <th:block th:case="'TRANSMISION'">Transmisión</th:block>
+                        <th:block th:case="'DIAGNOSTICO Y OTROS'">Diagnóstico y otros</th:block>
+                        <th:block th:case="*" th:text="${servicio.categoria}"></th:block>
+                    </span>
                 </td>
-                <td>SER-00002</td>
-                <td><span class="servicio-categoria">Diagnóstico</span></td>
-                <td class="servicio-precio">S/ 80.00</td>
-                <td><span class="servicio-estado servicio-activo">Activo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-servicio"
-                            data-accion="editar" data-nombre="Diagnóstico general"
-                            title="Editar servicio" aria-label="Editar Diagnóstico general">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-servicio"
-                            data-accion="desactivar" data-nombre="Diagnóstico general"
-                            title="Desactivar servicio" aria-label="Desactivar Diagnóstico general">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
+                <td class="servicio-precio"
+                    th:text="'S/ ' + ${#numbers.formatDecimal(servicio.precioPorDefecto, 1, 'COMMA', 2, 'POINT')}">S/ 0.00</td>
                 <td>
-                    <div class="servicio-info">
-                            <span class="servicio-avatar">
-                                <i class="bi bi-disc-fill"></i>
-                            </span>
-                        <div>
-                            <strong>Revisión de frenos</strong>
-                            <small>Inspección de pastillas y sistema de frenado.</small>
-                        </div>
-                    </div>
+                    <span class="servicio-estado"
+                          th:classappend="${servicio.activo} ? 'servicio-activo' : 'servicio-inactivo'"
+                          th:text="${servicio.activo} ? 'Activo' : 'Inactivo'">Activo</span>
                 </td>
-                <td>SER-00003</td>
-                <td><span class="servicio-categoria">Frenos</span></td>
-                <td class="servicio-precio">S/ 150.00</td>
-                <td><span class="servicio-estado servicio-activo">Activo</span></td>
                 <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-servicio"
-                            data-accion="editar" data-nombre="Revisión de frenos"
-                            title="Editar servicio" aria-label="Editar Revisión de frenos">
+                    <button type="button" class="btn btn-sm btn-warning" title="Modificar"
+                            th:if="${servicio.activo}"
+                            data-bs-toggle="modal" data-bs-target="#modalEditarServicio"
+                            th:data-id="${servicio.idServicio}">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button type="button" class="btn btn-danger btn-accion-servicio"
-                            data-accion="desactivar" data-nombre="Revisión de frenos"
-                            title="Desactivar servicio" aria-label="Desactivar Revisión de frenos">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                    <div class="servicio-info">
-                            <span class="servicio-avatar">
-                                <i class="bi bi-lightning-charge-fill"></i>
-                            </span>
-                        <div>
-                            <strong>Revisión eléctrica</strong>
-                            <small>Comprobación de batería y componentes eléctricos.</small>
-                        </div>
-                    </div>
-                </td>
-                <td>SER-00004</td>
-                <td><span class="servicio-categoria">Electricidad</span></td>
-                <td class="servicio-precio">S/ 100.00</td>
-                <td><span class="servicio-estado servicio-activo">Activo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-servicio"
-                            data-accion="editar" data-nombre="Revisión eléctrica"
-                            title="Editar servicio" aria-label="Editar Revisión eléctrica">
-                        <i class="bi bi-pencil-square"></i>
+                    <button type="button" class="btn btn-sm btn-danger" title="Desactivar"
+                            th:if="${servicio.activo}"
+                            data-bs-toggle="modal" data-bs-target="#modalDesactivarServicio"
+                            th:data-id="${servicio.idServicio}"
+                            th:data-nombre="${servicio.nombre}">
+                        <i class="bi bi-x-circle"></i>
                     </button>
-                    <button type="button" class="btn btn-danger btn-accion-servicio"
-                            data-accion="desactivar" data-nombre="Revisión eléctrica"
-                            title="Desactivar servicio" aria-label="Desactivar Revisión eléctrica">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                    <div class="servicio-info">
-                            <span class="servicio-avatar">
-                                <i class="bi bi-gear-fill"></i>
-                            </span>
-                        <div>
-                            <strong>Alineación y balanceo</strong>
-                            <small>Ajuste de ruedas para mejorar la estabilidad.</small>
-                        </div>
-                    </div>
-                </td>
-                <td>SER-00005</td>
-                <td><span class="servicio-categoria">Mantenimiento</span></td>
-                <td class="servicio-precio">S/ 180.00</td>
-                <td><span class="servicio-estado servicio-inactivo">Inactivo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-servicio"
-                            data-accion="editar" data-nombre="Alineación y balanceo"
-                            title="Editar servicio" aria-label="Editar Alineación y balanceo">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-servicio"
-                            data-accion="desactivar" data-nombre="Alineación y balanceo"
-                            title="Desactivar servicio" aria-label="Desactivar Alineación y balanceo">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
+                    <form th:unless="${servicio.activo}" th:action="@{/servicios/activar}"
+                          method="post" class="d-inline">
+                        <input type="hidden" name="id" th:value="${servicio.idServicio}">
+                        <button type="submit" class="btn btn-sm btn-success" title="Activar">
+                            <i class="bi bi-check-lg"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
 
             <tr id="serviciosSinResultados" hidden>
-                <td colspan="6" class="text-center">
-                    No se encontraron servicios.
-                </td>
+                <td colspan="6" class="text-center">No se encontraron servicios.</td>
             </tr>
-
             </tbody>
         </table>
     </div>
 
     <!-- PIE Y PAGINACIÓN -->
     <div class="admin-tabla-footer">
-        <span id="contadorServiciosDemo">Mostrando 1 a 4 de 5 servicios</span>
-
+        <span id="contadorServicios"></span>
         <nav class="admin-paginacion" aria-label="Paginación de servicios">
-            <button type="button" class="admin-pagina-btn" id="serviciosAnterior">
-                Anterior
-            </button>
-
+            <button type="button" class="admin-pagina-btn" id="serviciosAnterior">Anterior</button>
             <div id="numerosPaginasServicios" class="admin-pagina-numeros"></div>
-
-            <button type="button" class="admin-pagina-btn" id="serviciosSiguiente">
-                Siguiente
-            </button>
+            <button type="button" class="admin-pagina-btn" id="serviciosSiguiente">Siguiente</button>
         </nav>
     </div>
 
-    <div class="admin-demo-mensaje" id="mensajeServicioDemo" role="status" hidden></div>
+    <!-- MODAL REGISTRAR -->
+    <div class="modal fade" id="modalRegistrarServicio" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registrar nuevo servicio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-    <!-- FUNCIONES DE DEMOSTRACIÓN -->
-    <script>
-        (() => {
-            const contenedor = document.querySelector('.admin-tabla-servicios');
+                <form th:action="@{/servicios/registrar}" method="post">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del servicio</label>
+                            <input type="text" class="form-control" name="nombre" maxlength="100"
+                                   pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+" title="Solo letras y espacios" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Categoría</label>
+                            <select class="form-select" name="categoria" required>
+                                <option value="">Selecciona una categoría</option>
+                                <option value="MANTENIMIENTO">Mantenimiento</option>
+                                <option value="MOTOR">Motor</option>
+                                <option value="FRENOS Y SUSPENSION">Frenos y suspensión</option>
+                                <option value="ELECTRICIDAD">Electricidad</option>
+                                <option value="TRANSMISION">Transmisión</option>
+                                <option value="DIAGNOSTICO Y OTROS">Diagnóstico y otros</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Precio por defecto (S/)</label>
+                            <input type="number" class="form-control" name="precioPorDefecto"
+                                   min="0" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" name="descripcion" rows="3"
+                                      maxlength="200" required></textarea>
+                        </div>
+                    </div>
 
-            if (!contenedor || contenedor.dataset.inicializado === 'true') return;
-            contenedor.dataset.inicializado = 'true';
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-plus-lg"></i> Registrar servicio
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-            const cuerpo = contenedor.querySelector('#tablaServiciosDemo');
-            const filas = Array.from(cuerpo.querySelectorAll('tr'))
-                .filter(fila => fila.querySelector('.servicio-info'));
+    <!-- MODAL EDITAR -->
+    <div class="modal fade" id="modalEditarServicio" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modificar servicio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-            const buscar = contenedor.querySelector('#buscarServicioDemo');
-            const contador = contenedor.querySelector('#contadorServiciosDemo');
-            const paginas = contenedor.querySelector('#numerosPaginasServicios');
-            const anterior = contenedor.querySelector('#serviciosAnterior');
-            const siguiente = contenedor.querySelector('#serviciosSiguiente');
-            const sinResultados = contenedor.querySelector('#serviciosSinResultados');
-            const mensaje = contenedor.querySelector('#mensajeServicioDemo');
+                <form th:action="@{/servicios/modificar}" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="idServicio">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del servicio</label>
+                            <input type="text" class="form-control" name="nombre" maxlength="100"
+                                   pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+" title="Solo letras y espacios" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Categoría</label>
+                            <select class="form-select" name="categoria" required>
+                                <option value="MANTENIMIENTO">Mantenimiento</option>
+                                <option value="MOTOR">Motor</option>
+                                <option value="FRENOS Y SUSPENSION">Frenos y suspensión</option>
+                                <option value="ELECTRICIDAD">Electricidad</option>
+                                <option value="TRANSMISION">Transmisión</option>
+                                <option value="DIAGNOSTICO Y OTROS">Diagnóstico y otros</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Precio por defecto (S/)</label>
+                            <input type="number" class="form-control" name="precioPorDefecto"
+                                   min="0" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" name="descripcion" rows="3"
+                                      maxlength="200" required></textarea>
+                        </div>
+                    </div>
 
-            const porPagina = 4;
-            let paginaActual = 1;
-            let filtrados = [...filas];
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-            function renderizar() {
-                const total = filtrados.length;
-                const totalPaginas = Math.ceil(total / porPagina);
+    <!-- MODAL DESACTIVAR -->
+    <div class="modal fade" id="modalDesactivarServicio" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Desactivar servicio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-                paginaActual = Math.max(1, Math.min(paginaActual, totalPaginas || 1));
+                <form th:action="@{/servicios/desactivar}" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="desactivarIdServicio">
+                        <div class="text-center mb-3">
+                            <i class="bi bi-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+                        </div>
+                        <p class="text-center mb-2">¿Estás seguro de que deseas desactivar el servicio?</p>
+                        <h6 class="text-center fw-bold" id="desactivarNombreServicio"></h6>
+                        <p class="text-muted text-center small mt-3 mb-0">
+                            El servicio dejará de estar disponible. Podrás reactivarlo después.
+                        </p>
+                    </div>
 
-                filas.forEach(fila => fila.hidden = true);
-
-                const inicio = (paginaActual - 1) * porPagina;
-
-                filtrados.slice(inicio, inicio + porPagina)
-                    .forEach(fila => fila.hidden = false);
-
-                sinResultados.hidden = total !== 0;
-
-                contador.textContent = total === 0
-                    ? 'No hay servicios para mostrar'
-                    : `Mostrando ${inicio + 1} a ${Math.min(inicio + porPagina, total)} de ${total} servicios`;
-
-                anterior.disabled = paginaActual === 1 || total === 0;
-                siguiente.disabled = paginaActual === totalPaginas || total === 0;
-
-                paginas.replaceChildren();
-
-                for (let i = 1; i <= totalPaginas; i++) {
-                    const boton = document.createElement('button');
-                    boton.type = 'button';
-                    boton.className = 'admin-pagina-btn' +
-                        (i === paginaActual ? ' activa' : '');
-                    boton.textContent = i;
-                    boton.setAttribute('aria-label', `Página ${i}`);
-                    boton.setAttribute('aria-current', i === paginaActual ? 'page' : 'false');
-
-                    boton.addEventListener('click', () => {
-                        paginaActual = i;
-                        renderizar();
-                    });
-
-                    paginas.appendChild(boton);
-                }
-            }
-
-            function filtrar() {
-                const termino = buscar.value.trim().toLocaleLowerCase('es');
-
-                filtrados = filas.filter(fila =>
-                    fila.textContent.toLocaleLowerCase('es').includes(termino)
-                );
-
-                paginaActual = 1;
-                renderizar();
-            }
-
-            buscar.addEventListener('input', filtrar);
-
-            contenedor.querySelector('#btnBuscarServicioDemo')
-                .addEventListener('click', filtrar);
-
-            anterior.addEventListener('click', () => {
-                if (paginaActual > 1) {
-                    paginaActual--;
-                    renderizar();
-                }
-            });
-
-            siguiente.addEventListener('click', () => {
-                if (paginaActual < Math.ceil(filtrados.length / porPagina)) {
-                    paginaActual++;
-                    renderizar();
-                }
-            });
-
-            contenedor.querySelector('#btnRegistrarServicioDemo')
-                .addEventListener('click', () => {
-                    mensaje.textContent =
-                        'El registro de servicios estará disponible cuando conectemos el módulo.';
-                    mensaje.hidden = false;
-                });
-
-            contenedor.querySelectorAll('.btn-accion-servicio')
-                .forEach(boton => {
-                    boton.addEventListener('click', () => {
-                        const accion = boton.dataset.accion === 'editar'
-                            ? 'La edición'
-                            : 'La desactivación';
-
-                        mensaje.textContent =
-                            `${accion} del servicio ${boton.dataset.nombre} estará disponible al conectar el módulo.`;
-                        mensaje.hidden = false;
-                    });
-                });
-
-            renderizar();
-        })();
-    </script>
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-x-circle"></i> Sí, desactivar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

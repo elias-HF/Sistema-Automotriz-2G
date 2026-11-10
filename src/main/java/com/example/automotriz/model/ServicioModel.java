@@ -25,6 +25,7 @@ public class ServicioModel {
     private boolean activo;
 
     @NotBlank(message = "La categoría es obligatoria")
+    @Pattern(regexp = "^(MANTENIMIENTO|MOTOR|FRENOS Y SUSPENSION|ELECTRICIDAD|TRANSMISION|DIAGNOSTICO Y OTROS)?$", message = "Categoría no válida")
     private String categoria;
 
     public ServicioModel() {}

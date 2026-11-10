@@ -2,6 +2,9 @@ package com.example.automotriz.controller;
 
 import com.example.automotriz.model.ClienteModel;
 import com.example.automotriz.service.ClienteService;
+import com.example.automotriz.service.EmpleadoService;
+import com.example.automotriz.service.ServicioService;
+import com.example.automotriz.service.VehiculoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +15,19 @@ import java.util.List;
 @Controller
 public class AdministracionController {
 
-    private final ClienteService service;
+    private final ClienteService clienteService;
+    private final EmpleadoService empleadoService;
+    private final VehiculoService vehiculoService;
+    private final ServicioService servicioService;
 
-    public AdministracionController(ClienteService service) {
-        this.service = service;
+    public AdministracionController(ClienteService clienteService,
+                                    EmpleadoService empleadoService,
+                                    VehiculoService vehiculoService,
+                                    ServicioService servicioService) {
+        this.clienteService = clienteService;
+        this.empleadoService = empleadoService;
+        this.vehiculoService = vehiculoService;
+        this.servicioService = servicioService;
     }
 
     @GetMapping("/administracion")
@@ -27,10 +39,7 @@ public class AdministracionController {
         if (!elemento.equals("clientes")
                 && !elemento.equals("vehiculos")
                 && !elemento.equals("empleados")
-                && !elemento.equals("servicios")
-                && !elemento.equals("articulos")
-                && !elemento.equals("categorias")) {
-
+                && !elemento.equals("servicios")) {
             elemento = "clientes";
         }
 
@@ -38,20 +47,28 @@ public class AdministracionController {
         model.addAttribute("elemento", elemento);
         model.addAttribute("filtro", filtro);
 
-        // Cargar clientes
         if (elemento.equals("clientes")) {
-            List<ClienteModel> clientes = service.listarClientes();
-            System.out.println("Clientes recuperados: " + clientes.size());
+            List<ClienteModel> clientes = clienteService.listarClientes();
             model.addAttribute("clientes", clientes);
         }
 
-        // Cantidades provisionales para las tarjetas
-        model.addAttribute("cantidadClientes", service.listarClientes().size());
-        model.addAttribute("cantidadEmpleados", 0);
-        model.addAttribute("cantidadVehiculos", 0);
-        model.addAttribute("cantidadServicios", 0);
-        model.addAttribute("cantidadArticulos", 0);
-        model.addAttribute("cantidadCategorias", 0);
+        if (elemento.equals("empleados")) {
+            model.addAttribute("empleados", empleadoService.listarEmpleados());
+        }
+
+        if (elemento.equals("vehiculos")) {
+            model.addAttribute("vehiculos", vehiculoService.listarVehiculos());
+            model.addAttribute("clientes", clienteService.listarClientes());
+        }
+
+        if (elemento.equals("servicios")) {
+            model.addAttribute("servicios", servicioService.listarServicios());
+        }
+
+        model.addAttribute("cantidadClientes", clienteService.listarClientes().size());
+        model.addAttribute("cantidadEmpleados", empleadoService.contarEmpleados());
+        model.addAttribute("cantidadVehiculos", vehiculoService.contarVehiculos());
+        model.addAttribute("cantidadServicios", servicioService.contarServicios());
 
         return "view/Index";
     }

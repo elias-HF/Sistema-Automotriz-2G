@@ -16,6 +16,7 @@ public class ServicioAdapter {
         model.setCodigo(entity.getCodigo());
         model.setPrecioPorDefecto(entity.getPrecioPorDefecto());
         model.setActivo(entity.isActivo());
+        model.setCategoria(entity.getCategoria());
 
         return model;
     }
@@ -30,6 +31,7 @@ public class ServicioAdapter {
         entity.setCodigo(model.getCodigo());
         entity.setPrecioPorDefecto(model.getPrecioPorDefecto());
         entity.setActivo(model.isActivo());
+        entity.setCategoria(model.getCategoria());
 
         return entity;
     }

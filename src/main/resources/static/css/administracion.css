@@ -39,7 +39,7 @@
 
 .administracion-page .admin-modulos-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));   /* antes: repeat(3, ...) */
     gap: 8px;
     margin-bottom: 10px;
 }
@@ -1230,7 +1230,11 @@
     border-color: #b9d7f2;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
+    .administracion-page .admin-modulos-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .articulo-admin .admin-tabla-toolbar {
         align-items: stretch;
         flex-direction: column;

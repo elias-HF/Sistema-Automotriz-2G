@@ -1,37 +1,25 @@
-
 <div th:fragment="tablaEmpleado" class="admin-tabla-empleados">
 
     <!-- BARRA DE HERRAMIENTAS -->
     <div class="admin-tabla-toolbar">
-
         <div class="input-group admin-buscador-empleados">
-            <input type="search"
-                   id="buscarEmpleadoDemo"
-                   class="form-control"
-                   placeholder="Buscar por nombre, usuario, rol..."
-                   aria-label="Buscar empleados">
-
-            <button type="button"
-                    class="btn btn-secondary"
-                    id="btnBuscarEmpleadoDemo"
-                    aria-label="Buscar">
+            <input type="search" id="buscarEmpleado" class="form-control"
+                   placeholder="Buscar por nombre, usuario, rol..." aria-label="Buscar empleados">
+            <button type="button" class="btn btn-secondary" id="btnBuscarEmpleado" aria-label="Buscar">
                 <i class="bi bi-search"></i>
             </button>
         </div>
 
-        <button type="button"
-                class="btn btn-success admin-btn-registrar"
-                id="btnRegistrarEmpleadoDemo">
+        <button type="button" class="btn btn-success admin-btn-registrar"
+                data-bs-toggle="modal" data-bs-target="#modalRegistrarEmpleado">
             <i class="bi bi-plus-lg"></i>
             REGISTRAR EMPLEADO
         </button>
-
     </div>
 
-    <!-- TABLA DE EMPLEADOS -->
+    <!-- TABLA -->
     <div class="table-responsive">
         <table class="table table-hover align-middle admin-empleados-table">
-
             <thead>
             <tr>
                 <th>Nombre</th>
@@ -43,296 +31,213 @@
             </tr>
             </thead>
 
-            <tbody id="tablaEmpleadosDemo">
-
-            <tr>
+            <tbody id="tablaEmpleados">
+            <tr th:each="empleado : ${empleados}">
                 <td>
                     <div class="empleado-nombre">
-                        <span class="empleado-avatar">AG</span>
+                        <span class="empleado-avatar"
+                              th:text="${#strings.toUpperCase(#strings.substring(empleado.nombre, 0, 1))}">A</span>
                         <div>
-                            <strong>Administrador General</strong>
-                            <small>ID: EMP-00001</small>
+                            <strong th:text="${empleado.nombre}"></strong>
+                            <small th:text="|ID: ${empleado.codigo}|"></small>
                         </div>
                     </div>
                 </td>
-                <td>admin</td>
-                <td>admin@2gautomotriz.com</td>
-                <td><span class="empleado-rol rol-admin">Administrador</span></td>
-                <td><span class="empleado-estado estado-activo">Activo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-empleado"
-                            data-accion="editar" data-nombre="Administrador General"
-                            title="Editar empleado" aria-label="Editar Administrador General">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-empleado"
-                            data-accion="desactivar" data-nombre="Administrador General"
-                            title="Desactivar empleado" aria-label="Desactivar Administrador General">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
+                <td th:text="${empleado.usuario}"></td>
+                <td th:text="${empleado.correo}"></td>
                 <td>
-                    <div class="empleado-nombre">
-                        <span class="empleado-avatar">CR</span>
-                        <div>
-                            <strong>Carlos Rojas</strong>
-                            <small>ID: EMP-00002</small>
-                        </div>
-                    </div>
+                    <span class="empleado-rol" th:switch="${empleado.rol}"
+                          th:classappend="${empleado.rol == 'ADMINISTRADOR'} ? 'rol-admin'
+                              : (${empleado.rol == 'MECANICO'} ? 'rol-mecanico'
+                              : (${empleado.rol == 'RECEPCIONISTA'} ? 'rol-recepcion' : 'rol-almacen'))">
+                        <th:block th:case="'ADMINISTRADOR'">Administrador</th:block>
+                        <th:block th:case="'MECANICO'">Mecánico</th:block>
+                        <th:block th:case="'RECEPCIONISTA'">Recepcionista</th:block>
+                        <th:block th:case="'ALMACEN'">Almacén</th:block>
+                        <th:block th:case="*" th:text="${empleado.rol}"></th:block>
+                    </span>
                 </td>
-                <td>crojas</td>
-                <td>c.rojas@2gautomotriz.com</td>
-                <td><span class="empleado-rol rol-mecanico">Mecánico</span></td>
-                <td><span class="empleado-estado estado-activo">Activo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-empleado"
-                            data-accion="editar" data-nombre="Carlos Rojas"
-                            title="Editar empleado" aria-label="Editar Carlos Rojas">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-empleado"
-                            data-accion="desactivar" data-nombre="Carlos Rojas"
-                            title="Desactivar empleado" aria-label="Desactivar Carlos Rojas">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
                 <td>
-                    <div class="empleado-nombre">
-                        <span class="empleado-avatar">MP</span>
-                        <div>
-                            <strong>Miguel Paredes</strong>
-                            <small>ID: EMP-00003</small>
-                        </div>
-                    </div>
+                    <span class="empleado-estado"
+                          th:classappend="${empleado.activo} ? 'estado-activo' : 'estado-inactivo'"
+                          th:text="${empleado.activo} ? 'Activo' : 'Inactivo'">Activo</span>
                 </td>
-                <td>mparedes</td>
-                <td>m.paredes@2gautomotriz.com</td>
-                <td><span class="empleado-rol rol-mecanico">Mecánico</span></td>
-                <td><span class="empleado-estado estado-activo">Activo</span></td>
                 <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-empleado"
-                            data-accion="editar" data-nombre="Miguel Paredes"
-                            title="Editar empleado" aria-label="Editar Miguel Paredes">
+                    <!-- Activo: editar + desactivar -->
+                    <button type="button" class="btn btn-sm btn-warning" title="Modificar"
+                            th:if="${empleado.activo}"
+                            data-bs-toggle="modal" data-bs-target="#modalEditarEmpleado"
+                            th:data-id="${empleado.idEmpleado}">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button type="button" class="btn btn-danger btn-accion-empleado"
-                            data-accion="desactivar" data-nombre="Miguel Paredes"
-                            title="Desactivar empleado" aria-label="Desactivar Miguel Paredes">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                    <div class="empleado-nombre">
-                        <span class="empleado-avatar">AC</span>
-                        <div>
-                            <strong>Andrea Campos</strong>
-                            <small>ID: EMP-00004</small>
-                        </div>
-                    </div>
-                </td>
-                <td>acampos</td>
-                <td>a.campos@2gautomotriz.com</td>
-                <td><span class="empleado-rol rol-recepcion">Recepción</span></td>
-                <td><span class="empleado-estado estado-activo">Activo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-empleado"
-                            data-accion="editar" data-nombre="Andrea Campos"
-                            title="Editar empleado" aria-label="Editar Andrea Campos">
-                        <i class="bi bi-pencil-square"></i>
+                    <button type="button" class="btn btn-sm btn-danger" title="Desactivar"
+                            th:if="${empleado.activo}"
+                            data-bs-toggle="modal" data-bs-target="#modalDesactivarEmpleado"
+                            th:data-id="${empleado.idEmpleado}"
+                            th:data-nombre="${empleado.nombre}">
+                        <i class="bi bi-x-circle"></i>
                     </button>
-                    <button type="button" class="btn btn-danger btn-accion-empleado"
-                            data-accion="desactivar" data-nombre="Andrea Campos"
-                            title="Desactivar empleado" aria-label="Desactivar Andrea Campos">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                    <div class="empleado-nombre">
-                        <span class="empleado-avatar">DH</span>
-                        <div>
-                            <strong>Diego Herrera</strong>
-                            <small>ID: EMP-00005</small>
-                        </div>
-                    </div>
-                </td>
-                <td>dherrera</td>
-                <td>d.herrera@2gautomotriz.com</td>
-                <td><span class="empleado-rol rol-almacen">Almacén</span></td>
-                <td><span class="empleado-estado estado-inactivo">Inactivo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-empleado"
-                            data-accion="editar" data-nombre="Diego Herrera"
-                            title="Editar empleado" aria-label="Editar Diego Herrera">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-empleado"
-                            data-accion="desactivar" data-nombre="Diego Herrera"
-                            title="Desactivar empleado" aria-label="Desactivar Diego Herrera">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
+                    <!-- Inactivo: reactivar -->
+                    <form th:unless="${empleado.activo}" th:action="@{/empleados/activar}"
+                          method="post" class="d-inline">
+                        <input type="hidden" name="id" th:value="${empleado.idEmpleado}">
+                        <button type="submit" class="btn btn-sm btn-success" title="Activar">
+                            <i class="bi bi-check-lg"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
 
             <tr id="empleadosSinResultados" hidden>
-                <td colspan="6" class="text-center">
-                    No se encontraron empleados.
-                </td>
+                <td colspan="6" class="text-center">No se encontraron empleados.</td>
             </tr>
-
             </tbody>
         </table>
     </div>
 
     <!-- PIE Y PAGINACIÓN -->
     <div class="admin-tabla-footer">
-        <span id="contadorEmpleadosDemo">Mostrando 1 a 4 de 5 empleados</span>
-
+        <span id="contadorEmpleados"></span>
         <nav class="admin-paginacion" aria-label="Paginación de empleados">
-            <button type="button" class="admin-pagina-btn" id="empleadosAnterior">
-                Anterior
-            </button>
-
+            <button type="button" class="admin-pagina-btn" id="empleadosAnterior">Anterior</button>
             <div id="numerosPaginasEmpleados" class="admin-pagina-numeros"></div>
-
-            <button type="button" class="admin-pagina-btn" id="empleadosSiguiente">
-                Siguiente
-            </button>
+            <button type="button" class="admin-pagina-btn" id="empleadosSiguiente">Siguiente</button>
         </nav>
     </div>
 
-    <!-- AVISO DE DEMOSTRACIÓN -->
-    <div class="admin-demo-mensaje" id="mensajeEmpleadoDemo" role="status" hidden></div>
+    <!-- MODAL REGISTRAR -->
+    <div class="modal fade" id="modalRegistrarEmpleado" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registrar nuevo empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-    <script>
-        (() => {
-            const contenedor = document.querySelector('.admin-tabla-empleados');
+                <form th:action="@{/empleados/registrar}" method="post">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre completo</label>
+                            <input type="text" class="form-control" name="nombre" maxlength="100" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" name="correo" maxlength="50" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Usuario</label>
+                            <input type="text" class="form-control" name="usuario" maxlength="25" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" name="contrasenia"
+                                   minlength="8" maxlength="25" autocomplete="new-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Rol</label>
+                            <select class="form-select" name="rol" required>
+                                <option value="">Selecciona un rol</option>
+                                <option value="ADMINISTRADOR">Administrador</option>
+                                <option value="MECANICO">Mecánico</option>
+                                <option value="RECEPCIONISTA">Recepcionista</option>
+                                <option value="ALMACEN">Almacén</option>
+                            </select>
+                        </div>
+                    </div>
 
-            if (!contenedor || contenedor.dataset.inicializado === 'true') return;
-            contenedor.dataset.inicializado = 'true';
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-plus-lg"></i> Registrar empleado
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-            const cuerpo = contenedor.querySelector('#tablaEmpleadosDemo');
+    <!-- MODAL EDITAR -->
+    <div class="modal fade" id="modalEditarEmpleado" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modificar empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-            const filas = Array.from(cuerpo.querySelectorAll('tr'))
-                .filter(fila => fila.querySelector('.empleado-nombre'));
+                <form th:action="@{/empleados/modificar}" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="idEmpleado">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre completo</label>
+                            <input type="text" class="form-control" name="nombre" maxlength="100" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" name="correo" maxlength="50" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Usuario</label>
+                            <input type="text" class="form-control" name="usuario" maxlength="25" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nueva contraseña (opcional)</label>
+                            <input type="password" class="form-control" name="contrasenia"
+                                   minlength="8" maxlength="25" autocomplete="new-password"
+                                   placeholder="Déjala vacía para no cambiarla">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Rol</label>
+                            <select class="form-select" name="rol" required>
+                                <option value="ADMINISTRADOR">Administrador</option>
+                                <option value="MECANICO">Mecánico</option>
+                                <option value="RECEPCIONISTA">Recepcionista</option>
+                                <option value="ALMACEN">Almacén</option>
+                            </select>
+                        </div>
+                    </div>
 
-            const buscar = contenedor.querySelector('#buscarEmpleadoDemo');
-            const contador = contenedor.querySelector('#contadorEmpleadosDemo');
-            const paginas = contenedor.querySelector('#numerosPaginasEmpleados');
-            const anterior = contenedor.querySelector('#empleadosAnterior');
-            const siguiente = contenedor.querySelector('#empleadosSiguiente');
-            const sinResultados = contenedor.querySelector('#empleadosSinResultados');
-            const mensaje = contenedor.querySelector('#mensajeEmpleadoDemo');
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-            const porPagina = 4;
-            let paginaActual = 1;
-            let filtrados = [...filas];
+    <!-- MODAL DESACTIVAR -->
+    <div class="modal fade" id="modalDesactivarEmpleado" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Desactivar empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-            function renderizar() {
-                const total = filtrados.length;
-                const totalPaginas = Math.ceil(total / porPagina);
+                <form th:action="@{/empleados/desactivar}" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="desactivarIdEmpleado">
+                        <div class="text-center mb-3">
+                            <i class="bi bi-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+                        </div>
+                        <p class="text-center mb-2">¿Estás seguro de que deseas desactivar al empleado?</p>
+                        <h6 class="text-center fw-bold" id="desactivarNombreEmpleado"></h6>
+                        <p class="text-muted text-center small mt-3 mb-0">
+                            El empleado ya no podrá iniciar sesión. Podrás reactivarlo después.
+                        </p>
+                    </div>
 
-                paginaActual = Math.max(1, Math.min(paginaActual, totalPaginas || 1));
-
-                filas.forEach(fila => fila.hidden = true);
-
-                const inicio = (paginaActual - 1) * porPagina;
-                filtrados.slice(inicio, inicio + porPagina)
-                    .forEach(fila => fila.hidden = false);
-
-                sinResultados.hidden = total !== 0;
-
-                contador.textContent = total === 0
-                    ? 'No hay empleados para mostrar'
-                    : `Mostrando ${inicio + 1} a ${Math.min(inicio + porPagina, total)} de ${total} empleados`;
-
-                anterior.disabled = paginaActual === 1 || total === 0;
-                siguiente.disabled = paginaActual === totalPaginas || total === 0;
-
-                paginas.replaceChildren();
-
-                for (let i = 1; i <= totalPaginas; i++) {
-                    const boton = document.createElement('button');
-
-                    boton.type = 'button';
-                    boton.className = 'admin-pagina-btn' +
-                        (i === paginaActual ? ' activa' : '');
-                    boton.textContent = i;
-                    boton.setAttribute('aria-label', `Página ${i}`);
-                    boton.setAttribute('aria-current', i === paginaActual ? 'page' : 'false');
-
-                    boton.addEventListener('click', () => {
-                        paginaActual = i;
-                        renderizar();
-                    });
-
-                    paginas.appendChild(boton);
-                }
-            }
-
-            function filtrar() {
-                const termino = buscar.value.trim().toLocaleLowerCase('es');
-
-                filtrados = filas.filter(fila =>
-                    fila.textContent.toLocaleLowerCase('es').includes(termino)
-                );
-
-                paginaActual = 1;
-                renderizar();
-            }
-
-            buscar.addEventListener('input', filtrar);
-
-            contenedor.querySelector('#btnBuscarEmpleadoDemo')
-                .addEventListener('click', filtrar);
-
-            anterior.addEventListener('click', () => {
-                if (paginaActual > 1) {
-                    paginaActual--;
-                    renderizar();
-                }
-            });
-
-            siguiente.addEventListener('click', () => {
-                if (paginaActual < Math.ceil(filtrados.length / porPagina)) {
-                    paginaActual++;
-                    renderizar();
-                }
-            });
-
-            contenedor.querySelector('#btnRegistrarEmpleadoDemo')
-                .addEventListener('click', () => {
-                    mensaje.textContent =
-                        'El registro de empleados estará disponible cuando conectemos el módulo.';
-                    mensaje.hidden = false;
-                });
-
-            contenedor.querySelectorAll('.btn-accion-empleado')
-                .forEach(boton => {
-                    boton.addEventListener('click', () => {
-                        const accion = boton.dataset.accion === 'editar'
-                            ? 'La edición'
-                            : 'La desactivación';
-
-                        mensaje.textContent =
-                            `${accion} de ${boton.dataset.nombre} estará disponible al conectar el módulo.`;
-                        mensaje.hidden = false;
-                    });
-                });
-
-            renderizar();
-        })();
-    </script>
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-x-circle"></i> Sí, desactivar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

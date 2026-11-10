@@ -1,5 +1,5 @@
-
 <div th:fragment="tabla" class="admin-tabla-clientes">
+    <div class="alert alert-danger" th:if="${errorCliente}" th:text="${errorCliente}"></div>
 
     <!-- BARRA DE HERRAMIENTAS -->
     <div class="admin-tabla-toolbar">

@@ -32,10 +32,14 @@ public class VehiculoModel {
     private String marca;
 
     private boolean activo;
+
+    @NotNull(message = "El propietario es obligatorio")
     private Integer idCliente;
+    private String nombreCliente;
 
     public VehiculoModel() {}
-    public VehiculoModel(Integer idVehiculo, Integer anioFabricacion, String placa, BigDecimal kilometros, String codigo, String modelo, String marca, boolean activo, Integer idCliente) {
+
+    public VehiculoModel(Integer idVehiculo, Integer anioFabricacion, String placa, BigDecimal kilometros, String codigo, String modelo, String marca, boolean activo, Integer idCliente, String nombreCliente) {
         this.idVehiculo = idVehiculo;
         this.anioFabricacion = anioFabricacion;
         this.placa = placa;
@@ -45,6 +49,7 @@ public class VehiculoModel {
         this.marca = marca;
         this.activo = activo;
         this.idCliente = idCliente;
+        this.nombreCliente = nombreCliente;
     }
 
     public Integer getIdVehiculo() {return idVehiculo;}
@@ -73,4 +78,7 @@ public class VehiculoModel {
 
     public Integer getIdCliente() {return idCliente;}
     public void setIdCliente(Integer idCliente) {this.idCliente = idCliente;}
+
+    public String getNombreCliente() {return nombreCliente;}
+    public void setNombreCliente(String nombreCliente) {this.nombreCliente = nombreCliente;}
 }

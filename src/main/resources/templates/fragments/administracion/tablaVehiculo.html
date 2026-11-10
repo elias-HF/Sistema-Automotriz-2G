@@ -1,37 +1,26 @@
-
 <div th:fragment="tablaVehiculo" class="admin-tabla-vehiculos">
 
     <!-- BARRA DE HERRAMIENTAS -->
     <div class="admin-tabla-toolbar">
-
         <div class="input-group admin-buscador-vehiculos">
-            <input type="search"
-                   id="buscarVehiculoDemo"
-                   class="form-control"
+            <input type="search" id="buscarVehiculo" class="form-control"
                    placeholder="Buscar por placa, marca, modelo o propietario..."
                    aria-label="Buscar vehículos">
-
-            <button type="button"
-                    class="btn btn-secondary"
-                    id="btnBuscarVehiculoDemo"
-                    aria-label="Buscar">
+            <button type="button" class="btn btn-secondary" id="btnBuscarVehiculo" aria-label="Buscar">
                 <i class="bi bi-search"></i>
             </button>
         </div>
 
-        <button type="button"
-                class="btn btn-success admin-btn-registrar"
-                id="btnRegistrarVehiculoDemo">
+        <button type="button" class="btn btn-success admin-btn-registrar"
+                data-bs-toggle="modal" data-bs-target="#modalRegistrarVehiculo">
             <i class="bi bi-plus-lg"></i>
             REGISTRAR VEHÍCULO
         </button>
-
     </div>
 
     <!-- TABLA -->
     <div class="table-responsive">
         <table class="table table-hover align-middle admin-vehiculos-table">
-
             <thead>
             <tr>
                 <th>Vehículo</th>
@@ -44,312 +33,212 @@
             </tr>
             </thead>
 
-            <tbody id="tablaVehiculosDemo">
-
-            <tr>
+            <tbody id="tablaVehiculos">
+            <tr th:each="vehiculo : ${vehiculos}">
                 <td>
                     <div class="vehiculo-info">
-                            <span class="vehiculo-avatar">
-                                <i class="bi bi-car-front-fill"></i>
-                            </span>
+                        <span class="vehiculo-avatar"><i class="bi bi-car-front-fill"></i></span>
                         <div>
-                            <strong>Toyota Corolla</strong>
-                            <small>ID: VEH-00001</small>
+                            <strong th:text="${vehiculo.marca + ' ' + vehiculo.modelo}"></strong>
+                            <small th:text="|ID: ${vehiculo.codigo}|"></small>
                         </div>
                     </div>
                 </td>
-                <td><span class="vehiculo-placa">ABC-123</span></td>
-                <td>2020</td>
-                <td>45,000 km</td>
-                <td>Carlos Manuel Soto</td>
-                <td><span class="vehiculo-estado estado-activo">Activo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-vehiculo"
-                            data-accion="editar" data-nombre="Toyota Corolla ABC-123"
-                            title="Editar vehículo" aria-label="Editar Toyota Corolla">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-vehiculo"
-                            data-accion="desactivar" data-nombre="Toyota Corolla ABC-123"
-                            title="Desactivar vehículo" aria-label="Desactivar Toyota Corolla">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
+                <td><span class="vehiculo-placa" th:text="${vehiculo.placa}"></span></td>
+                <td th:text="${vehiculo.anioFabricacion}"></td>
+                <td th:text="${#numbers.formatDecimal(vehiculo.kilometros, 1, 'COMMA', 0, 'POINT')} + ' km'"></td>
+                <td th:text="${vehiculo.nombreCliente}"></td>
                 <td>
-                    <div class="vehiculo-info">
-                            <span class="vehiculo-avatar">
-                                <i class="bi bi-car-front-fill"></i>
-                            </span>
-                        <div>
-                            <strong>Toyota Yaris</strong>
-                            <small>ID: VEH-00002</small>
-                        </div>
-                    </div>
+                    <span class="vehiculo-estado"
+                          th:classappend="${vehiculo.activo} ? 'estado-activo' : 'estado-inactivo'"
+                          th:text="${vehiculo.activo} ? 'Activo' : 'Inactivo'">Activo</span>
                 </td>
-                <td><span class="vehiculo-placa">BCD-234</span></td>
-                <td>2022</td>
-                <td>28,000 km</td>
-                <td>Carlos Manuel Soto</td>
-                <td><span class="vehiculo-estado estado-activo">Activo</span></td>
                 <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-vehiculo"
-                            data-accion="editar" data-nombre="Toyota Yaris BCD-234"
-                            title="Editar vehículo" aria-label="Editar Toyota Yaris">
+                    <button type="button" class="btn btn-sm btn-warning" title="Modificar"
+                            th:if="${vehiculo.activo}"
+                            data-bs-toggle="modal" data-bs-target="#modalEditarVehiculo"
+                            th:data-id="${vehiculo.idVehiculo}">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button type="button" class="btn btn-danger btn-accion-vehiculo"
-                            data-accion="desactivar" data-nombre="Toyota Yaris BCD-234"
-                            title="Desactivar vehículo" aria-label="Desactivar Toyota Yaris">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                    <div class="vehiculo-info">
-                            <span class="vehiculo-avatar">
-                                <i class="bi bi-car-front-fill"></i>
-                            </span>
-                        <div>
-                            <strong>Hyundai Accent</strong>
-                            <small>ID: VEH-00003</small>
-                        </div>
-                    </div>
-                </td>
-                <td><span class="vehiculo-placa">CDE-345</span></td>
-                <td>2019</td>
-                <td>62,000 km</td>
-                <td>María Torres</td>
-                <td><span class="vehiculo-estado estado-activo">Activo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-vehiculo"
-                            data-accion="editar" data-nombre="Hyundai Accent CDE-345"
-                            title="Editar vehículo" aria-label="Editar Hyundai Accent">
-                        <i class="bi bi-pencil-square"></i>
+                    <button type="button" class="btn btn-sm btn-danger" title="Desactivar"
+                            th:if="${vehiculo.activo}"
+                            data-bs-toggle="modal" data-bs-target="#modalDesactivarVehiculo"
+                            th:data-id="${vehiculo.idVehiculo}"
+                            th:data-nombre="${vehiculo.marca + ' ' + vehiculo.modelo + ' ' + vehiculo.placa}">
+                        <i class="bi bi-x-circle"></i>
                     </button>
-                    <button type="button" class="btn btn-danger btn-accion-vehiculo"
-                            data-accion="desactivar" data-nombre="Hyundai Accent CDE-345"
-                            title="Desactivar vehículo" aria-label="Desactivar Hyundai Accent">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                    <div class="vehiculo-info">
-                            <span class="vehiculo-avatar">
-                                <i class="bi bi-car-front-fill"></i>
-                            </span>
-                        <div>
-                            <strong>Kia Rio</strong>
-                            <small>ID: VEH-00004</small>
-                        </div>
-                    </div>
-                </td>
-                <td><span class="vehiculo-placa">DEF-456</span></td>
-                <td>2023</td>
-                <td>15,000 km</td>
-                <td>Luis Ramírez</td>
-                <td><span class="vehiculo-estado estado-activo">Activo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-vehiculo"
-                            data-accion="editar" data-nombre="Kia Rio DEF-456"
-                            title="Editar vehículo" aria-label="Editar Kia Rio">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-vehiculo"
-                            data-accion="desactivar" data-nombre="Kia Rio DEF-456"
-                            title="Desactivar vehículo" aria-label="Desactivar Kia Rio">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="vehiculo-info">
-                            <span class="vehiculo-avatar">
-                                <i class="bi bi-car-front-fill"></i>
-                            </span>
-                        <div>
-                            <strong>Toyota Corolla</strong>
-                            <small>ID: VEH-00005</small>
-                        </div>
-                    </div>
-                </td>
-                <td><span class="vehiculo-placa">FGH-567</span></td>
-                <td>2021</td>
-                <td>39,500 km</td>
-                <td>Ana Flores</td>
-                <td><span class="vehiculo-estado estado-inactivo">Inactivo</span></td>
-                <td class="text-center text-nowrap">
-                    <button type="button" class="btn btn-warning btn-accion-vehiculo"
-                            data-accion="editar" data-nombre="Toyota Corolla FGH-567"
-                            title="Editar vehículo" aria-label="Editar Toyota Corolla">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-accion-vehiculo"
-                            data-accion="desactivar" data-nombre="Toyota Corolla FGH-567"
-                            title="Desactivar vehículo" aria-label="Desactivar Toyota Corolla">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
+                    <form th:unless="${vehiculo.activo}" th:action="@{/vehiculos/activar}"
+                          method="post" class="d-inline">
+                        <input type="hidden" name="id" th:value="${vehiculo.idVehiculo}">
+                        <button type="submit" class="btn btn-sm btn-success" title="Activar">
+                            <i class="bi bi-check-lg"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
 
             <tr id="vehiculosSinResultados" hidden>
-                <td colspan="7" class="text-center">
-                    No se encontraron vehículos.
-                </td>
+                <td colspan="7" class="text-center">No se encontraron vehículos.</td>
             </tr>
-
             </tbody>
         </table>
     </div>
 
     <!-- PIE Y PAGINACIÓN -->
     <div class="admin-tabla-footer">
-        <span id="contadorVehiculosDemo">Mostrando 1 a 4 de 5 vehículos</span>
-
+        <span id="contadorVehiculos"></span>
         <nav class="admin-paginacion" aria-label="Paginación de vehículos">
-            <button type="button" class="admin-pagina-btn" id="vehiculosAnterior">
-                Anterior
-            </button>
-
+            <button type="button" class="admin-pagina-btn" id="vehiculosAnterior">Anterior</button>
             <div id="numerosPaginasVehiculos" class="admin-pagina-numeros"></div>
-
-            <button type="button" class="admin-pagina-btn" id="vehiculosSiguiente">
-                Siguiente
-            </button>
+            <button type="button" class="admin-pagina-btn" id="vehiculosSiguiente">Siguiente</button>
         </nav>
     </div>
 
-    <!-- AVISOS -->
-    <div class="admin-demo-mensaje" id="mensajeVehiculoDemo" role="status" hidden></div>
+    <!-- MODAL REGISTRAR -->
+    <div class="modal fade" id="modalRegistrarVehiculo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registrar nuevo vehículo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-    <script>
-        (() => {
-            const contenedor = document.querySelector('.admin-tabla-vehiculos');
+                <form th:action="@{/vehiculos/registrar}" method="post">
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Marca</label>
+                                <input type="text" class="form-control" name="marca" maxlength="25" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Modelo</label>
+                                <input type="text" class="form-control" name="modelo" maxlength="25" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Placa</label>
+                                <input type="text" class="form-control" name="placa" placeholder="ABC-123"
+                                       maxlength="7" pattern="[A-Z]{3}-[0-9]{3}" title="Formato: ABC-123" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Año de fabricación</label>
+                                <input type="number" class="form-control" name="anioFabricacion"
+                                       min="1900" step="1" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Kilometraje</label>
+                                <input type="number" class="form-control" name="kilometros"
+                                       min="0" step="0.01" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Propietario</label>
+                                <select class="form-select" name="idCliente" required>
+                                    <option value="">Selecciona un cliente</option>
+                                    <option th:each="c : ${clientes}" th:value="${c.idCliente}"
+                                            th:text="|${c.nombre} - DNI ${c.dni}|"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
-            if (!contenedor || contenedor.dataset.inicializado === 'true') return;
-            contenedor.dataset.inicializado = 'true';
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-plus-lg"></i> Registrar vehículo
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-            const cuerpo = contenedor.querySelector('#tablaVehiculosDemo');
+    <!-- MODAL EDITAR -->
+    <div class="modal fade" id="modalEditarVehiculo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modificar vehículo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-            const filas = Array.from(cuerpo.querySelectorAll('tr'))
-                .filter(fila => fila.querySelector('.vehiculo-info'));
+                <form th:action="@{/vehiculos/modificar}" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="idVehiculo">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Marca</label>
+                                <input type="text" class="form-control" name="marca" maxlength="25" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Modelo</label>
+                                <input type="text" class="form-control" name="modelo" maxlength="25" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Placa</label>
+                                <input type="text" class="form-control" name="placa" placeholder="ABC-123"
+                                       maxlength="7" pattern="[A-Z]{3}-[0-9]{3}" title="Formato: ABC-123" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Año de fabricación</label>
+                                <input type="number" class="form-control" name="anioFabricacion"
+                                       min="1900" step="1" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Kilometraje</label>
+                                <input type="number" class="form-control" name="kilometros"
+                                       min="0" step="0.01" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Propietario</label>
+                                <select class="form-select" name="idCliente" required>
+                                    <option value="">Selecciona un cliente</option>
+                                    <option th:each="c : ${clientes}" th:value="${c.idCliente}"
+                                            th:text="|${c.nombre} - DNI ${c.dni}|"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
-            const buscar = contenedor.querySelector('#buscarVehiculoDemo');
-            const contador = contenedor.querySelector('#contadorVehiculosDemo');
-            const paginas = contenedor.querySelector('#numerosPaginasVehiculos');
-            const anterior = contenedor.querySelector('#vehiculosAnterior');
-            const siguiente = contenedor.querySelector('#vehiculosSiguiente');
-            const sinResultados = contenedor.querySelector('#vehiculosSinResultados');
-            const mensaje = contenedor.querySelector('#mensajeVehiculoDemo');
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-            const porPagina = 4;
-            let paginaActual = 1;
-            let filtrados = [...filas];
+    <!-- MODAL DESACTIVAR -->
+    <div class="modal fade" id="modalDesactivarVehiculo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Desactivar vehículo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
-            function renderizar() {
-                const total = filtrados.length;
-                const totalPaginas = Math.ceil(total / porPagina);
+                <form th:action="@{/vehiculos/desactivar}" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="desactivarIdVehiculo">
+                        <div class="text-center mb-3">
+                            <i class="bi bi-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+                        </div>
+                        <p class="text-center mb-2">¿Estás seguro de que deseas desactivar el vehículo?</p>
+                        <h6 class="text-center fw-bold" id="desactivarNombreVehiculo"></h6>
+                        <p class="text-muted text-center small mt-3 mb-0">
+                            El vehículo dejará de estar disponible. Podrás reactivarlo después.
+                        </p>
+                    </div>
 
-                paginaActual = Math.max(1, Math.min(paginaActual, totalPaginas || 1));
-
-                filas.forEach(fila => fila.hidden = true);
-
-                const inicio = (paginaActual - 1) * porPagina;
-
-                filtrados.slice(inicio, inicio + porPagina)
-                    .forEach(fila => fila.hidden = false);
-
-                sinResultados.hidden = total !== 0;
-
-                contador.textContent = total === 0
-                    ? 'No hay vehículos para mostrar'
-                    : `Mostrando ${inicio + 1} a ${Math.min(inicio + porPagina, total)} de ${total} vehículos`;
-
-                anterior.disabled = paginaActual === 1 || total === 0;
-                siguiente.disabled = paginaActual === totalPaginas || total === 0;
-
-                paginas.replaceChildren();
-
-                for (let i = 1; i <= totalPaginas; i++) {
-                    const boton = document.createElement('button');
-
-                    boton.type = 'button';
-                    boton.className = 'admin-pagina-btn' +
-                        (i === paginaActual ? ' activa' : '');
-                    boton.textContent = i;
-                    boton.setAttribute('aria-label', `Página ${i}`);
-                    boton.setAttribute('aria-current', i === paginaActual ? 'page' : 'false');
-
-                    boton.addEventListener('click', () => {
-                        paginaActual = i;
-                        renderizar();
-                    });
-
-                    paginas.appendChild(boton);
-                }
-            }
-
-            function filtrar() {
-                const termino = buscar.value.trim().toLocaleLowerCase('es');
-
-                filtrados = filas.filter(fila =>
-                    fila.textContent.toLocaleLowerCase('es').includes(termino)
-                );
-
-                paginaActual = 1;
-                renderizar();
-            }
-
-            buscar.addEventListener('input', filtrar);
-
-            contenedor.querySelector('#btnBuscarVehiculoDemo')
-                .addEventListener('click', filtrar);
-
-            anterior.addEventListener('click', () => {
-                if (paginaActual > 1) {
-                    paginaActual--;
-                    renderizar();
-                }
-            });
-
-            siguiente.addEventListener('click', () => {
-                if (paginaActual < Math.ceil(filtrados.length / porPagina)) {
-                    paginaActual++;
-                    renderizar();
-                }
-            });
-
-            contenedor.querySelector('#btnRegistrarVehiculoDemo')
-                .addEventListener('click', () => {
-                    mensaje.textContent =
-                        'El registro de vehículos estará disponible cuando conectemos el módulo.';
-                    mensaje.hidden = false;
-                });
-
-            contenedor.querySelectorAll('.btn-accion-vehiculo')
-                .forEach(boton => {
-                    boton.addEventListener('click', () => {
-                        const accion = boton.dataset.accion === 'editar'
-                            ? 'La edición'
-                            : 'La desactivación';
-
-                        mensaje.textContent =
-                            `${accion} del vehículo ${boton.dataset.nombre} estará disponible al conectar el módulo.`;
-                        mensaje.hidden = false;
-                    });
-                });
-
-            renderizar();
-        })();
-    </script>
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-x-circle"></i> Sí, desactivar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
