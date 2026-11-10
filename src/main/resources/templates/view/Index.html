@@ -1,242 +1,184 @@
-<div th:fragment="content">
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de gestión 2G Automotriz">
+    <title>2G Automotriz</title>
 
-    <div class="page-heading mb-3">
-        <div>
-            <h1>MÓDULO DE ÓRDENES</h1>
-            <p>Registra o modifica las reparaciones y servicios realizados.</p>
-        </div>
-    </div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    <form id="formOrden" method="post"
-          th:action="@{/ordenes/guardar}"
-          th:data-url-base="@{/ordenes}"
-          th:data-nueva="${orden == null}">
+    <link rel="stylesheet" th:href="@{/css/variables.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/topbar.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/components.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/citas.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/css/comprobante.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/ordenes.css}">
+    <link rel="stylesheet" th:href="@{/css/administracion.css}">
+    <link rel="stylesheet" th:href="@{/css/almacen.css}">
+</head>
 
-        <input type="hidden" name="idOrden" th:value="${orden != null ? orden.idOrden() : ''}">
+<div th:replace="~{fragments/toast :: toast}"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const el = document.getElementById('toastApp');
+        if (el) new bootstrap.Toast(el, { delay: 5000 }).show();
+    });
+</script>
+<body>
 
-        <!-- SELECCIÓN DE ORDEN / CITA -->
-        <section class="panel mb-3">
-            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
-                <h2 class="section-title mb-0">
-                    <span th:if="${orden == null}">NUEVA ORDEN</span>
-                    <span th:if="${orden != null}" th:text="'ORDEN DE SERVICIO ' + ${orden.codigo()}"></span>
-                </h2>
-                <div class="fw-bold">
-                    ESTADO:
-                    <span class="badge text-bg-secondary" th:text="${orden != null ? orden.estado() : 'NUEVA'}">NUEVA</span>
-                </div>
-            </div>
+<header th:replace="~{fragments/barraSuperior :: barraSuperior}"></header>
 
-            <div class="row g-2">
-                <div class="col-12 col-md-6">
-                    <label for="selectorOrden" class="form-label">Orden</label>
-                    <select id="selectorOrden" class="form-select">
-                        <option value="">➕ Nueva orden</option>
-                        <option th:each="o : ${ordenes}"
-                                th:value="${o.idOrden()}"
-                                th:selected="${orden != null and orden.idOrden() == o.idOrden()}"
-                                th:text="|${o.codigo()} · ${o.placa()} · ${o.cliente()} · ${o.estado()}|"></option>
-                    </select>
-                </div>
+<div class="main-container">
 
-                <!-- Orden nueva: elegir la cita que se atiende -->
-                <div class="col-12 col-md-6" th:if="${orden == null}">
-                    <label for="selectorCita" class="form-label">Cita a atender</label>
-                    <select id="selectorCita" name="idCita" class="form-select">
-                        <option value="" th:text="${#lists.isEmpty(citas)} ? 'No hay citas pendientes' : 'Selecciona una cita pendiente'"></option>
-                        <option th:each="c : ${citas}"
-                                th:value="${c.idCita()}"
-                                th:text="|${c.codigo()} · ${c.fechaHora()} · ${c.placa()} · ${c.cliente()}|"
-                                th:data-marca="${c.marcaModelo()}"
-                                th:data-placa="${c.placa()}"
-                                th:data-cliente="${c.cliente()}"
-                                th:data-anio="${c.anio()}"
-                                th:data-km="${c.kilometros()}"
-                                th:data-motivo="${c.motivo()}"></option>
-                    </select>
-                </div>
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
-                <!-- Orden existente: cita de origen -->
-                <div class="col-12 col-md-6" th:if="${orden != null}">
-                    <label class="form-label">Cita de origen</label>
-                    <input type="text" class="form-control" th:value="${orden.codigoCita()}" disabled>
-                </div>
-            </div>
-        </section>
+    <!-- Contenido central dinámico en Index.html -->
+    <main class="content">
+        <th:block th:switch="${vista}">
 
-        <div class="row g-3 mb-3">
-            <!-- DATOS DEL VEHÍCULO -->
-            <div class="col-12 col-lg-4">
-                <section class="panel h-100">
-                    <h2 class="section-title">DATOS DEL VEHÍCULO</h2>
-                    <div class="vehicle-info">
-                        <p><strong>Marca / Modelo:</strong><span id="vMarca" th:text="${orden != null ? orden.marcaModelo() : '—'}">—</span></p>
-                        <p><strong>Placa:</strong><span id="vPlaca" th:text="${orden != null ? orden.placa() : '—'}">—</span></p>
-                        <p><strong>Cliente:</strong><span id="vCliente" th:text="${orden != null ? orden.cliente() : '—'}">—</span></p>
-                        <p><strong>Año:</strong><span id="vAnio" th:text="${orden != null ? orden.anio() : '—'}">—</span></p>
-                        <p><strong>Kilometraje:</strong><span id="vKm" th:text="${orden != null ? orden.kilometros() : '—'}">—</span></p>
-                    </div>
-                    <div class="vehicle-icon"><i class="bi bi-car-front-fill"></i></div>
-                </section>
-            </div>
+            <th:block th:case="'citas'">
+                <div th:replace="~{fragments/citas :: content}"></div>
+            </th:block>
 
-            <!-- SERVICIOS -->
-            <div class="col-12 col-lg-8">
-                <section class="panel h-100">
-                    <h2 class="section-title">ADMINISTRAR SERVICIOS</h2>
+            <th:block th:case="'ordenes'">
+                <div th:replace="~{fragments/ordenes :: content}"></div>
+            </th:block>
 
-                    <div class="service-list mb-3" id="listaServicios">
-                        <th:block th:if="${orden != null}">
-                            <th:block th:each="s : ${orden.servicios()}">
-                                <div th:replace="~{fragments/ordenes :: filaServicio(${s.id()}, ${s.nombre()}, ${s.precio()})}"></div>
-                            </th:block>
-                        </th:block>
-                    </div>
+            <th:block th:case="'comprobante'">
+                <div th:replace="~{fragments/comprobante :: content}"></div>
+            </th:block>
 
-                    <div class="row g-2 align-items-center">
-                        <div class="col-12 col-md">
-                            <select class="form-select" id="nuevoServicio">
-                                <option value="">Seleccionar servicio...</option>
-                                <option th:each="s : ${servicios}"
-                                        th:value="${s.idServicio}"
-                                        th:data-nombre="${s.nombre}"
-                                        th:data-precio="${s.precioPorDefecto}"
-                                        th:text="|${s.nombre} - S/ ${#numbers.formatDecimal(s.precioPorDefecto, 1, 'NONE', 2, 'POINT')}|"></option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-auto">
-                            <button type="button" class="btn btn-success" id="btnAgregarServicio">
-                                <i class="bi bi-plus-lg me-1"></i>Añadir servicio
-                            </button>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
+            <th:block th:case="'almacen'">
+                <div th:replace="~{fragments/almacen :: content}"></div>
+            </th:block>
 
-        <!-- ARTÍCULOS -->
-        <section class="panel mb-3">
-            <h2 class="section-title">REPUESTOS Y ARTÍCULOS</h2>
+            <th:block th:case="'administracion'">
+                <div th:replace="~{fragments/administracion :: content}"></div>
+            </th:block>
 
-            <div class="row g-2 align-items-center mb-3">
-                <div class="col-12 col-md-auto"><label for="nuevoArticulo" class="fw-semibold">Buscar un artículo:</label></div>
-                <div class="col-12 col-md">
-                    <select class="form-select" id="nuevoArticulo">
-                        <option value="">Seleccionar artículo...</option>
-                        <option th:each="a : ${articulos}"
-                                th:value="${a.idArticulo}"
-                                th:data-nombre="${a.nombre}"
-                                th:data-precio="${a.precioPorDefecto}"
-                                th:data-unidad="${a.unidadMedida}"
-                                th:text="|${a.nombre} - S/ ${#numbers.formatDecimal(a.precioPorDefecto, 1, 'NONE', 2, 'POINT')} (stock: ${a.stock} ${a.unidadMedida})|"></option>
-                    </select>
-                </div>
-                <div class="col-12 col-md-auto">
-                    <button type="button" class="btn btn-success" id="btnAgregarArticulo">
-                        <i class="bi bi-plus-lg me-1"></i>Añadir artículo
-                    </button>
-                </div>
-            </div>
+            <!-- Dashboard predeterminado: siempre al final -->
+            <th:block th:case="*">
+                <div th:replace="~{fragments/dashboard :: content}"></div>
+            </th:block>
 
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle mb-0">
-                    <thead class="table-warning">
-                    <tr>
-                        <th>Artículo</th>
-                        <th class="text-center">Cantidad</th>
-                        <th class="text-end">Precio unitario</th>
-                        <th class="text-end">Subtotal</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody id="cuerpoArticulos">
-                    <th:block th:if="${orden != null}">
-                        <th:block th:each="a : ${orden.articulos()}">
-                            <tr th:replace="~{fragments/ordenes :: filaArticulo(${a.id()}, ${a.nombre()}, ${a.cantidad()}, ${a.precio()}, ${a.unidad()})}"></tr>
-                        </th:block>
-                    </th:block>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <div class="row g-3 mb-3">
-            <!-- DIAGNÓSTICO -->
-            <div class="col-12 col-lg-5">
-                <section class="panel h-100">
-                    <h2 class="section-title">NOTA DE DIAGNÓSTICO</h2>
-                    <label for="diagnostico" class="form-label">Observaciones del mecánico</label>
-                    <textarea class="form-control" id="diagnostico" name="diagnostico" rows="4" maxlength="200"
-                              placeholder="Describe las fallas detectadas..." required
-                              th:text="${orden != null ? orden.diagnostico() : ''}"></textarea>
-                </section>
-            </div>
-
-            <!-- RESUMEN -->
-            <div class="col-12 col-lg-7">
-                <section class="panel h-100">
-                    <h2 class="section-title">RESUMEN DE COSTOS</h2>
-                    <div class="cost-row"><span>Subtotal de mano de obra:</span><strong id="subtotalServicios">S/ 0.00</strong></div>
-                    <div class="cost-row"><span>Subtotal de artículos vehiculares:</span><strong id="subtotalArticulos">S/ 0.00</strong></div>
-                    <hr>
-                    <div class="total-estimado"><span>TOTAL:</span><strong id="totalOrden">S/ 0.00</strong></div>
-                    <p class="text-muted small mt-2 mb-0">Los importes se actualizan al modificar servicios o cantidades.</p>
-                </section>
-            </div>
-        </div>
-
-        <!-- BOTÓN ÚNICO: depende de si la orden es nueva o existente -->
-        <div class="d-flex justify-content-end gap-2 mb-3">
-            <button type="submit" class="btn btn-primary btn-lg" th:if="${orden == null}">
-                <i class="bi bi-patch-check-fill me-2"></i>Finalizar orden
-            </button>
-            <button type="submit" class="btn btn-primary btn-lg" th:if="${orden != null}">
-                <i class="bi bi-floppy-fill me-2"></i>Guardar orden
-            </button>
-        </div>
-    </form>
-
-    <!-- Plantillas para las filas que agrega el JS (mismo markup que las del servidor) -->
-    <template id="tplServicio">
-        <div th:replace="~{fragments/ordenes :: filaServicio(0, '', 0)}"></div>
-    </template>
-    <template id="tplArticulo">
-        <tr th:replace="~{fragments/ordenes :: filaArticulo(0, '', 1, 0, '')}"></tr>
-    </template>
+        </th:block>
+    </main>
 </div>
 
-<!-- ===== Fragmentos de fila (se usan desde 'content') ===== -->
+<!-- Pie de página -->
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 
-<div th:fragment="filaServicio(idServicio, nombre, precio)" class="service-row" th:data-precio="${precio}">
-    <input type="hidden" name="servicioIds" th:value="${idServicio}">
-    <button type="button" class="btn-remove js-quitar" aria-label="Quitar servicio">
-        <i class="bi bi-dash-circle-fill"></i>
-    </button>
-    <span class="service-name" th:text="${nombre}"></span>
-    <strong class="service-price" th:text="|S/ ${#numbers.formatDecimal(precio, 1, 'NONE', 2, 'POINT')}|"></strong>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 
-<table>
-    <tbody>
-    <tr th:fragment="filaArticulo(idArticulo, nombre, cantidad, precio, unidad)" th:data-precio="${precio}">
-        <td>
-            <input type="hidden" name="articuloIds" th:value="${idArticulo}">
-            <span class="articulo-nombre" th:text="${nombre}"></span>
-        </td>
-        <td>
-            <div class="d-flex align-items-center justify-content-center gap-2">
-                <input type="number" name="cantidades" class="form-control form-control-sm cantidad-articulo"
-                       th:value="${cantidad}" min="0.01" step="0.01" style="width: 85px" required>
-                <span class="articulo-unidad" th:text="${unidad}"></span>
-            </div>
-        </td>
-        <td class="text-end articulo-precio" th:text="|S/ ${#numbers.formatDecimal(precio, 1, 'NONE', 2, 'POINT')}|"></td>
-        <td class="text-end subtotal-articulo">S/ 0.00</td>
-        <td class="text-center">
-            <button type="button" class="btn btn-danger btn-sm js-quitar">
-                <i class="bi bi-dash-circle me-1"></i>Quitar
-            </button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<script th:src="@{/js/tabla-admin.js}"></script>
+<script th:src="@{/js/cliente.js}"></script>
+<script th:src="@{/js/empleado.js}"></script>
+<script th:src="@{/js/vehiculo.js}"></script>
+<script th:src="@{/js/servicio.js}"></script>
+<script th:src="@{/js/articulo.js}"></script>
+<script th:src="@{/js/orden.js}"></script>
+<script th:src="@{/js/cita.js}"></script>
+
+<!-- Chart para dashboard -->
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Chart.js cargado:", typeof Chart);
+
+        const categorias = /*[[${categorias}]]*/ ['Mantenimiento', 'Diagnóstico', 'Frenos', 'Electricidad', 'Otros'];
+        const ingresos = /*[[${ingresosPorCategoria}]]*/ [8500, 4200, 2800, 1900, 1050];
+
+        // 1. Gráfico de ingresos por categoría
+        const ctxIngresos = document.getElementById('ingresosChart');
+        if (ctxIngresos) {
+            new Chart(ctxIngresos, {
+                type: 'bar',
+                data: {
+                    labels: categorias,
+                    datasets: [{
+                        label: 'Ingresos (S/)',
+                        data: ingresos,
+                        backgroundColor: ['#f5a623', '#164b78', '#426b9c', '#e9b15a', '#a8c8e8'],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true },
+                        x: { ticks: { maxRotation: 0, minRotation: 0 } }
+                    }
+                }
+            });
+        }
+
+        // 2. Gráfico del estado de las órdenes
+        const ctxOrdenes = document.getElementById('ordenesChart');
+        if (ctxOrdenes) {
+            new Chart(ctxOrdenes, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Finalizadas', 'En proceso', 'En espera', 'Canceladas'],
+                    datasets: [{
+                        data: [24, 12, 8, 4],
+                        backgroundColor: ['#13b886', '#164b78', '#f5a623', '#dc3545']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        }
+
+        // 3. Gráfico de actividad semanal
+        const ctxActividad = document.getElementById('actividadChart');
+        if (ctxActividad) {
+            new Chart(ctxActividad, {
+                type: 'line',
+                data: {
+                    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                    datasets: [
+                        {
+                            label: 'Citas',
+                            data: [16, 19, 24, 20, 25, 22, 16],
+                            borderColor: '#164b78',
+                            backgroundColor: '#164b78',
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Órdenes',
+                            data: [14, 17, 22, 19, 23, 21, 15],
+                            borderColor: '#efc278',
+                            backgroundColor: '#f5a623',
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+    });
+</script>
+
+<!-- FullCalendar (solo lo usa la pestaña de citas) -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.10/locales-all.global.min.js"></script>
+<script th:src="@{/js/cita.js}"></script>
+
+</body>
+</html>

@@ -5,8 +5,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class AdminInitializer implements CommandLineRunner {
+    private static final String USUARIO = "admin";
+    private static final String CLAVE = "Admin123!";
+
     private final JdbcTemplate jdbcTemplate;
     private final PasswordEncoder passwordEncoder;
 
@@ -17,24 +22,24 @@ public class AdminInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Integer existe = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM empleado WHERE usuario = ?", Integer.class, "admin");
+        List<String> hashes = jdbcTemplate.queryForList(
+                "SELECT contrasenia FROM empleado WHERE usuario = ?", String.class, USUARIO);
 
-        if (existe != null && existe == 0) {
-            jdbcTemplate.update(
-                    """
-                    INSERT INTO empleado
-                    (nombre, correo, codigo, usuario, contrasenia, activo, rol)
+        if (hashes.isEmpty()) {
+            jdbcTemplate.update("""
+                    INSERT INTO empleado (nombre, correo, codigo, usuario, contrasenia, activo, rol)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
-                    "Administrador del sistema",
-                    "admin@2gautomotriz.local",
-                    "EMP-001",
-                    "admin",
-                    passwordEncoder.encode("Admin123!"),
-                    true,
-                    "ADMINISTRADOR"
-            );
-            System.out.println("Administrador de prueba creado.");
+                    "Administrador del sistema", "admin@2gautomotriz.local", "EMP-001",
+                    USUARIO, passwordEncoder.encode(CLAVE), true, "ADMINISTRADOR");
+            return;
+        }
+
+        // Ya existía: se repara para que siempre se pueda entrar (solo para desarrollo)
+        jdbcTemplate.update("UPDATE empleado SET activo = TRUE, rol = 'ADMINISTRADOR' WHERE usuario = ?", USUARIO);
+        if (!passwordEncoder.matches(CLAVE, hashes.get(0))) {
+            jdbcTemplate.update("UPDATE empleado SET contrasenia = ? WHERE usuario = ?",
+                    passwordEncoder.encode(CLAVE), USUARIO);
         }
     }
 }

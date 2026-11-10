@@ -5,6 +5,7 @@ import com.example.automotriz.service.ClienteService;
 import com.example.automotriz.service.EmpleadoService;
 import com.example.automotriz.service.ServicioService;
 import com.example.automotriz.service.VehiculoService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,12 +35,15 @@ public class AdministracionController {
     public String administracion(
             @RequestParam(defaultValue = "clientes") String elemento,
             @RequestParam(defaultValue = "") String filtro,
-            Model model) {
+            Model model, Authentication auth) {
 
-        if (!elemento.equals("clientes")
-                && !elemento.equals("vehiculos")
-                && !elemento.equals("empleados")
-                && !elemento.equals("servicios")) {
+        boolean admin = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMINISTRADOR"));
+        List<String> permitidos = admin
+                ? List.of("clientes", "vehiculos", "empleados", "servicios")
+                : List.of("clientes", "vehiculos");   // recepcionista
+
+        if (!permitidos.contains(elemento)) {
             elemento = "clientes";
         }
 

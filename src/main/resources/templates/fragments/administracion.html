@@ -14,6 +14,7 @@
         <!-- EMPLEADOS -->
         <a th:href="@{/administracion(elemento='empleados')}"
            class="admin-card"
+           th:if="${esAdmin}"
            th:classappend="${elemento == 'empleados'} ? ' activo' : ''">
 
             <div class="admin-card-info">
@@ -71,6 +72,7 @@
         <!-- SERVICIOS -->
         <a th:href="@{/administracion(elemento='servicios')}"
            class="admin-card"
+           th:if="${esAdmin}"
            th:classappend="${elemento == 'servicios'} ? ' activo' : ''">
 
             <div class="admin-card-info">
