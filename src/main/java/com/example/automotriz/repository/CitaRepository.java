@@ -24,4 +24,10 @@ public interface CitaRepository extends JpaRepository<CitaEntity, Integer> {
     @Query("select c from CitaEntity c join fetch c.cliente join fetch c.vehiculo " +
             "where c.estado = 'PENDIENTE' order by c.fecha, c.hora")
     List<CitaEntity> listarPendientes();
+
+    long countByEstado(String estado);
+
+    @Query("select c.fecha from CitaEntity c where c.estado <> 'CANCELADA' " +
+            "and c.fecha >= :desde and c.fecha <= :hasta")
+    List<LocalDate> fechasEntre(@Param("desde") LocalDate desde, @Param("hasta") LocalDate hasta);
 }

@@ -19,7 +19,7 @@
                 <div class="row g-3">
                     <div class="col-12 col-md-4">
                         <article class="metric-card">
-                            <div class="metric-info"><span>Ingresos del mes</span><strong th:text="${ingresosTexto}">S/ 18,450.00</strong></div>
+                            <div class="metric-info"><span>Ingresos del período</span><strong th:text="${ingresosTexto}">S/ 0.00</strong></div>
                             <div class="metric-icon"><i class="bi bi-cash-stack"></i></div>
                         </article>
                     </div>
@@ -45,7 +45,7 @@
                 <div class="col-12 col-xl-7">
                     <section class="panel h-100">
                         <h2 class="section-title">Ingresos por categoría de servicio</h2>
-                        <p class="section-subtitle">Distribución demostrativa de ingresos por tipo de servicio.</p>
+                        <p class="section-subtitle">Ingresos sin IGV de órdenes con comprobante pagado en el período.</p>
                         <div class="chart-container"><canvas id="ingresosChart"></canvas></div>
                     </section>
                 </div>
@@ -56,10 +56,13 @@
                         <p>Generar reporte detallado:</p>
 
                         <form th:action="@{/dashboard/exportar-excel}" method="get">
+                            <input type="hidden" name="desde" th:value="${desde}">
+                            <input type="hidden" name="hasta" th:value="${hasta}">
+
                             <label for="tipoReporte" class="form-label">Tipo de reporte</label>
                             <select class="form-select mb-3" id="tipoReporte" name="tipo">
-                                <option value="ventas">Ventas del mes</option>
-                                <option value="ordenes">Órdenes atendidas</option>
+                                <option value="ventas">Ventas (comprobantes)</option>
+                                <option value="ordenes">Órdenes del período</option>
                                 <option value="citas">Citas pendientes</option>
                             </select>
                             <button type="submit" class="btn btn-success w-100">
@@ -74,15 +77,15 @@
 
                     <section class="panel mt-3">
                         <h2 class="section-title">Estado de las órdenes</h2>
-                        <p class="section-subtitle">Distribución de las órdenes registradas.</p>
+                        <p class="section-subtitle">Órdenes ingresadas en el período, según su estado.</p>
                         <div class="chart-container chart-small"><canvas id="ordenesChart"></canvas></div>
                     </section>
                 </div>
 
                 <div class="col-12 col-xl-7">
                     <section class="panel">
-                        <h2 class="section-title">Actividad semanal del taller</h2>
-                        <p class="section-subtitle">Comparación demostrativa entre citas y órdenes.</p>
+                        <h2 class="section-title">Actividad por día de la semana</h2>
+                        <p class="section-subtitle">Citas y órdenes del período, agrupadas por día.</p>
                         <div class="chart-container"><canvas id="actividadChart"></canvas></div>
                     </section>
                 </div>
@@ -91,21 +94,13 @@
                     <section class="panel">
                         <h2 class="section-title">Servicios destacados</h2>
                         <ul class="service-list">
-                            <li>
+                            <li th:each="s : ${destacados}">
                                 <i class="bi bi-wrench-adjustable-circle"></i>
-                                <span>Mantenimiento preventivo</span>
+                                <span th:text="${s.nombre()}"></span>
+                                <small class="ms-auto text-muted" th:text="${s.veces()} + ' veces'"></small>
                             </li>
-                            <li>
-                                <i class="bi bi-gear-wide-connected"></i>
-                                <span>Reparación de motor</span>
-                            </li>
-                            <li>
-                                <i class="bi bi-disc"></i>
-                                <span>Frenos y suspensión</span>
-                            </li>
-                            <li>
-                                <i class="bi bi-droplet-fill"></i>
-                                <span>Cambio de aceite y filtros</span>
+                            <li th:if="${#lists.isEmpty(destacados)}">
+                                <span class="text-muted">Aún no hay servicios en este período.</span>
                             </li>
                         </ul>
                     </section>

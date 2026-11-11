@@ -98,12 +98,15 @@
 <!-- Chart para dashboard -->
 <script th:inline="javascript">
     document.addEventListener("DOMContentLoaded", function () {
-        console.log("Chart.js cargado:", typeof Chart);
+        const categorias = /*[[${categorias}]]*/ [];
+        const ingresos = /*[[${ingresosPorCategoria}]]*/ [];
+        const estadosOrden = /*[[${estadosOrden}]]*/ [];
+        const cantidadesOrden = /*[[${cantidadesOrden}]]*/ [];
+        const dias = /*[[${diasSemana}]]*/ [];
+        const citasPorDia = /*[[${citasPorDia}]]*/ [];
+        const ordenesPorDia = /*[[${ordenesPorDia}]]*/ [];
 
-        const categorias = /*[[${categorias}]]*/ ['Mantenimiento', 'Diagnóstico', 'Frenos', 'Electricidad', 'Otros'];
-        const ingresos = /*[[${ingresosPorCategoria}]]*/ [8500, 4200, 2800, 1900, 1050];
-
-        // 1. Gráfico de ingresos por categoría
+        // 1. Ingresos por categoría
         const ctxIngresos = document.getElementById('ingresosChart');
         if (ctxIngresos) {
             new Chart(ctxIngresos, {
@@ -113,7 +116,7 @@
                     datasets: [{
                         label: 'Ingresos (S/)',
                         data: ingresos,
-                        backgroundColor: ['#f5a623', '#164b78', '#426b9c', '#e9b15a', '#a8c8e8'],
+                        backgroundColor: ['#f5a623', '#164b78', '#426b9c', '#e9b15a', '#a8c8e8', '#13b886', '#6c757d'],
                         borderRadius: 4
                     }]
                 },
@@ -129,16 +132,16 @@
             });
         }
 
-        // 2. Gráfico del estado de las órdenes
+        // 2. Estado de las órdenes
         const ctxOrdenes = document.getElementById('ordenesChart');
         if (ctxOrdenes) {
             new Chart(ctxOrdenes, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Finalizadas', 'En proceso', 'En espera', 'Canceladas'],
+                    labels: estadosOrden,
                     datasets: [{
-                        data: [24, 12, 8, 4],
-                        backgroundColor: ['#13b886', '#164b78', '#f5a623', '#dc3545']
+                        data: cantidadesOrden,
+                        backgroundColor: ['#13b886', '#f5a623', '#dc3545']
                     }]
                 },
                 options: {
@@ -149,24 +152,24 @@
             });
         }
 
-        // 3. Gráfico de actividad semanal
+        // 3. Actividad por día de la semana
         const ctxActividad = document.getElementById('actividadChart');
         if (ctxActividad) {
             new Chart(ctxActividad, {
                 type: 'line',
                 data: {
-                    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                    labels: dias,
                     datasets: [
                         {
                             label: 'Citas',
-                            data: [16, 19, 24, 20, 25, 22, 16],
+                            data: citasPorDia,
                             borderColor: '#164b78',
                             backgroundColor: '#164b78',
                             tension: 0.3
                         },
                         {
                             label: 'Órdenes',
-                            data: [14, 17, 22, 19, 23, 21, 15],
+                            data: ordenesPorDia,
                             borderColor: '#efc278',
                             backgroundColor: '#f5a623',
                             tension: 0.3
@@ -175,7 +178,8 @@
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
                 }
             });
         }
