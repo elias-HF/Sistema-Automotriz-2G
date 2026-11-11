@@ -6,511 +6,248 @@
         </div>
     </div>
 
-    <div th:if="${mensajeOrden != null}" class="alert alert-success" th:text="${mensajeOrden}"></div>
-    <div th:if="${errorOrden != null}" class="alert alert-danger" th:text="${errorOrden}"></div>
-    <section class="panel mb-3">
-        <h2 class="section-title">BUSCAR ORDEN</h2>
-        <form th:action="@{/ordenes}" method="get" class="row g-2 align-items-end">
-            <div class="col-12 col-md-8"><label for="codigoBusqueda" class="form-label">Código de la orden</label>
-                <input type="text" id="codigoBusqueda" name="codigo" class="form-control" placeholder="Ej. ORD-00001" th:value="${codigoBuscado}">
-            </div>
-            <div class="col-12 col-md-auto"><button type="submit" class="btn btn-primary"><i class="bi bi-search me-1"></i>Buscar</button></div>
-            <div class="col-12 col-md-auto"><a th:href="@{/ordenes}" class="btn btn-outline-secondary">Limpiar</a></div>
-        </form>
-    </section>
+    <form id="formOrden" th:action="@{/ordenes/guardar}" method="post"
+          th:data-nueva="${orden == null} ? 'true' : 'false'"
+          th:data-url-base="@{/ordenes}">
 
-    <section class="panel mb-3" th:if="${orden == null}">
-        <h2 class="section-title">CREAR ORDEN</h2>
-        <form th:action="@{/ordenes/crear}" method="post" class="row g-3">
-            <div class="col-12 col-md-6">
-                <label for="idVehiculo" class="form-label">Vehículo</label>
-                <select name="idVehiculo" id="idVehiculo"
-                        class="form-select" required>
-                    <option value="">Seleccionar vehículo</option>
+        <input type="hidden" name="idOrden" th:if="${orden != null}" th:value="${orden.idOrden()}">
 
-                    <option th:each="vehiculo : ${vehiculos}"
-                            th:value="${vehiculo.id_vehiculo}"
-                            th:text="${vehiculo.placa + ' - ' +
-                      vehiculo.modelo.marca.nombre + ' ' +
-                      vehiculo.modelo.nombre + ' - ' +
-                      vehiculo.idCliente.nombre}"
-                            th:selected="${citaSeleccionada != null
-                and citaSeleccionada.vehiculo.id_vehiculo == vehiculo.id_vehiculo}">
-                    </option>
-                </select>
-            </div>
-
-            <div class="col-12 col-md-6">
-                <label for="montoTotal" class="form-label">Monto inicial (S/)</label>
-                <input type="number" id="montoTotal" name="montoTotal" class="form-control" min="0" step="0.01" value="0.00" required>
-            </div>
-
-            <div class="col-12">
-                <label for="diagnosticoNuevo" class="form-label">
-                    Diagnóstico inicial
-                </label>
-
-                <textarea name="diagnostico"
-                          id="diagnosticoNuevo"
-                          class="form-control"
-                          maxlength="200"
-                          required
-                          th:text="${citaSeleccionada != null
-                  ? citaSeleccionada.motivo : ''}"
-                          placeholder="Describe las fallas detectadas..."></textarea>
-            </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle me-1"></i>Crear orden</button>
-            </div>
-        </form>
-    </section>
-
-    <section class="panel mb-3">
-        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
-            <h2 class="section-title"><span th:if="${orden == null}">NUEVA ORDEN</span><span th:if="${orden != null}" th:text="'ORDEN DE SERVICIO ' + ${orden.cod}"></span></h2>
-
-            <div class="d-flex align-items-center gap-2">
-                <label for="estadoOrden" class="fw-bold">ESTADO:</label>
-                <select class="form-select form-select-sm" id="estadoOrden" name="estado" style="min-width: 165px;" th:unless="${orden == null}" disabled>
-                    <option value="PENDIENTE" th:selected="${orden.estado == 'PENDIENTE'}">Pendiente</option>
-                    <option value="EN_PROCESO" th:selected="${orden.estado == 'EN_PROCESO'}">En proceso</option>
-                    <option value="FINALIZADA" th:selected="${orden.estado == 'FINALIZADA'}">Finalizada</option>
-                    <option value="CANCELADA" th:selected="${orden.estado == 'CANCELADA'}">Cancelada</option>
-                </select>
-            </div>
-        </div>
-    </section>
-
-    <div class="row g-3 mb-3">
-        <div class="col-12 col-lg-4">
-            <section class="panel h-100">
-                <h2 class="section-title">DATOS DEL VEHÍCULO</h2>
-                <div class="vehicle-info">
-                    <p><strong>Marca / Modelo:</strong><span th:text="${orden != null ? orden.vehiculo.modelo.marca.nombre+ ' / ' + orden.vehiculo.modelo.nombre : '—'}">—</span></p>
-                    <p><strong>Placa:</strong><span th:text="${orden != null ? orden.vehiculo.placa : '—'}">—</span></p>
-                    <p><strong>Cliente:</strong><span th:text="${orden != null ? orden.vehiculo.idCliente.nombre : '—'}">—</span></p>
-                    <p><strong>Año:</strong><span th:text="${orden != null ? orden.vehiculo.anio_fabricacion : '—'}">—</span></p>
-                    <p><strong>Kilometraje:</strong><span th:text="${orden != null ? orden.vehiculo.kilometros : '—'}">—</span></p>
-                </div>
-                <div class="vehicle-icon"><i class="bi bi-car-front-fill"></i></div>
-            </section>
-        </div>
-
-        <div class="col-12 col-lg-8">
-            <section class="panel h-100">
-                <h2 class="section-title">ADMINISTRAR SERVICIOS</h2>
-                <div class="service-list mb-3" id="listaServicios">
-                    <div class="service-row">
-                        <button type="button" class="btn-remove" aria-label="Quitar cambio de aceite" onclick="quitarServicio(this)"><i class="bi bi-dash-circle-fill"></i></button>
-                        <span class="service-name">Cambio de aceite</span>
-                        <strong class="service-price" data-precio="50.40">S/ 50.40</strong>
-                    </div>
-
-                    <div class="service-row">
-                        <button type="button" class="btn-remove" aria-label="Quitar alineación y balanceo" onclick="quitarServicio(this)"><i class="bi bi-dash-circle-fill"></i></button>
-                        <span class="service-name">Alineación y balanceo</span>
-                        <strong class="service-price" data-precio="80.60">S/ 80.60</strong>
-                    </div>
-
-                    <div class="service-row">
-                        <button type="button" class="btn-remove" aria-label="Quitar revisión de frenos" onclick="quitarServicio(this)">
-                            <i class="bi bi-dash-circle-fill"></i>
-                        </button>
-                        <span class="service-name">Revisión de frenos</span>
-                        <strong class="service-price" data-precio="40.89">S/ 40.89</strong>
-                    </div>
-
-                    <div class="service-row">
-                        <button type="button" class="btn-remove" aria-label="Quitar reparación de motor" onclick="quitarServicio(this)"><i class="bi bi-dash-circle-fill"></i></button>
-                        <span class="service-name">Reparación de motor</span>
-                        <strong class="service-price" data-precio="120.40">S/ 120.40</strong>
-                    </div>
-
+        <!-- SELECTOR DE ORDEN / CITA -->
+        <section class="panel mb-3">
+            <div class="row g-3 align-items-end">
+                <div class="col-12 col-lg-6">
+                    <label for="selectorOrden" class="form-label fw-bold">Orden</label>
+                    <select class="form-select" id="selectorOrden">
+                        <option value="">— Nueva orden —</option>
+                        <option th:each="o : ${ordenes}"
+                                th:value="${o.idOrden()}"
+                                th:selected="${orden != null and orden.idOrden() == o.idOrden()}"
+                                th:text="|${o.codigo()} / ${o.placa()} - ${o.cliente()}|"></option>
+                    </select>
                 </div>
 
-                <div class="row g-2 align-items-center">
-                    <div class="col-12 col-md">
-                        <select class="form-select" id="nuevoServicio">
-                            <option value="">Seleccionar servicio...</option>
-                            <option value="Mantenimiento preventivo" data-precio="90.00">Mantenimiento preventivo - S/ 90.00</option>
-                            <option value="Cambio de batería" data-precio="35.00">Cambio de batería - S/ 35.00</option>
-                            <option value="Reparación de suspensión" data-precio="150.00">Reparación de suspensión - S/ 150.00</option>
-                            <option value="Diagnóstico computarizado" data-precio="60.00">Diagnóstico computarizado - S/ 60.00</option>
-                        </select>
-                    </div>
-
-                    <div class="col-12 col-md-auto">
-                        <button type="button" class="btn btn-success" onclick="agregarServicio()"><i class="bi bi-plus-lg me-1"></i>Añadir servicio</button>
-                    </div>
+                <!-- Solo en una orden nueva: elegir la cita que se va a atender -->
+                <div class="col-12 col-lg-6" th:if="${orden == null}">
+                    <label for="selectorCita" class="form-label fw-bold">Cita a atender</label>
+                    <select class="form-select" id="selectorCita" name="idCita">
+                        <option value="" th:text="${#lists.isEmpty(citas)} ? 'No hay citas pendientes' : 'Selecciona una cita pendiente'"></option>
+                        <option th:each="c : ${citas}"
+                                th:value="${c.idCita()}"
+                                th:data-marca="${c.marcaModelo()}"
+                                th:data-placa="${c.placa()}"
+                                th:data-cliente="${c.cliente()}"
+                                th:data-anio="${c.anio()}"
+                                th:data-km="${c.kilometros()}"
+                                th:data-motivo="${c.motivo()}"
+                                th:text="|${c.codigo()} · ${c.fechaHora()} · ${c.placa()} - ${c.cliente()}|"></option>
+                    </select>
                 </div>
-            </section>
-        </div>
-    </div>
 
-    <section class="panel mb-3">
-        <h2 class="section-title">REPUESTOS Y ARTÍCULOS</h2>
-        <div class="row g-2 align-items-center mb-3">
-            <div class="col-12 col-md-auto"><label for="nuevoArticulo" class="fw-semibold">Buscar un artículo:</label></div>
-            <div class="col-12 col-md">
-                <select class="form-select" id="nuevoArticulo">
-                    <option value="">Seleccionar artículo...</option>
-                    <option value="Aceite sintético 10W-30" data-precio="35.19" data-unidad="L">Aceite sintético 10W-30 - S/ 35.19</option>
-                    <option value="Filtro de aceite Toyota" data-precio="25.87" data-unidad="u">Filtro de aceite Toyota - S/ 25.87</option>
-                    <option value="Pastillas de freno delanteras" data-precio="120.00" data-unidad="u">Pastillas de freno delanteras - S/ 120.00</option>
-                    <option value="Bujías de iridio" data-precio="40.00" data-unidad="u">Bujías de iridio - S/ 40.00</option>
-                </select>
+                <div class="col-12 col-lg-6" th:if="${orden != null}">
+                    <span class="fw-bold">Estado:</span>
+                    <span class="badge text-bg-success ms-1" th:if="${orden.estado() == 'FINALIZADA'}">Finalizada</span>
+                    <span class="badge text-bg-warning ms-1" th:if="${orden.estado() == 'PENDIENTE'}">Pendiente</span>
+                    <span class="text-muted ms-2" th:text="|Cita ${orden.codigoCita()}|"></span>
+                </div>
+            </div>
+        </section>
+
+        <div class="row g-3 mb-3">
+            <!-- DATOS DEL VEHÍCULO -->
+            <div class="col-12 col-lg-4">
+                <section class="panel h-100">
+                    <h2 class="section-title">
+                        <span th:if="${orden == null}">NUEVA ORDEN</span>
+                        <span th:if="${orden != null}" th:text="'ORDEN ' + ${orden.codigo()}"></span>
+                    </h2>
+                    <div class="vehicle-info">
+                        <p><strong>Marca / Modelo:</strong> <span id="vMarca" th:text="${orden != null ? orden.marcaModelo() : '—'}">—</span></p>
+                        <p><strong>Placa:</strong> <span id="vPlaca" th:text="${orden != null ? orden.placa() : '—'}">—</span></p>
+                        <p><strong>Cliente:</strong> <span id="vCliente" th:text="${orden != null ? orden.cliente() : '—'}">—</span></p>
+                        <p><strong>Año:</strong> <span id="vAnio" th:text="${orden != null ? orden.anio() : '—'}">—</span></p>
+                        <p><strong>Kilometraje:</strong> <span id="vKm" th:text="${orden != null ? orden.kilometros() : '—'}">—</span></p>
+                    </div>
+                    <div class="vehicle-icon"><i class="bi bi-car-front-fill"></i></div>
+                </section>
             </div>
 
-            <div class="col-12 col-md-auto">
-                <button type="button" class="btn btn-success" onclick="agregarArticulo()"><i class="bi bi-plus-lg me-1"></i>Añadir artículo</button>
+            <!-- SERVICIOS -->
+            <div class="col-12 col-lg-8">
+                <section class="panel h-100">
+                    <h2 class="section-title">ADMINISTRAR SERVICIOS</h2>
+
+                    <div class="service-list mb-3" id="listaServicios">
+                        <th:block th:if="${orden != null}">
+                            <div class="service-row" th:each="s : ${orden.servicios()}" th:data-precio="${s.precio()}">
+                                <input type="hidden" name="servicioIds" th:value="${s.id()}">
+                                <button type="button" class="btn-remove js-quitar" aria-label="Quitar servicio">
+                                    <i class="bi bi-dash-circle-fill"></i>
+                                </button>
+                                <span class="service-name" th:text="${s.nombre()}"></span>
+                                <strong class="service-price"
+                                        th:text="'S/ ' + ${#numbers.formatDecimal(s.precio(), 1, 'COMMA', 2, 'POINT')}"></strong>
+                            </div>
+                        </th:block>
+                    </div>
+
+                    <div class="row g-2 align-items-center">
+                        <div class="col-12 col-md">
+                            <select class="form-select" id="nuevoServicio">
+                                <option value="">Seleccionar servicio...</option>
+                                <option th:each="s : ${servicios}"
+                                        th:value="${s.idServicio}"
+                                        th:data-nombre="${s.nombre}"
+                                        th:data-precio="${s.precioPorDefecto}"
+                                        th:text="|${s.nombre} - S/ ${#numbers.formatDecimal(s.precioPorDefecto, 1, 'COMMA', 2, 'POINT')}|"></option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <button type="button" class="btn btn-success" id="btnAgregarServicio">
+                                <i class="bi bi-plus-lg me-1"></i>Añadir servicio
+                            </button>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover align-middle mb-0" id="tablaArticulos">
-                <thead class="table-warning">
-                <tr>
-                    <th>Artículo</th>
-                    <th class="text-center">Cantidad</th>
-                    <th class="text-end">Precio unitario</th>
-                    <th class="text-end">Subtotal</th>
-                    <th class="text-center">Acciones</th>
-                </tr>
-                </thead>
+        <!-- ARTÍCULOS -->
+        <section class="panel mb-3">
+            <h2 class="section-title">REPUESTOS Y ARTÍCULOS</h2>
 
-                <tbody id="cuerpoArticulos">
-                <tr data-precio="35.19">
-                    <td>Aceite sintético 10W-30</td>
-                    <td>
-                        <div class="d-flex align-items-center justify-content-center gap-2">
-                            <input type="number" class="form-control form-control-sm cantidad-articulo" value="4" min="0.01" step="0.01" style="width: 85px" aria-label="Cantidad de aceite" onchange="actualizarTotales()">
-                            <span>L</span>
-                        </div>
-                    </td>
-                    <td class="text-end">S/ 35.19</td>
-                    <td class="text-end subtotal-articulo">S/ 140.76</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-danger btn-sm" onclick="quitarArticulo(this)"><i class="bi bi-dash-circle me-1"></i>Quitar</button>
-                    </td>
-                </tr>
+            <div class="row g-2 align-items-center mb-3">
+                <div class="col-12 col-md-auto">
+                    <label for="nuevoArticulo" class="fw-semibold">Buscar un artículo:</label>
+                </div>
+                <div class="col-12 col-md">
+                    <select class="form-select" id="nuevoArticulo">
+                        <option value="">Seleccionar artículo...</option>
+                        <option th:each="a : ${articulos}"
+                                th:value="${a.idArticulo}"
+                                th:data-nombre="${a.nombre}"
+                                th:data-precio="${a.precioPorDefecto}"
+                                th:data-unidad="${a.unidadMedida}"
+                                th:text="|${a.nombre} - S/ ${#numbers.formatDecimal(a.precioPorDefecto, 1, 'COMMA', 2, 'POINT')} (stock: ${a.stock.stripTrailingZeros().toPlainString()} ${a.unidadMedida})|"></option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-auto">
+                    <button type="button" class="btn btn-success" id="btnAgregarArticulo">
+                        <i class="bi bi-plus-lg me-1"></i>Añadir artículo
+                    </button>
+                </div>
+            </div>
 
-                <tr data-precio="25.87">
-                    <td>Filtro de aceite Toyota</td>
-                    <td>
-                        <div class="d-flex align-items-center justify-content-center gap-2">
-                            <input type="number" class="form-control form-control-sm cantidad-articulo" value="1" min="0.01" step="0.01" style="width: 85px" aria-label="Cantidad de filtros" onchange="actualizarTotales()">
-                            <span>u</span>
-                        </div>
-                    </td>
-                    <td class="text-end">S/ 25.87</td>
-                    <td class="text-end subtotal-articulo">S/ 25.87</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-danger btn-sm" onclick="quitarArticulo(this)"><i class="bi bi-dash-circle me-1"></i>Quitar</button>
-                    </td>
-                </tr>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle mb-0" id="tablaArticulos">
+                    <thead>
+                    <tr>
+                        <th>Artículo</th>
+                        <th class="text-center">Cantidad</th>
+                        <th class="text-end">Precio unitario</th>
+                        <th class="text-end">Subtotal</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                    </thead>
 
-                <tr data-precio="120.00">
-                    <td>Pastillas de freno delanteras</td>
-                    <td>
-                        <div class="d-flex align-items-center justify-content-center gap-2">
-                            <input type="number" class="form-control form-control-sm cantidad-articulo" value="1" min="0.01" step="0.01" style="width: 85px" aria-label="Cantidad de pastillas" onchange="actualizarTotales()">
-                            <span>u</span>
-                        </div>
-                    </td>
-                    <td class="text-end">S/ 120.00</td>
-                    <td class="text-end subtotal-articulo">S/ 120.00</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-danger btn-sm" onclick="quitarArticulo(this)"><i class="bi bi-dash-circle me-1"></i>Quitar</button>
-                    </td>
-                </tr>
+                    <tbody id="cuerpoArticulos">
+                    <th:block th:if="${orden != null}">
+                        <tr th:each="a : ${orden.articulos()}" th:data-precio="${a.precio()}">
+                            <td>
+                                <input type="hidden" name="articuloIds" th:value="${a.id()}">
+                                <span class="articulo-nombre" th:text="${a.nombre()}"></span>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center justify-content-center gap-2">
+                                    <input type="number" name="cantidades"
+                                           class="form-control form-control-sm cantidad-articulo"
+                                           th:value="${a.cantidad()}" min="0.01" step="0.01" style="width: 85px"
+                                           aria-label="Cantidad">
+                                    <span class="articulo-unidad" th:text="${a.unidad()}"></span>
+                                </div>
+                            </td>
+                            <td class="text-end articulo-precio"
+                                th:text="'S/ ' + ${#numbers.formatDecimal(a.precio(), 1, 'COMMA', 2, 'POINT')}"></td>
+                            <td class="text-end subtotal-articulo">S/ 0.00</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-danger btn-sm js-quitar">
+                                    <i class="bi bi-dash-circle me-1"></i>Quitar
+                                </button>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-                <tr data-precio="40.00">
-                    <td>Bujías de iridio</td>
-                    <td>
-                        <div class="d-flex align-items-center justify-content-center gap-2">
-                            <input type="number" class="form-control form-control-sm cantidad-articulo" value="4" min="0.01" step="0.01" style="width: 85px" aria-label="Cantidad de bujías" onchange="actualizarTotales()">
-                            <span>u</span>
-                        </div>
-                    </td>
-                    <td class="text-end">S/ 40.00</td>
-                    <td class="text-end subtotal-articulo">S/ 160.00</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-danger btn-sm" onclick="quitarArticulo(this)"><i class="bi bi-dash-circle me-1"></i>Quitar</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <!-- DIAGNÓSTICO Y COSTOS -->
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-lg-5">
+                <section class="panel h-100">
+                    <h2 class="section-title">NOTA DE DIAGNÓSTICO</h2>
+                    <label for="diagnostico" class="form-label">Observaciones del mecánico</label>
+                    <textarea class="form-control" id="diagnostico" name="diagnostico" rows="4" maxlength="200"
+                              placeholder="Describe las fallas detectadas..." required
+                              th:text="${orden != null ? orden.diagnostico() : ''}"></textarea>
+                </section>
+            </div>
+
+            <div class="col-12 col-lg-7">
+                <section class="panel h-100">
+                    <h2 class="section-title">RESUMEN DE COSTOS</h2>
+                    <div class="cost-row"><span>Subtotal de mano de obra:</span><strong id="subtotalServicios">S/ 0.00</strong></div>
+                    <div class="cost-row"><span>Subtotal de artículos vehiculares:</span><strong id="subtotalArticulos">S/ 0.00</strong></div>
+                    <hr>
+                    <div class="total-estimado"><span>TOTAL ESTIMADO:</span><strong id="totalOrden">S/ 0.00</strong></div>
+                    <p class="text-muted small mt-2 mb-0">Los importes se actualizan al modificar servicios o cantidades.</p>
+                </section>
+            </div>
         </div>
-    </section>
 
-    <div class="row g-3 mb-3">
-        <div class="col-12 col-lg-5">
-            <section class="panel h-100">
-                <h2 class="section-title">NOTA DE DIAGNÓSTICO</h2>
-                <label for="diagnostico" class="form-label">Observaciones del mecánico</label>
-                <textarea class="form-control" id="diagnostico" name="diagnostico" rows="4" maxlength="200" placeholder="Describe las fallas detectadas..." th:text="${orden != null ? orden.diagnostico : ''}"></textarea>
-            </section>
-        </div>
-
-        <div class="col-12 col-lg-7">
-            <section class="panel h-100">
-                <h2 class="section-title">RESUMEN DE COSTOS</h2>
-                <div class="cost-row"><span>Subtotal de mano de obra:</span><strong id="subtotalServicios">S/ 292.29</strong></div>
-                <div class="cost-row"><span>Subtotal de artículos vehiculares:</span><strong id="subtotalArticulos">S/ 446.63</strong></div>
-                <hr>
-                <div class="total-estimado"><span>TOTAL ESTIMADO:</span><strong id="totalOrden">S/ 738.92</strong></div>
-                <p class="text-muted small mt-2 mb-0">Los importes se actualizan al modificar servicios o cantidades.</p>
-            </section>
-        </div>
-    </div>
-
-    <div class="d-flex flex-wrap justify-content-end gap-2 mb-3">
-        <form th:if="${orden != null and orden.estado != 'FINALIZADA' and orden.estado != 'CANCELADA'}" th:action="@{/ordenes/finalizar}" method="post" onsubmit="return confirm('¿Deseas finalizar esta orden y generar su comprobante?');">
-            <input type="hidden" name="idOrden" th:value="${orden.id}">
-            <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-patch-check-fill me-2"></i>Finalizar orden</button>
-        </form>
-
-        <form th:action="@{/ordenes/actualizar}" method="post" id="formGuardarOrden">
-            <input type="hidden" name="idOrden" th:value="${orden != null ? orden.id : 0}">
-            <input type="hidden" name="montoTotal" id="inputMontoTotal" value="0">
-            <input type="hidden" name="diagnostico" id="inputDiagnostico" value="">
-
-            <button type="button" class="btn btn-primary btn-lg" onclick="guardarOrden()">
-                <i class="bi bi-floppy-fill me-2"></i>
-                Guardar orden
+        <!-- BOTÓN GUARDAR -->
+        <div class="d-flex flex-wrap justify-content-end gap-2 mb-3">
+            <button type="submit" class="btn btn-primary btn-lg" th:if="${orden == null}">
+                <i class="bi bi-patch-check-fill me-2"></i>Finalizar y guardar orden
             </button>
-        </form>
-    </div>
+            <button type="submit" class="btn btn-primary btn-lg" th:if="${orden != null}">
+                <i class="bi bi-floppy-fill me-2"></i>Guardar cambios
+            </button>
+        </div>
+    </form>
 
-    <script>
-        (() => {
-            // Evita duplicar los eventos si el fragmento se vuelve a cargar.
-            if (window.ordenesModuloInicializado) return;
-            window.ordenesModuloInicializado = true;
+    <!-- Plantillas que clona orden.js -->
+    <template id="tplServicio">
+        <div class="service-row">
+            <input type="hidden" name="servicioIds">
+            <button type="button" class="btn-remove js-quitar" aria-label="Quitar servicio">
+                <i class="bi bi-dash-circle-fill"></i>
+            </button>
+            <span class="service-name"></span>
+            <strong class="service-price"></strong>
+        </div>
+    </template>
 
-            const moneda = valor => 'S/ ' + Number(valor).toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-            window.actualizarTotales = function () {
-                let totalServicios = 0;
-                let totalArticulos = 0;
-
-                document.querySelectorAll('#listaServicios .service-row').forEach(fila => {
-                    totalServicios += Number(fila.querySelector('.service-price').dataset.precio) || 0;
-                });
-
-                document.querySelectorAll('#cuerpoArticulos tr')
-                    .forEach(fila => {
-                        const precio = Number(fila.dataset.precio) || 0;
-                        const input = fila.querySelector('.cantidad-articulo');
-
-                        let cantidad = Number(input.value);
-                        if (!Number.isFinite(cantidad) || cantidad <= 0) {
-                            cantidad = 0;
-                        }
-
-                        const subtotal = precio * cantidad;
-                        fila.querySelector('.subtotal-articulo').textContent =
-                            moneda(subtotal);
-
-                        totalArticulos += subtotal;
-                    });
-
-                const total = totalServicios + totalArticulos;
-
-                document.getElementById('subtotalServicios').textContent =
-                    moneda(totalServicios);
-
-                document.getElementById('subtotalArticulos').textContent =
-                    moneda(totalArticulos);
-
-                document.getElementById('totalOrden').textContent =
-                    moneda(total);
-
-                const campoMontoNuevo = document.getElementById('montoTotal');
-                if (campoMontoNuevo) {campoMontoNuevo.value = total.toFixed(2);}
-                const campoMontoActualizacion = document.getElementById('inputMontoTotal');
-
-                if (campoMontoActualizacion) {
-                    campoMontoActualizacion.value = total.toFixed(2);
-                }
-            };
-
-            window.quitarServicio = function (boton) {
-                boton.closest('.service-row').remove();
-                actualizarTotales();
-            };
-
-            window.agregarServicio = function () {
-                const select = document.getElementById('nuevoServicio');
-                const opcion = select.selectedOptions[0];
-
-                if (!opcion || !opcion.value) {
-                    alert('Selecciona un servicio para agregar.');
-                    return;
-                }
-
-                const nombre = opcion.value;
-                const precio = Number(opcion.dataset.precio) || 0;
-
-                const existe = [...document.querySelectorAll(
-                    '#listaServicios .service-name'
-                )].some(elemento => elemento.textContent === nombre);
-
-                if (existe) {
-                    alert('Este servicio ya está agregado.');
-                    return;
-                }
-
-                const fila = document.createElement('div');
-                fila.className = 'service-row';
-
-                const boton = document.createElement('button');
-                boton.type = 'button';
-                boton.className = 'btn-remove';
-                boton.setAttribute('aria-label', 'Quitar servicio');
-                boton.innerHTML = '<i class="bi bi-dash-circle-fill"></i>';
-                boton.addEventListener('click', () => quitarServicio(boton));
-
-                const texto = document.createElement('span');
-                texto.className = 'service-name';
-                texto.textContent = nombre;
-
-                const importe = document.createElement('strong');
-                importe.className = 'service-price';
-                importe.dataset.precio = precio;
-                importe.textContent = moneda(precio);
-
-                fila.append(boton, texto, importe);
-                document.getElementById('listaServicios').appendChild(fila);
-
-                select.value = '';
-                actualizarTotales();
-            };
-
-            window.quitarArticulo = function (boton) {
-                boton.closest('tr').remove();
-                actualizarTotales();
-            };
-
-            window.agregarArticulo = function () {
-                const select = document.getElementById('nuevoArticulo');
-                const opcion = select.selectedOptions[0];
-
-                if (!opcion || !opcion.value) {
-                    alert('Selecciona un artículo para agregar.');
-                    return;
-                }
-
-                const nombre = opcion.value;
-                const precio = Number(opcion.dataset.precio) || 0;
-                const unidad = opcion.dataset.unidad || 'u';
-
-                const filas = [
-                    ...document.querySelectorAll('#cuerpoArticulos tr')
-                ];
-
-                const existente = filas.find(fila =>
-                    fila.cells[0].textContent.trim() === nombre
-                );
-
-                if (existente) {
-                    const input = existente.querySelector('.cantidad-articulo');
-                    input.value = (Number(input.value) + 1).toFixed(2)
-                        .replace(/\.00$/, '');
-                    actualizarTotales();
-                    select.value = '';
-                    return;
-                }
-
-                const fila = document.createElement('tr');
-                fila.dataset.precio = precio;
-
-                const celdaNombre = fila.insertCell();
-                celdaNombre.textContent = nombre;
-
-                const celdaCantidad = fila.insertCell();
-                celdaCantidad.className = 'text-center';
-
-                const cantidad = document.createElement('input');
-                cantidad.type = 'number';
-                cantidad.min = '0.01';
-                cantidad.step = '0.01';
-                cantidad.value = '1';
-                cantidad.className =
-                    'form-control form-control-sm cantidad-articulo mx-auto';
-                cantidad.style.width = '85px';
-                cantidad.setAttribute('aria-label', 'Cantidad de ' + nombre);
-                cantidad.addEventListener('input', actualizarTotales);
-                celdaCantidad.append(cantidad);
-
-                const celdaPrecio = fila.insertCell();
-                celdaPrecio.className = 'text-end';
-                celdaPrecio.textContent = moneda(precio);
-
-                const celdaSubtotal = fila.insertCell();
-                celdaSubtotal.className = 'text-end subtotal-articulo';
-                celdaSubtotal.textContent = moneda(precio);
-
-                const celdaAcciones = fila.insertCell();
-                celdaAcciones.className = 'text-center';
-
-                const quitar = document.createElement('button');
-                quitar.type = 'button';
-                quitar.className = 'btn btn-danger btn-sm';
-                quitar.innerHTML =
-                    '<i class="bi bi-dash-circle me-1"></i>Quitar';
-                quitar.addEventListener('click', () => quitarArticulo(quitar));
-                celdaAcciones.appendChild(quitar);
-
-                // Muestra la unidad del artículo.
-                celdaCantidad.append(' ' + unidad);
-
-                document.getElementById('cuerpoArticulos').appendChild(fila);
-                select.value = '';
-                actualizarTotales();
-            };
-
-            window.guardarOrden = function () {
-                const formulario = document.getElementById('formGuardarOrden');
-
-                if (!formulario) return;
-
-                const campoId = formulario.querySelector('input[name="idOrden"]');
-                const ordenId = campoId.value;
-
-                if (!ordenId || ordenId === '0') {
-                    alert('Primero debes crear la orden para poder actualizarla.');
-                    return;
-                }
-
-                const diagnostico = document.getElementById('diagnostico');
-
-                if (diagnostico) {
-                    formulario.querySelector('input[name="diagnostico"]').value =
-                        diagnostico.value;
-                }
-
-                actualizarTotales();
-                formulario.submit();
-            };
-
-            window.finalizarOrden = function () {
-                const estado = document.getElementById('estadoOrden');
-                if (estado.value === 'CANCELADA') {
-                    alert('No se puede finalizar una orden cancelada.');
-                    return;
-                }
-
-                if (!confirm('¿Deseas marcar esta orden como finalizada?')) {
-                    return;
-                }
-
-                estado.value = 'FINALIZADA';
-                actualizarTotales();
-                alert('Estado actualizado en pantalla. Guarda la orden para persistir el cambio en el servidor.');
-            };
-
-            actualizarTotales();
-        })();
-    </script>
+    <template id="tplArticulo">
+        <tr>
+            <td>
+                <input type="hidden" name="articuloIds">
+                <span class="articulo-nombre"></span>
+            </td>
+            <td>
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                    <input type="number" name="cantidades"
+                           class="form-control form-control-sm cantidad-articulo"
+                           value="1" min="0.01" step="0.01" style="width: 85px" aria-label="Cantidad">
+                    <span class="articulo-unidad"></span>
+                </div>
+            </td>
+            <td class="text-end articulo-precio"></td>
+            <td class="text-end subtotal-articulo">S/ 0.00</td>
+            <td class="text-center">
+                <button type="button" class="btn btn-danger btn-sm js-quitar">
+                    <i class="bi bi-dash-circle me-1"></i>Quitar
+                </button>
+            </td>
+        </tr>
+    </template>
 </div>

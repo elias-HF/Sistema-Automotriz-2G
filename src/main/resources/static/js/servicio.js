@@ -54,14 +54,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     iniciarTablaAdmin({
-        cuerpo: "tablaVehiculos",
-        buscar: "buscarVehiculo",
-        btnBuscar: "btnBuscarVehiculo",
-        contador: "contadorVehiculos",
-        paginas: "numerosPaginasVehiculos",
-        anterior: "vehiculosAnterior",
-        siguiente: "vehiculosSiguiente",
-        sinResultados: "vehiculosSinResultados",
-        plural: "vehículos"
+        cuerpo: "tablaServicios",
+        buscar: "buscarServicio",
+        btnBuscar: "btnBuscarServicio",
+        contador: "contadorServicios",
+        paginas: "numerosPaginasServicios",
+        anterior: "serviciosAnterior",
+        siguiente: "serviciosSiguiente",
+        sinResultados: "serviciosSinResultados",
+        plural: "servicios"
     });
 });

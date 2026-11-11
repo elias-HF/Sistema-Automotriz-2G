@@ -19,4 +19,8 @@ public interface OrdenRepository extends JpaRepository<OrdenEntity, Integer> {
     @Query("select o from OrdenEntity o join fetch o.cita c join fetch c.cliente join fetch c.vehiculo " +
             "where o.idOrden = :id")
     Optional<OrdenEntity> buscarConCita(@Param("id") Integer id);
+
+    @Query("select o from OrdenEntity o join fetch o.cita c join fetch c.cliente join fetch c.vehiculo " +
+            "where o.estado = :estado order by o.idOrden desc")
+    List<OrdenEntity> listarPorEstado(@Param("estado") String estado);
 }

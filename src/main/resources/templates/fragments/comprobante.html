@@ -1,31 +1,30 @@
 <div th:fragment="content">
     <div class="page-heading mb-3">
         <h1>MÓDULO DE FACTURACIÓN</h1>
-        <p>Genera comprobantes a partir de las órdenes de servicio finalizadas.</p>
+        <p>Emite y modifica comprobantes a partir de las órdenes de servicio finalizadas.</p>
     </div>
 
-    <div class="alert alert-success" th:if="${mensajeComprobante != null}" th:text="${mensajeComprobante}"></div>
-    <div class="alert alert-danger" th:if="${errorComprobante != null}" th:text="${errorComprobante}"></div>
-
+    <!-- SELECTOR DE ORDEN -->
     <section class="panel mb-3">
         <form th:action="@{/comprobante}" method="get" class="row g-2 align-items-center">
-            <div class="col-12 col-md-auto"><label for="ordenId" class="form-label mb-0">Seleccione una orden finalizada:</label></div>
+            <div class="col-12 col-md-auto">
+                <label for="ordenId" class="form-label mb-0">Seleccione una orden finalizada:</label>
+            </div>
 
             <div class="col-12 col-md">
-                <select class="form-select" id="ordenId" name="ordenId" required>
+                <select class="form-select" id="ordenId" name="ordenId" required onchange="this.form.submit()">
                     <option value="">Seleccione una orden...</option>
-                    <option th:each="orden : ${ordenesFinalizadas}" th:value="${orden.id}" th:selected="${ordenSeleccionada != null
-                     and ordenSeleccionada.id == orden.id}" th:text="'Ord. #' + ${orden.id} + ' / ' + ${orden.vehiculo.placa}">
-                        Ord. #00124 / MYT-089
+                    <option th:each="o : ${ordenes}"
+                            th:value="${o.idOrden()}"
+                            th:selected="${comp != null and comp.idOrden() == o.idOrden()}"
+                            th:text="|${o.codigo()} / ${o.placa()} - ${o.cliente()}${o.conComprobante() ? ' (con comprobante)' : ''}|">
                     </option>
                 </select>
             </div>
 
-            <div class="col-12 col-md-auto"><button type="submit" class="btn btn-outline-primary"><i class="bi bi-search me-1"></i>Consultar</button></div>
-            <div class="col-12 col-md-auto ms-md-auto">
-                <button type="button" class="btn btn-success w-100" onclick="prepararComprobante()">
-                    <i class="bi bi-plus-lg me-1"></i>
-                    Crear comprobante
+            <div class="col-12 col-md-auto">
+                <button type="submit" class="btn btn-outline-primary">
+                    <i class="bi bi-search me-1"></i>Consultar
                 </button>
             </div>
         </form>
@@ -33,134 +32,137 @@
 
     <div class="row g-3 align-items-start">
 
+        <!-- DETALLE DE COBRO -->
         <div class="col-12 col-xl-7">
             <section class="panel billing-detail">
                 <h2 class="section-title">DETALLE DE COBRO</h2>
-                <div class="billing-row">
-                    <span th:text="${ordenSeleccionada != null ? ordenSeleccionada.vehiculo.idCliente.nombre : 'Seleccione una orden'}">Seleccione una orden</span>
-                </div>
-                <div class="billing-row">
-                    <strong>Placa:</strong>
-                    <span th:text="${ordenSeleccionada != null ? ordenSeleccionada.vehiculo.placa : 'MYT-089'}">MYT-089</span>
+
+                <div th:if="${comp == null}" class="text-muted py-3">
+                    Selecciona una orden para ver su detalle de cobro.
                 </div>
 
-                <div class="billing-row">
-                    <strong>Marca del vehículo:</strong>
-                    <span th:text="${ordenSeleccionada != null ? ordenSeleccionada.vehiculo.modelo.marca.nombre : 'Seleccione una orden'}">Seleccione una orden</span>
-                </div>
+                <th:block th:if="${comp != null}">
+                    <div class="billing-row">
+                        <strong>Orden:</strong>
+                        <span th:text="${comp.codigoOrden()}"></span>
+                    </div>
+                    <div class="billing-row">
+                        <strong>Cliente:</strong>
+                        <span th:text="${comp.cliente()}"></span>
+                    </div>
+                    <div class="billing-row">
+                        <strong>Placa:</strong>
+                        <span th:text="${comp.placa()}"></span>
+                    </div>
+                    <div class="billing-row">
+                        <strong>Marca / Modelo:</strong>
+                        <span th:text="${comp.marca() + ' ' + comp.modelo()}"></span>
+                    </div>
+                    <div class="billing-row">
+                        <strong>Costo artículos vehiculares usados:</strong>
+                        <span th:text="'S/ ' + ${#numbers.formatDecimal(comp.costoArticulos(), 1, 'COMMA', 2, 'POINT')}"></span>
+                    </div>
+                    <div class="billing-row">
+                        <strong>Costo servicios:</strong>
+                        <span th:text="'S/ ' + ${#numbers.formatDecimal(comp.costoServicios(), 1, 'COMMA', 2, 'POINT')}"></span>
+                    </div>
+                    <div class="billing-row">
+                        <strong>Subtotal:</strong>
+                        <span th:text="'S/ ' + ${#numbers.formatDecimal(comp.subtotal(), 1, 'COMMA', 2, 'POINT')}"></span>
+                    </div>
+                    <div class="billing-row">
+                        <strong>IGV (18%):</strong>
+                        <span th:text="'S/ ' + ${#numbers.formatDecimal(comp.igv(), 1, 'COMMA', 2, 'POINT')}"></span>
+                    </div>
+                    <div class="billing-row" th:if="${comp.emitido()}">
+                        <strong>Comprobante:</strong>
+                        <span th:text="${comp.codigo()}"></span>
+                    </div>
+                    <div class="billing-row">
+                        <strong>Fecha-Hora de emisión:</strong>
+                        <span th:text="${comp.fechaHora() != null} ? ${#temporals.format(comp.fechaHora(), 'dd/MM/yyyy HH:mm:ss')} : 'Sin emitir'"></span>
+                    </div>
 
-                <div class="billing-row">
-                    <strong>Modelo:</strong>
-                    <span th:text="${ordenSeleccionada != null ? ordenSeleccionada.vehiculo.modelo.nombre : 'Seleccione una orden'}">Seleccione una orden</span>
-                </div>
-
-                <div class="billing-row">
-                    <strong>Costo artículos vehiculares usados:</strong>
-                    <span id="costoArticulos" th:text="${costoArticulosTexto != null ? costoArticulosTexto : 'S/ 130.00'}">S/ 130.00</span>
-                </div>
-
-                <div class="billing-row">
-                    <strong>Costo servicios:</strong>
-                    <span id="costoServicios" th:text="${costoServiciosTexto != null ? costoServiciosTexto : 'S/ 165.84'}">S/ 165.84</span>
-                </div>
-
-                <div class="billing-row">
-                    <strong>Subtotal:</strong>
-                    <span id="subtotalCobro" th:text="${subtotalTexto != null ? subtotalTexto : 'S/ 250.71'}"> S/ 250.71</span>
-                </div>
-
-                <div class="billing-row">
-                    <strong>IGV (18%):</strong>
-                    <span id="igvCobro" th:text="${igvTexto != null ? igvTexto : 'S/ 45.13'}">S/ 45.13</span>
-                </div>
-
-                <div class="billing-row">
-                    <strong>Fecha-Hora:</strong>
-                    <span th:text="${fechaHora != null  ? fechaHora : '23/09/2026-07:43:32'}">23/09/2026-07:43:32</span>
-                </div>
-
-                <div class="billing-total">
-                    <strong>TOTAL A PAGAR:</strong>
-                    <strong id="totalCobro" th:text="${totalTexto != null ? totalTexto : 'S/ 295.84'}">S/ 295.84</strong>
-                </div>
-
+                    <div class="billing-total">
+                        <strong>TOTAL A PAGAR:</strong>
+                        <strong th:text="'S/ ' + ${#numbers.formatDecimal(comp.total(), 1, 'COMMA', 2, 'POINT')}"></strong>
+                    </div>
+                </th:block>
             </section>
         </div>
 
-        <div class="col-12 col-xl-5">
+        <!-- FORMULARIO: EMITIR O MODIFICAR SEGÚN LA ORDEN ELEGIDA -->
+        <div class="col-12 col-xl-5" th:if="${comp != null}">
             <section class="panel billing-form">
-                <h2 class="section-title">DETALLE DE COBRO</h2>
-                <form id="formComprobante" th:action="@{/comprobante/emitir}" method="post">
-                    <!-- Token CSRF de Spring Security, si está habilitado -->
-                    <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                    <input type="hidden" name="ordenId" id="ordenIdFormulario" th:value="${ordenSeleccionada != null ? ordenSeleccionada.id : ''}">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Tipo de comprobante</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="tipoComprobante" id="tipoBoleta" value="BOLETA" checked>
-                            <label class="form-check-label" for="tipoBoleta">Boleta</label>
+                <h2 class="section-title"
+                    th:text="${comp.emitido()} ? 'MODIFICAR COMPROBANTE' : 'EMITIR COMPROBANTE'"></h2>
+
+                <div class="alert alert-warning py-2" th:if="${comp.emitido() and !comp.editable()}">
+                    Este comprobante está cancelado y ya no se puede modificar.
+                </div>
+
+                <form id="formComprobante" method="post"
+                      th:action="${comp.emitido()} ? @{/comprobante/modificar} : @{/comprobante/emitir}"
+                      th:data-modo="${comp.emitido()} ? 'modificar' : 'emitir'">
+
+                    <input type="hidden" name="ordenId" th:value="${comp.idOrden()}">
+
+                    <fieldset th:disabled="${comp.emitido() and !comp.editable()}">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tipo de comprobante</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tipoComprobante"
+                                       id="tipoBoleta" value="BOLETA"
+                                       th:checked="${comp.tipoComprobante() == null or comp.tipoComprobante() == 'BOLETA'}">
+                                <label class="form-check-label" for="tipoBoleta">Boleta</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tipoComprobante"
+                                       id="tipoFactura" value="FACTURA"
+                                       th:checked="${comp.tipoComprobante() == 'FACTURA'}">
+                                <label class="form-check-label" for="tipoFactura">Factura</label>
+                            </div>
                         </div>
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="tipoComprobante" id="tipoFactura" value="FACTURA">
-                            <label class="form-check-label" for="tipoFactura">Factura</label>
+                        <div class="mb-3">
+                            <label for="metodoPago" class="form-label fw-bold">Medio de pago:</label>
+                            <select class="form-select" id="metodoPago" name="metodoPago" required>
+                                <option value="EFECTIVO" th:selected="${comp.metodoPago() == 'EFECTIVO'}">Efectivo</option>
+                                <option value="YAPE" th:selected="${comp.metodoPago() == 'YAPE'}">Yape</option>
+                                <option value="PLIN" th:selected="${comp.metodoPago() == 'PLIN'}">Plin</option>
+                                <option value="TARJETA_DE_CREDITO" th:selected="${comp.metodoPago() == 'TARJETA_DE_CREDITO'}">Tarjeta de crédito</option>
+                                <option value="TARJETA_DE_DEBITO" th:selected="${comp.metodoPago() == 'TARJETA_DE_DEBITO'}">Tarjeta de débito</option>
+                            </select>
                         </div>
-                    </div>
 
-                    <div class="mb-3">
-                        <label for="medioPago" class="form-label fw-bold">Medio de pago:</label>
-                        <select class="form-select" id="medioPago" name="medioPago" required>
-                            <option value="YAPE_PLIN">Yape / Plin</option>
-                            <option value="EFECTIVO">Efectivo</option>
-                            <option value="TARJETA">Tarjeta</option>
-                            <option value="TRANSFERENCIA">Transferencia bancaria</option>
-                        </select>
-                    </div>
+                        <div class="mb-4">
+                            <label for="estadoPago" class="form-label fw-bold">Estado de pago:</label>
+                            <select class="form-select" id="estadoPago" name="estadoPago" required>
+                                <option value="PENDIENTE" th:selected="${comp.estadoPago() == 'PENDIENTE'}">Pendiente</option>
+                                <option value="PAGADO" th:selected="${comp.estadoPago() == 'PAGADO'}">Pagado</option>
+                                <option value="CANCELADO" th:if="${comp.emitido()}"
+                                        th:selected="${comp.estadoPago() == 'CANCELADO'}">Cancelado</option>
+                            </select>
+                        </div>
 
-                    <div class="mb-4">
-                        <label for="estadoPago" class="form-label fw-bold">Estado de pago:</label>
-                        <select class="form-select" id="estadoPago" name="estadoPago" required>
-                            <option value="">-- Seleccionar --</option>
-                            <option value="PENDIENTE">Pendiente</option>
-                            <option value="PAGADO">Pagado</option>
-                            <option value="PARCIAL">Pago parcial</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-emitir w-100"><i class="bi bi-cash-coin me-2"></i>EMITIR</button>
+                        <button type="submit" class="btn btn-primary btn-emitir w-100" th:if="${!comp.emitido()}">
+                            <i class="bi bi-cash-coin me-2"></i>EMITIR
+                        </button>
+                        <button type="submit" class="btn btn-warning btn-emitir w-100" th:if="${comp.emitido()}">
+                            <i class="bi bi-pencil-square me-2"></i>GUARDAR CAMBIOS
+                        </button>
+                    </fieldset>
                 </form>
             </section>
         </div>
-
     </div>
 
     <script>
-        function prepararComprobante() {
-            const selector = document.getElementById('ordenId');
-            const ordenId = selector.value;
-
-            if (!ordenId) {
-                alert('Selecciona una orden finalizada.');
-                selector.focus();
-                return;
-            }
-
-            // Consulta la orden seleccionada al servidor.
-            // El controlador debe recibir ordenId y cargar sus datos.
-            const url = new URL(window.location.href);
-            url.searchParams.set('ordenId', ordenId);
-            window.location.href = url.toString();
-        }
-
-        const formulario = document.getElementById('formComprobante');
-        if (formulario) {
-            formulario.addEventListener('submit', function (event) {
-                const ordenId = document.getElementById('ordenIdFormulario').value;
-                const estado = document.getElementById('estadoPago').value;
-
-                if (!ordenId) {event.preventDefault();alert('Primero selecciona y consulta una orden finalizada.');return;}
-                if (!estado) {event.preventDefault();alert('Selecciona el estado de pago.');return;}
-                if (!confirm('¿Deseas emitir el comprobante de esta orden?')) {event.preventDefault();}
-            });
-        }
+        document.getElementById('formComprobante')?.addEventListener('submit', function (event) {
+            const mensaje = this.dataset.modo === 'modificar'
+                ? '¿Deseas guardar los cambios de este comprobante?'
+                : '¿Deseas emitir el comprobante de esta orden?';
+            if (!confirm(mensaje)) event.preventDefault();
+        });
     </script>
 </div>
