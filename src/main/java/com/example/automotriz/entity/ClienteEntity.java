@@ -1,6 +1,8 @@
 package com.example.automotriz.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "cliente")
@@ -11,12 +13,14 @@ public class ClienteEntity {
     @Column(name = "id_cliente")
     private Integer idCliente;
 
+    @NotBlank(message = "El nombre no puede estar vacio")
     @Column(name = "nombre", length = 100, nullable = false)
     private String nombre;
 
     @Column(name = "telefono", length = 9, nullable = false)
     private String telefono;
 
+    @Email(message = "El formato del correo no es válido")
     @Column(name = "correo", length = 100, unique = true, nullable = false)
     private String correo;
 
