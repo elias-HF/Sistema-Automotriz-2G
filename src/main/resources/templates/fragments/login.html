@@ -33,7 +33,7 @@
                 <div class="profile-options">
                     <button type="button" class="profile-option active" data-role="ADMINISTRADOR"><i class="bi bi-shield-lock-fill"></i><span>ADMINISTRADOR</span></button>
                     <button type="button" class="profile-option" data-role="MECANICO"><i class="bi bi-wrench-adjustable"></i><span>MECÁNICO</span></button>
-                    <button type="button" class="profile-option" data-role="RECEPCION"><i class="bi bi-person-workspace"></i><span>RECEPCIÓN</span></button>
+                    <button type="button" class="profile-option" data-role="RECEPCIONISTA"><i class="bi bi-person-workspace"></i><span>RECEPCIONISTA</span></button>
                     <button type="button" class="profile-option" data-role="ALMACEN"><i class="bi bi-cart3"></i><span>ALMACÉN</span></button>
                 </div>
 
@@ -66,9 +66,6 @@
                     <a th:href="@{/recuperar-password}" href="/recuperar-password">¿Olvidaste tus datos?</a>
                 </div>
 
-                <!-- MENSAJES DE SPRING SECURITY -->
-                <div class="alert alert-danger py-2 mt-3" th:if="${param.error}">Usuario o contraseña incorrectos.</div>
-                <div class="alert alert-success py-2 mt-3" th:if="${param.logout}">Has cerrado sesión correctamente.</div>
                 <!-- BOTÓN DE ACCESO -->
                 <button type="submit" class="btn-login"><i class="bi bi-door-open-fill"></i><span>ACCEDER AL SISTEMA</span></button>
             </form>
@@ -82,7 +79,35 @@
     <div class="footer-version"><i class="bi bi-diagram-3"></i><span>V1.0.0 ©2026</span></div>
 </footer>
 
+<!-- TOAST DEL LOGIN: se muestra según los parámetros de la URL -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
+    <div id="toastLogin"
+         class="toast align-items-center border-0"
+         role="alert" aria-live="assertive" aria-atomic="true"
+         th:if="${param.error != null or param.perfil != null or param.expirada != null or param.logout != null or mensaje != null}"
+         th:with="tipo=${param.logout != null} ? 'success' : (${mensaje != null} ? 'info' : (${param.error != null} ? 'danger' : 'warning')),
+                  texto=${param.error != null} ? 'Usuario o contraseña incorrectos.'
+                      : (${param.perfil != null} ? 'El perfil seleccionado no corresponde a tu usuario.'
+                      : (${param.expirada != null} ? 'Tu sesión fue cerrada por un administrador. Inicia sesión nuevamente.'
+                      : (${param.logout != null} ? 'Has cerrado sesión correctamente.' : ${mensaje})))"
+         th:classappend="'text-bg-' + ${tipo}">
+        <div class="d-flex">
+            <div class="toast-body" th:text="${texto}"></div>
+            <button type="button" class="btn-close me-2 m-auto"
+                    th:classappend="${tipo == 'warning' or tipo == 'info'} ? '' : 'btn-close-white'"
+                    data-bs-dismiss="toast" aria-label="Cerrar"></button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    // Mostrar el toast del login (si hay mensaje)
+    document.addEventListener('DOMContentLoaded', () => {
+        const el = document.getElementById('toastLogin');
+        if (el) new bootstrap.Toast(el, { delay: 5000 }).show();
+    });
+
     // Selección visual del perfil.
     document.querySelectorAll('.profile-option').forEach(boton => {
         boton.addEventListener('click', () => {

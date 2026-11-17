@@ -17,7 +17,8 @@ public class EmpleadoUserDetailsService implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        EmpleadoEntity empleado = empleadoRepository.findByUsuario(username).orElseThrow(() -> new UsernameNotFoundException("Empleado no encontrado"));
+        EmpleadoEntity empleado = empleadoRepository.findByUsuarioOrCorreo(username, username)
+                .orElseThrow(() -> new UsernameNotFoundException("Empleado no encontrado"));
 
         return User.withUsername(
                 empleado.getUsuario())

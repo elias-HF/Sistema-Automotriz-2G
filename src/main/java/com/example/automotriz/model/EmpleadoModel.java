@@ -24,11 +24,13 @@ public class EmpleadoModel {
 
     @NotBlank(message = "La contraseña es obligatoria")
     @Size(min = 8, max = 25, message = "La contraseña debe de tener entre 8 y 25 caracteres")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d).*$", message = "La contraseña debe incluir letras y números")
     private String contrasenia;
 
     private boolean activo;
 
     @NotBlank(message = "El rol es obligatorio")
+    @Pattern(regexp = "^(ADMINISTRADOR|RECEPCIONISTA|ALMACEN|MECANICO)$", message = "Rol no válido")
     private String rol;
 
     public EmpleadoModel() {}

@@ -41,7 +41,8 @@ public class EmpleadoController {
 
     @PostMapping("/modificar")
     public String modificar(@Valid @ModelAttribute EmpleadoModel empleadoModel,
-                            BindingResult result, RedirectAttributes redirect) {
+                            BindingResult result, Principal principal,
+                            RedirectAttributes redirect) {
         boolean sinPassword = empleadoModel.getContrasenia() == null
                 || empleadoModel.getContrasenia().isBlank();
 
@@ -56,7 +57,7 @@ public class EmpleadoController {
             return REDIRECT;
         }
         try {
-            empleadoService.modificarEmpleado(empleadoModel);
+            empleadoService.modificarEmpleado(empleadoModel, principal.getName());
             toast.exito(redirect, "Empleado modificado correctamente");
         } catch (IllegalArgumentException e) {
             toast.error(redirect, e.getMessage());

@@ -15,7 +15,7 @@ public class EmpleadoAdapter {
         model.setCorreo(entity.getCorreo());
         model.setCodigo(entity.getCodigo());
         model.setUsuario(entity.getUsuario());
-        model.setContrasenia(entity.getContrasenia());
+        model.setContrasenia(null);
         model.setActivo(entity.isActivo());
         model.setRol(entity.getRol());
 
